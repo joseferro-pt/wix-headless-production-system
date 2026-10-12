@@ -101,3 +101,26 @@ test('rejects a symlinked output parent pointing into the toolkit', async () => 
     await assert.rejects(prepareIntake(fixture, join(parent, 'sample-client')), /inside/);
   } finally { await rm(root, {recursive:true,force:true}); }
 });
+
+test('rejects unknown nested object properties and invalid format values', () => {
+  const m = makeManifest(valid, fixture, 'sample-client');
+  m.business.internalNotes = 'unapproved';
+  m.wix.dashboardUrl = 'not a URI';
+  const errors = validateManifest(m, fixture).join('\n');
+  assert.match(errors, /schema/);
+  assert.match(errors, /Additional properties|format|not a 'uri'/);
+});
+
+test('rejects incorrect data types for release authorization', () => {
+  const m = makeManifest(valid, fixture, 'sample-client');
+  m.site.productionReleaseApproved = 'yes';
+  assert.ok(validateManifest(m, fixture).some(e=>e.includes('schema')));
+});
+
+test('existing repo must include Wix binding identity', () => {
+  const m = makeManifest(valid, fixture, 'sample-client');
+  m.entryMode = 'existing-repository';
+  delete m.handoff;
+  delete m.wix.clientId;
+  assert.ok(validateManifest(m).some(e=>e.includes('schema')));
+});

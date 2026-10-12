@@ -44,7 +44,19 @@ Make Wix's generated prompt the **immutable technical handoff**, not a substitut
 - `schemas/`: JSON Schemas for project and Wix resource manifests.
 - `templates/`: business brief, decision record, work packet, release report.
 - `scripts/`: read-only prompt parser, offline manifest validation, and read-only ZIP auditor.
-- `tests/`: executable examples for parser/validator.
+- `tests/`: executable contracts, deterministic property-style tests and synthetic security fixtures.
+- `docs/08-VERIFICATION-SECURITY.md`: scope and limitations of toolkit security testing.
+
+## Verification
+
+```sh
+python3 -m pip install -r requirements.txt
+node scripts/check-repository-boundary.mjs
+node --test tests/*.test.mjs
+python3 -m unittest discover -s tests -p 'test_*.py' -v
+```
+
+These are **toolkit** checks, not evidence that any individual Wix site is deployed or working.
 
 ## Initial boundaries
 

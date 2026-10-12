@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Offline Wix manifest validator. JSON Schema Draft 2020-12 is enforced by Python jsonschema.
 // Requires: python3 -m pip install -r requirements.txt
-import { readFile } from 'node:fs/promises';
+import { readFile, realpath, lstat } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
 import { dirname, isAbsolute, join, relative, resolve } from 'node:path';
@@ -55,12 +55,26 @@ export function resolveOriginalPrompt(manifestPath, originalFile) {
   return full;
 }
 
+/** Refuse original handoff symlinks or a symlinked parent escaping the website root. */
+export async function readOriginalPrompt(manifestPath, originalFile) {
+  const full = resolveOriginalPrompt(manifestPath, originalFile);
+  const base = dirname(resolve(manifestPath));
+  const physicalRoot = await realpath(base);
+  const physicalFile = await realpath(full);
+  const rel = relative(physicalRoot, physicalFile);
+  if (rel === '..' || rel.startsWith(`..${process.platform === 'win32' ? '\\' : '/'}`) || isAbsolute(rel))
+    throw new Error('Preserved Wix prompt resolves outside the website project');
+  if ((await lstat(full)).isSymbolicLink())
+    throw new Error('Preserved Wix prompt may not be a symbolic link');
+  return readFile(physicalFile, 'utf8');
+}
+
 async function main() {
   const manifestPath = process.argv[2];
   if (!manifestPath) throw new Error('Usage: node scripts/validate-manifest.mjs <site.manifest.json>');
   const m = JSON.parse(await readFile(manifestPath, 'utf8'));
   const original = m.entryMode === 'wix-handoff'
-    ? await readFile(resolveOriginalPrompt(manifestPath, m.handoff?.originalFile), 'utf8')
+    ? await readOriginalPrompt(manifestPath, m.handoff?.originalFile)
     : undefined;
   const errors = validateManifest(m, original);
   if (errors.length) { for (const e of errors) console.error(`FAIL: ${e}`); process.exitCode = 1; }
