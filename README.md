@@ -15,7 +15,7 @@ The Wix-generated handoff establishes technical identity, **not** verified busin
 - **R01:** foundation corrections merged: schema-aware validation, atomic intake, ZIP safeguards.
 - **R02:** verification improvements merged: synthetic negative tests and tracked-content security guard.
 - **R03:** documentation consolidation merged; policy and status terminology reconciled.
-- **R04:** governance merged. **R05:** release candidate merged. **R05.1:** recovery merged and v0.1.0 publication verified. **R05.2:** post-release documentation and dependency-update cleanup proposed for review.
+- **R04:** governance merged. **R05:** release candidate merged. **R05.1:** recovery merged and v0.1.0 publication verified. **R05.2:** post-release reconciliation merged. **WHPS-002:** independent site bootstrap in development, not yet released.
 - **Published toolkit release:** [`v0.1.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0), annotated tag targeting `802acf1b536b502fcacdffc1d6b7ce371aa2d3f7`. The manifest schema is separately versioned as `0.1.0`.
 - **Licence:** [Apache-2.0](LICENSE), with repository copyright attribution in [NOTICE](NOTICE). This does not license Wix-owned code or independently managed websites.
 
@@ -31,7 +31,20 @@ node scripts/validate-manifest.mjs ../example-website/site.manifest.json
 
 `../example-website` is a **new path outside WHPS**, not an existing website or Git repository. The script only creates the original handoff and a site manifest, and refuses existing target directories. It does **not** download Wix's ZIP, initialise Git, provision Wix resources, authenticate or deploy. Preserve the original Wix-provided project and check its binding in the **website workspace**, following [handoff instructions](docs/02-WIX-HANDOFF.md). For existing-site or unbound-frontend modes, follow the [operating model](docs/01-OPERATING-MODEL.md); the current intake CLI only implements the Wix-generated-handoff mode.
 
-## Validate this toolkit
+## Validate this toolkit## WHPS-002 · New independent local site bootstrap (development)
+
+The [WHPS-002 bootstrap design](docs/16-SITE-WORKSPACE-BOOTSTRAP.md) introduces an **unreleased** CLI that creates a local Git repository in a **new directory outside this toolkit**. It does not create Wix resources, download a site, authenticate, create a GitHub remote or deploy.
+
+```sh
+python3 -m pip install -r requirements.txt
+node scripts/bootstrap-site-workspace.mjs --mode unbound-frontend --output ../new-website
+# For an original Wix handoff instead:
+node scripts/bootstrap-site-workspace.mjs --mode wix-handoff --output ../new-wix-website --handoff /path/to/original-wix-prompt.txt
+```
+
+It supports `wix-handoff` and `unbound-frontend` only. For `existing-repository`, follow [manual adoption](docs/07-PROJECT-ADOPTION.md); the CLI will refuse to overwrite an existing site. Each new workspace records **v0.1.0 + its exact SHA** as the adopted foundation and separately labels WHPS-002 as an **unreleased generator**. The published v0.1.0 source does **not** contain this CLI.
+
+
 
 Install runtime requirements plus the maintainer-only YAML checker:
 
@@ -58,6 +71,7 @@ Start with the [documentation map](docs/00-DOCUMENTATION-MAP.md), then the [syst
 | `scripts/` | Offline intake, inspection and validation tools |
 | `tests/`, `examples/` | Tests and explicitly synthetic fixtures |
 | `requirements-dev.txt` | Additional maintainer-only YAML verification dependency |
+| `docs/16-SITE-WORKSPACE-BOOTSTRAP.md` | Unreleased site-bootstrap CLI behaviour and safety boundaries |
 | `.github/` | CI for the toolkit, never Wix deployments |
 
 ## Governance and contributing
