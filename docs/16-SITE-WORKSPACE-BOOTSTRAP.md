@@ -1,6 +1,6 @@
 # 16 — WHPS-002 · Independent website repository bootstrap
 
-**Status:** WHPS-002 implementation proposed for review; **not included in published v0.1.0**.
+**Status:** WHPS-002 merged, tested and proposed for a future v0.2.0 release; **not included in published v0.1.0**.
 **Scope:** Offline local directory and Git initialisation only. No Wix login, API calls, remote repository creation, network fetches, CMS writes, client site deployments or purchases.
 
 ## Purpose
@@ -43,7 +43,7 @@ An existing site checkout must **never** be a destination. For an existing sourc
 ## Files created in the new website checkout
 
 - `site.manifest.json`: conforms to manifest schema 0.1.0; no business facts or Wix verification invented.
-- `whps.lock.json`: toolkit foundation pinned to `v0.1.0` and full approved SHA `802acf1b536b502fcacdffc1d6b7ce371aa2d3f7`. The lock also identifies the **unreleased WHPS-002 generator**, so it does **not** claim the bootstrap executable belongs to v0.1.0.
+- `whps.lock.json`: a **v2 lock**, validated by [the adoption-lock schema](../schemas/whps-adoption-lock.schema.json), with the actual generating `toolkitSource` repository, full local Git SHA, optional exact-match tag, state (`unreleased-checkout` or `tagged-checkout-unverified`) and `releaseVerification: not-performed`. The generator separately records the same SHA/tag, and `foundationBaseline` preserves the historic v0.1.0 reference. A local tag alone never certifies a published GitHub Release.
 - `README.md`: website-local startup and approval steps.
 - `AGENTS.md`, `docs/CONTROL-ROOM.md`, `docs/BUSINESS-BRIEF.md`: site-specific copies of **generic** source templates, with key and adopted foundation reference.
 - `.gitignore`: basic secret and build output exclusions.
@@ -64,6 +64,6 @@ No `wix.config.json`, frontend, CMS collections, backend resources, authenticate
 
 ## Release discipline
 
-The published toolkit `v0.1.0` does **not** contain this bootstrap generator. Until a future WHPS release is explicitly tagged and verified, WHPS-002 is development tooling; downstream websites should not imply it was shipped in v0.1.0. Future version-lock upgrades and existing-repository adoption require a reviewed compatibility plan (WHPS-006).
+The published toolkit `v0.1.0` does **not** contain this bootstrap generator. The v0.2.0 candidate may include it **only after an independently verified release**. New website locks pin the actual generating checkout, but the release status remains unverified until the website operator checks the GitHub tag and release against that SHA; never imply this generator shipped in v0.1.0. Future version-lock upgrades and existing-repository adoption require a reviewed compatibility plan (WHPS-006).
 
 See [system boundaries](06-SYSTEM-BOUNDARIES.md), [site adoption](07-PROJECT-ADOPTION.md), [roadmap](05-ROADMAP.md) and [Control Room](CONTROL-ROOM.md).

@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url';
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
 const schemaPath=join(root,'schemas/resource-plan-input.schema.json');
 const validator=join(root,'scripts/validate-json-schema.py');
+const outputSchema=join(root,'schemas/resource-plan-output.schema.json');
 const kinds=new Set(['form','cms-collection','booking-service','store-product','event','app','other']);
 const keyPattern=/^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const uuidPattern=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -81,8 +82,14 @@ export function planResources(b){
   const regId=new Map(registry.map(r=>[r.wixId,r]));
   const names=new Map();
   for(const r of observed){const k=byName(r);names.set(k,[...(names.get(k)||[]),r]);}
+  // Never propose two independent creations for the same exact type/name,
+  // even when logical keys differ. These may describe one intended resource.
+  const requestedNames=new Map();
+  for(const d of desired){const k=d.type+'\u0000'+d.desiredName;requestedNames.set(k,(requestedNames.get(k)||0)+1);}
   const candidates=desired.map(d=>{
     const old=regKey.get(key(d)), errors=[];
+    if(requestedNames.get(d.type+'\u0000'+d.desiredName)>1)
+      errors.push('Multiple desired logical keys request same exact type/name; reconcile identity before planning');
     if(!b.observed.coveredTypes.includes(d.type))errors.push('Resource type not covered by snapshot');
     if(old&&['missing','retired'].includes(old.state))errors.push('Registry state requires investigation');
     if(old&&d.wixId&&old.wixId!==d.wixId)errors.push('Registry and desired IDs conflict');
@@ -126,6 +133,11 @@ async function main(){
   if(run.error||run.status!==0)throw Error('JSON Schema validator unavailable: '+(run.error?.message||run.stderr?.slice(0,200)||run.status));
   const v=JSON.parse(run.stdout);
   if(!v.valid)throw Error('Schema rejected input: '+v.errors.slice(0,12).map(x=>x.path+': '+x.message).join('; '));
-  process.stdout.write(JSON.stringify(planResources(b),null,2)+'\n');
+  const proposed=planResources(b);
+  const checked=spawnSync(process.env.WHPS_PYTHON||'python3',[validator,outputSchema],{input:JSON.stringify(proposed),encoding:'utf8',maxBuffer:1024*1024});
+  if(checked.error||checked.status!==0)throw Error('Output schema validator unavailable: '+(checked.error?.message||checked.stderr?.slice(0,200)||checked.status));
+  const result=JSON.parse(checked.stdout);
+  if(!result.valid)throw Error('Generated plan violates output contract: '+result.errors.slice(0,12).map(x=>x.path+': '+x.message).join('; '));
+  process.stdout.write(JSON.stringify(proposed,null,2)+'\n');
 }
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url))main().catch(e=>{process.stderr.write('Planning blocked: '+e.message+'\n');process.exitCode=1;});

@@ -15,7 +15,7 @@ The Wix-generated handoff establishes technical identity, **not** verified busin
 - **R01:** foundation corrections merged: schema-aware validation, atomic intake, ZIP safeguards.
 - **R02:** verification improvements merged: synthetic negative tests and tracked-content security guard.
 - **R03:** documentation consolidation merged; policy and status terminology reconciled.
-- **R04:** governance merged. **R05:** release candidate merged. **R05.1:** recovery merged and v0.1.0 publication verified. **R05.2:** post-release reconciliation merged. **WHPS-002:** bootstrap merged, not yet released. **WHPS-003:** read-only resource planner proposed for review.
+- **R04:** governance merged. **R05:** release candidate merged. **R05.1:** recovery merged and v0.1.0 publication verified. **R05.2:** post-release reconciliation merged. **WHPS-002 and WHPS-003:** merged, validated and unreleased. **WHPS-R06:** preparing a reviewed v0.2.0 candidate, with immutable release gates; publication is separate.
 - **Published toolkit release:** [`v0.1.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0), annotated tag targeting `802acf1b536b502fcacdffc1d6b7ce371aa2d3f7`. The manifest schema is separately versioned as `0.1.0`.
 - **Licence:** [Apache-2.0](LICENSE), with repository copyright attribution in [NOTICE](NOTICE). This does not license Wix-owned code or independently managed websites.
 
@@ -33,7 +33,7 @@ node scripts/validate-manifest.mjs ../example-website/site.manifest.json
 
 ## WHPS-002 · New independent local site bootstrap (development)
 
-The [WHPS-002 bootstrap design](docs/16-SITE-WORKSPACE-BOOTSTRAP.md) introduces an **unreleased** CLI that creates a local Git repository in a **new directory outside this toolkit**. It does not create Wix resources, download a site, authenticate, create a GitHub remote or deploy.
+The [WHPS-002 bootstrap design](docs/16-SITE-WORKSPACE-BOOTSTRAP.md) documents a **merged but not yet published** CLI that creates a local Git repository in a **new directory outside this toolkit**. It does not create Wix resources, download a site, authenticate, create a GitHub remote or deploy.
 
 ```sh
 python3 -m pip install -r requirements.txt
@@ -42,17 +42,21 @@ node scripts/bootstrap-site-workspace.mjs --mode unbound-frontend --output ../ne
 node scripts/bootstrap-site-workspace.mjs --mode wix-handoff --output ../new-wix-website --handoff /path/to/original-wix-prompt.txt
 ```
 
-It supports `wix-handoff` and `unbound-frontend` only. For `existing-repository`, follow [manual adoption](docs/07-PROJECT-ADOPTION.md); the CLI will refuse to overwrite an existing site. Each new workspace records **v0.1.0 + its exact SHA** as the adopted foundation and separately labels WHPS-002 as an **unreleased generator**. The published v0.1.0 source does **not** contain this CLI.
+It supports `wix-handoff` and `unbound-frontend` only. For `existing-repository`, follow [manual adoption](docs/07-PROJECT-ADOPTION.md); the CLI will refuse to overwrite an existing site. Each new workspace now records the **exact current generator checkout SHA**, an optional locally observed Git release tag and an explicit unverified-release status. The original v0.1.0 foundation is retained separately as historical provenance. The published v0.1.0 source does **not** contain this CLI; the proposed v0.2.0 candidate includes it.
 
 
 
 ## WHPS-003 · Read-only resource reconciliation (development)
 
-The [unreleased offline planner](docs/17-READ-ONLY-RESOURCE-PLANNER.md) compares desired resource metadata with an explicitly supplied observed snapshot, and optionally a historical registry. It emits JSON proposals (`create`, `reuse`, `update`, `retire`, `blocked`, `untracked`) **without contacting Wix or executing any change**. Snapshot coverage, uniqueness and identity mismatches are checked; all proposed operations require site-local approval.
+The [merged, unreleased offline planner](docs/17-READ-ONLY-RESOURCE-PLANNER.md) compares desired resource metadata with an explicitly supplied observed snapshot, and optionally a historical registry. It emits JSON proposals (`create`, `reuse`, `update`, `retire`, `blocked`, `untracked`) **without contacting Wix or executing any change**. Snapshot coverage, uniqueness and identity mismatches are checked; all proposed operations require site-local approval.
 
     node scripts/plan-wix-resources.mjs --input examples/resource-plan.synthetic.json
 
-WHPS-003 is not part of the published v0.1.0 toolkit. Real snapshot inputs and plans belong in each independent website repository, never WHPS.
+WHPS-003 is not part of published v0.1.0; its proposed v0.2.0 version additionally rejects duplicate desired type/name requests and validates the output against [a JSON Schema](schemas/resource-plan-output.schema.json). Real snapshot inputs and plans belong in each independent website repository, never WHPS.
+
+## WHPS-R06 · Proposed v0.2.0 release
+
+The [R06 release plan](docs/18-R06-RELEASE-PLAN.md) and [candidate notes](docs/releases/v0.2.0.md) describe release readiness. Publication is **not automatic on merge**: the owner must approve an exact source SHA and manually dispatch the [version-agnostic publisher](.github/workflows/publish-release.yml) after successful main-branch validation and CodeQL. Until the tag and GitHub Release are verified, `v0.1.0` remains the only published toolkit release.
 
 ## Validate this toolkit
 

@@ -39,6 +39,12 @@ python3 -m unittest discover -s tests -p 'test_*.py' -v
 
 `node scripts/check-release-readiness.mjs --release --version v0.1.0` performs additional **offline prerequisites**. It must **fail closed** if an accepted licence or matching release-specific changelog is missing. A passing local check never proves CI status, a human decision, platform compatibility, tag integrity or a published release. These require separate recorded evidence.
 
+## Version-agnostic manual publisher
+
+From R06 onward, the [manual release workflow](../.github/workflows/publish-release.yml) is the proposed publication mechanism. It accepts approved SemVer, full source SHA and exact typed `PUBLISH-vX.Y.Z` authorisation. It requires the candidate be the current `main` commit with successful exact-SHA validation and CodeQL push runs, checks version-specific release notes, reruns offline contracts and synthetic site bootstrap/planner smoke tests, and creates or verifies an immutable annotated tag and public GitHub Release. A skipped job, merged PR, or green CI run **is not publication**.
+
+The historic [v0.1.0 recovery workflow](../.github/workflows/publish-v0.1.0.yml) must not be repurposed for future releases. Follow the [R06 acceptance plan](18-R06-RELEASE-PLAN.md). No tag or live Wix site is modified by this documentation.
+
 ## Release record minimum
 
 - Tag and full commit SHA; relationship to schema version.

@@ -12,7 +12,7 @@
 | Wix Headless platform | Current official Wix skill and Wix CLI/SDK instructions | External authority; **no live Wix integration tested by toolkit CI** |
 | Node.js 20 / 24, Python 3.13, Windows, macOS | Not in official CI matrix | **Not guaranteed**; supplementary local results are not published support commitments |
 
-The items above describe the **currently validated development environment**. They are a proposed baseline for the first toolkit release, not a claim that every system/platform combination is guaranteed. When extending the matrix, first add the environment to CI and record the evidence.
+The items above describe the **currently CI-tested development environment**, not every possible system/platform combination or live Wix deployment. The v0.2.0 candidate adds an explicit Git CLI requirement for WHPS-002 bootstrap, but does not expand operating-system support claims. When extending the matrix, first add the environment to CI and record the evidence.
 
 ## Compatibility rules
 
@@ -21,8 +21,8 @@ The items above describe the **currently validated development environment**. Th
 - Schema contracts are separately versioned; changes that invalidate existing site manifests need migration guidance and negative tests.
 - A Wix dependency or CLI behaviour may change upstream. Review the current official Wix skill in each site project, not as a one-time frozen implementation authority.
 - Do not add a live Wix token or live website smoke tests to WHPS CI to establish compatibility; those belong to authorised website projects.
-- Before R05, consider dependency pinning/lock strategy and whether the GitHub runner image should be fixed for stronger repeatability.
+- For future releases, review dependency locking, action pinning and fixed runner images for stronger repeatability. Current Python requirements use version ranges, so exact dependency graphs may vary.
 
 ## Release policy for support
 
-The initial candidate `v0.1.0` is an **early developer toolkit** on the CI-tested runtimes above. The release notes define known limits; future fixes use reviewed patch releases. Do not claim support for Wix site deployments or untested platforms. Site repositories pin a toolkit commit/tag; WHPS does not guarantee that downstream sites automatically pick up changes.
+The published `v0.1.0` is an **early developer toolkit** on the CI-tested runtimes above. The release notes define known limits; future fixes use reviewed patch releases. Do not claim support for Wix site deployments or untested platforms. Site repositories pin a toolkit commit/tag; WHPS does not guarantee that downstream sites automatically pick up changes.

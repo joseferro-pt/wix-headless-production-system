@@ -1,13 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import { access, mkdtemp, mkdir, readFile, readdir, rm, symlink, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
   bootstrapSiteWorkspace, buildInitialManifest, createAdoptionLock,
-  FOUNDATION, parseBootstrapArgs,
+  FOUNDATION, parseBootstrapArgs, detectToolkitSource,
 } from '../scripts/bootstrap-site-workspace.mjs';
 import { validateManifest } from '../scripts/validate-manifest.mjs';
 
@@ -32,14 +32,30 @@ test('argument parser rejects ambiguity, unknown flags and existing-repository m
   ]) assert.throws(() => parseBootstrapArgs(args));
 });
 
-test('pin is the verified published foundation, generator clearly unreleased', () => {
+test('lock captures the exact generator Git revision, separately from the historic baseline', () => {
   const lock = createAdoptionLock();
-  assert.equal(lock.lockVersion, 1);
-  assert.deepEqual(lock.toolkitRelease, FOUNDATION);
-  assert.equal(lock.toolkitRelease.tag, 'v0.1.0');
-  assert.equal(lock.toolkitRelease.commit, '802acf1b536b502fcacdffc1d6b7ce371aa2d3f7');
-  assert.equal(lock.generator.status, 'unreleased-development');
+  const source = detectToolkitSource();
+  assert.equal(lock.lockVersion, 2);
+  assert.deepEqual(lock.toolkitSource, source);
+  assert.deepEqual(lock.foundationBaseline, FOUNDATION);
+  assert.equal(lock.generator.sourceCommit, source.commit);
+  assert.equal(lock.generator.sourceTag, source.tag);
+  assert.equal(lock.toolkitSource.releaseVerification, 'not-performed');
   assert.equal(lock.manifestSchemaVersion, '0.1.0');
+});
+test('tag at exact checkout is recorded without claiming release verification', () => {
+  const sha='a'.repeat(40);
+  const identity=detectToolkitSource(args => args[0]==='rev-parse' ? sha+'\n' : 'v0.2.0\n');
+  const lock=createAdoptionLock(identity);
+  assert.equal(lock.toolkitSource.commit,sha);
+  assert.equal(lock.toolkitSource.tag,'v0.2.0');
+  assert.equal(lock.toolkitSource.state,'tagged-checkout-unverified');
+  assert.equal(lock.toolkitSource.releaseVerification,'not-performed');
+});
+test('bootstrap source identification rejects ambiguous exact revision tags', () => {
+  const sha='b'.repeat(40);
+  assert.throws(() => detectToolkitSource(args => args[0]==='rev-parse' ? sha : 'v0.2.0\nv0.3.0'), /Multiple release/);
+  assert.throws(() => detectToolkitSource(() => 'not-a-commit'), /valid generating/);
 });
 
 test('new unbound workspace is local Git repository with valid blocked manifest', async () => {
@@ -55,10 +71,12 @@ test('new unbound workspace is local Git repository with valid blocked manifest'
     assert.equal(m.wix, undefined);
     assert.deepEqual(validateManifest(m), []);
     const lock = JSON.parse(await readFile(join(outputDirectory, 'whps.lock.json'), 'utf8'));
-    assert.equal(lock.toolkitRelease.commit, FOUNDATION.commit);
+    assert.equal(lock.foundationBaseline.commit, FOUNDATION.commit);
+    assert.equal(lock.toolkitSource.commit, execFileSync('git', ['-C', root, 'rev-parse', 'HEAD'], { encoding: 'utf8' }).trim());
+    assert.equal(lock.generator.sourceCommit, lock.toolkitSource.commit);
     const branch = execFileSync('git', ['-C', outputDirectory, 'branch', '--show-current'], { encoding: 'utf8' }).trim();
     assert.equal(branch, 'main');
-    assert.match(await readFile(join(outputDirectory, 'README.md'), 'utf8'), /unreleased development code/);
+    assert.match(await readFile(join(outputDirectory, 'README.md'), 'utf8'), /Generator source commit/);
     assert.match(await readFile(join(outputDirectory, 'docs/CONTROL-ROOM.md'), 'utf8'), /unbound-site/);
     assert.match(await readFile(join(outputDirectory, 'docs/BUSINESS-BRIEF.md'), 'utf8'), /Facts|Business identity/);
     await assert.rejects(access(join(outputDirectory, 'wix.config.json')));
@@ -167,4 +185,20 @@ test('existing-repository mode never touches an existing site', async () => {
     }), /existing/);
     assert.deepEqual(await readdir(outputDirectory), ['site.config']);
   });
+});
+
+test('generated v2 site lock passes machine schema and invalid source identity fails',()=>{
+ const real=createAdoptionLock();
+ const validator=join(root,'scripts/validate-json-schema.py');
+ const schemaPath=join(root,'schemas/whps-adoption-lock.schema.json');
+ const validate=value=>{
+   const result=spawnSync('python3',[validator,schemaPath],{input:JSON.stringify(value),encoding:'utf8'});
+   assert.equal(result.status,0,result.stderr);
+   return JSON.parse(result.stdout);
+ };
+ assert.equal(validate(real).valid,true);
+ const broken=structuredClone(real);broken.toolkitSource.commit='not-a-git-revision';
+ assert.equal(validate(broken).valid,false);
+ const falseTag=structuredClone(real);falseTag.toolkitSource.tag='v0.2.0';falseTag.toolkitSource.state='unreleased-checkout';
+ assert.equal(validate(falseTag).valid,false);
 });

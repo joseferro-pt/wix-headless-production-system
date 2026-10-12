@@ -29,3 +29,13 @@ test('manual release recovery requires exact approved source and permission gate
  assert.match(workflow,/gh api --method POST/);
  assert.match(workflow,/gh release create/);
 });
+
+test('reusable R06 publication workflow is separate from the historical v0.1.0 recovery',async()=>{
+ const newWorkflow=await get('.github/workflows/publish-release.yml');
+ assert.match(newWorkflow,/workflow_dispatch:/);
+ assert.match(newWorkflow,/source_sha:/);
+ assert.match(newWorkflow,/PUBLISH-\$RELEASE_TAG/);
+ assert.match(newWorkflow,/codeql\.yml/);
+ assert.match(newWorkflow,/object\.sha==\$sha/);
+ assert.doesNotMatch(newWorkflow,/^\s+push:/m);
+});

@@ -22,7 +22,8 @@ Apache-2.0 is accepted and the first WHPS toolkit release [`v0.1.0`](https://git
 |---|---|---|
 | WHPS-001 | Original framework, docs and first safety tooling | Baseline present, subsequently corrected in R01/R02 |
 | WHPS-002 | Generic offline website repository bootstrap outside WHPS | **Merged**, CI passed; not in v0.1.0 |
-| WHPS-003 | Pure desired-vs-observed Wix resource reconciliation planner | **In development**, PR review pending; not in v0.1.0 |
+| WHPS-003 | Pure desired-vs-observed Wix resource reconciliation planner | **Merged**, CI passed; not in v0.1.0 |
+| WHPS-R06 | v0.2.0 planner/bootstrap hardening and reusable publication | **Candidate implementation in PR; no v0.2.0 release yet** | Duplicates fail closed, v2 exact generator lock, output schema, release notes, manual publication gates and tested adoption |
 | WHPS-004 | Framework-specific reusable frontend building blocks | Planned |
 | WHPS-005 | Automated quality guidance and contract tests for adopters | Planned |
 | WHPS-006 | Versioned distribution and explicit adoption/migration process | Planned |

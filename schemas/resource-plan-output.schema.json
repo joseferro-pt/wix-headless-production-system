@@ -1,0 +1,189 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "planVersion",
+    "siteId",
+    "observation",
+    "execution",
+    "approval",
+    "confidence",
+    "warnings",
+    "summary",
+    "decisions"
+  ],
+  "properties": {
+    "planVersion": {
+      "const": 1
+    },
+    "siteId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "capturedAt",
+        "completeness",
+        "coveredTypes"
+      ],
+      "properties": {
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "capturedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "completeness": {
+          "enum": [
+            "complete",
+            "partial"
+          ]
+        },
+        "coveredTypes": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 7,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/kind"
+          }
+        }
+      }
+    },
+    "execution": {
+      "const": "never"
+    },
+    "approval": {
+      "const": "required-for-every-change"
+    },
+    "confidence": {
+      "const": "unverified-user-supplied-snapshot"
+    },
+    "warnings": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "create",
+        "reuse",
+        "update",
+        "retire",
+        "blocked",
+        "untracked"
+      ],
+      "properties": {
+        "create": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "reuse": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "update": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "retire": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "blocked": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "untracked": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "decisions": {
+      "type": "array",
+      "maxItems": 2500,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "type",
+          "logicalKey",
+          "action",
+          "reason",
+          "approvalRequired"
+        ],
+        "properties": {
+          "type": {
+            "$ref": "#/$defs/kind"
+          },
+          "logicalKey": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "action": {
+            "$ref": "#/$defs/action"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "wixId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "observedName": {
+            "type": "string",
+            "minLength": 1
+          },
+          "approvalRequired": {
+            "const": true
+          }
+        }
+      }
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/whps/resource-plan-output.schema.json",
+  "title": "WHPS-003 read-only resource-plan output v1",
+  "$defs": {
+    "kind": {
+      "enum": [
+        "form",
+        "cms-collection",
+        "booking-service",
+        "store-product",
+        "event",
+        "app",
+        "other"
+      ]
+    },
+    "action": {
+      "enum": [
+        "create",
+        "reuse",
+        "update",
+        "retire",
+        "blocked",
+        "untracked"
+      ]
+    }
+  }
+}

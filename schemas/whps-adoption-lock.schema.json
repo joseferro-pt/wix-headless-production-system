@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/whps/adoption-lock.schema.json",
+  "title": "WHPS website-local adoption lock v2 (exact generating source)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "lockVersion",
+    "toolkitSource",
+    "foundationBaseline",
+    "manifestSchemaVersion",
+    "generator"
+  ],
+  "properties": {
+    "lockVersion": {
+      "const": 2
+    },
+    "toolkitSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository",
+        "commit",
+        "tag",
+        "state",
+        "releaseVerification"
+      ],
+      "properties": {
+        "repository": {
+          "$ref": "#/$defs/repo"
+        },
+        "commit": {
+          "$ref": "#/$defs/sha"
+        },
+        "tag": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^v(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "state": {
+          "enum": [
+            "unreleased-checkout",
+            "tagged-checkout-unverified"
+          ]
+        },
+        "releaseVerification": {
+          "const": "not-performed"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "tag": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "tag"
+            ]
+          },
+          "then": {
+            "properties": {
+              "state": {
+                "const": "unreleased-checkout"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "state": {
+                "const": "tagged-checkout-unverified"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "foundationBaseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository",
+        "tag",
+        "commit"
+      ],
+      "properties": {
+        "repository": {
+          "$ref": "#/$defs/repo"
+        },
+        "tag": {
+          "const": "v0.1.0"
+        },
+        "commit": {
+          "const": "802acf1b536b502fcacdffc1d6b7ce371aa2d3f7"
+        }
+      }
+    },
+    "manifestSchemaVersion": {
+      "const": "0.1.0"
+    },
+    "generator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "sourceCommit",
+        "sourceTag"
+      ],
+      "properties": {
+        "name": {
+          "const": "WHPS-002"
+        },
+        "sourceCommit": {
+          "$ref": "#/$defs/sha"
+        },
+        "sourceTag": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^v(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "$defs": {
+    "repo": {
+      "const": "https://github.com/joseferro-pt/wix-headless-production-system"
+    },
+    "sha": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    }
+  }
+}

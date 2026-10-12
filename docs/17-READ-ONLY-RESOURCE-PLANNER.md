@@ -1,12 +1,12 @@
 # 17 — WHPS-003 · Read-only Wix resource reconciliation
 
-**Status:** In development, proposed for review. Not in the published toolkit v0.1.0.
+**Status:** WHPS-003 merged, validated and proposed for v0.2.0. Not in published v0.1.0.
 
 The tool compares resource metadata supplied by an **independent website repository**. It does not query Wix, authenticate, install apps, modify CMS collections, alter forms, run Wix CLI or deploy.
 
 ## Input
 
-See [the input schema](../schemas/resource-plan-input.schema.json) and [synthetic fixture](../examples/resource-plan.synthetic.json).
+See [the input schema](../schemas/resource-plan-input.schema.json), [output contract](../schemas/resource-plan-output.schema.json) (planVersion 1), and [synthetic fixture](../examples/resource-plan.synthetic.json).
 
 - A schema version of 0.1.0 and exact Wix site ID.
 - Desired resource metadata: type, logicalKey, desiredName, optional Wix ID and optional explicit intent (present or retire).
@@ -23,12 +23,12 @@ Run from a WHPS-003 development checkout with Node.js 22 and Python 3.12. Instal
 
 Synthetic offline example: node scripts/plan-wix-resources.mjs --input examples/resource-plan.synthetic.json
 
-For a real site, supply an input JSON file inside its separate repository to the same CLI. Its JSON output goes to stdout, which may be redirected to a separately reviewed website-local proposed plan. The CLI itself never creates or overwrites output files. The input file must be a regular file no larger than 512 KiB.
+For a real site, supply an input JSON file inside its separate repository to the same CLI. Its JSON output goes to stdout, which may be redirected to a separately reviewed website-local proposed plan. The CLI validates both input and proposed output against JSON Schema before writing JSON to stdout. It never creates or overwrites output files. The input file must be a regular file no larger than 512 KiB.
 
 ## Matching order
 
 1. Reject unknown fields, duplicate IDs or logical keys, invalid resource types, invalid snapshot coverage and cross-site identity conflicts.
-2. Match an explicitly specified Wix ID first, or the ID registered for that logical key. A missing, wrong-type, contradictory or historically missing/retired ID **blocks** rather than silently creating a replacement.
+2. **Reject multiple desired logical keys requesting the same exact resource type/name** before proposing creates, even when nothing is observed. Match an explicitly specified Wix ID first, or the ID registered for that logical key. A missing, wrong-type, contradictory or historically missing/retired ID **blocks** rather than silently creating a replacement.
 3. Without a known ID, use a *unique exact type/name* match. Ambiguous matches block. No fuzzy matching.
 4. A successful match proposes reuse; a pinned/name difference may propose update only with a complete, type-covered snapshot. Arbitrary resource-schema updates are **not** inferred.
 5. Create requires complete coverage for that type and absence of any exact match or identity conflict. It still requires live absence verification and operator approval.

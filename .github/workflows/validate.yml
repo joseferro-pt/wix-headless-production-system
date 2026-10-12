@@ -21,6 +21,8 @@ jobs:
         run: node scripts/check-repository-boundary.mjs
       - name: Check toolkit release-governance wiring (not publication)
         run: node scripts/check-release-readiness.mjs --policy
+      - name: Check v0.2.0 candidate release notes and policies (not publication)
+        run: node scripts/check-release-readiness.mjs --release --version v0.2.0
       - name: Test handoff parser and manifest contracts
         run: node --test tests/*.test.mjs
       - name: Python archive and Dependabot YAML contract tests
@@ -29,11 +31,21 @@ jobs:
         run: |
           node scripts/intake-wix-handoff.mjs examples/wix-generated-prompt.example.txt /tmp/example-site
           node scripts/validate-manifest.mjs /tmp/example-site/site.manifest.json
-      - name: WHPS-003 offline read-only planner smoke test
+      - name: WHPS-003 offline planner and output schema smoke test
         shell: bash
         run: |
           set -euo pipefail
-          node scripts/plan-wix-resources.mjs --input examples/resource-plan.synthetic.json | python3 -c 'import json,sys; p=json.load(sys.stdin); assert p["execution"] == "never"; assert p["summary"]["reuse"] == 1; assert p["summary"]["create"] == 1; assert p["approval"] == "required-for-every-change"'
+          scratch="$(mktemp -d)"
+          trap 'rm -rf "$scratch"' EXIT
+          node scripts/plan-wix-resources.mjs --input examples/resource-plan.synthetic.json > "$scratch/plan.json"
+          python3 - "$scratch/plan.json" <<'PY'
+          import json,sys
+          p=json.load(open(sys.argv[1],encoding='utf8'))
+          assert p["execution"] == "never"
+          assert p["summary"]["reuse"] == 1 and p["summary"]["create"] == 1
+          assert p["approval"] == "required-for-every-change"
+          PY
+          python3 scripts/validate-json-schema.py schemas/resource-plan-output.schema.json < "$scratch/plan.json" | python3 -c 'import json,sys; assert json.load(sys.stdin)["valid"]'
       - name: WHPS-002 offline site bootstrap smoke test
         shell: bash
         run: |
@@ -43,6 +55,15 @@ jobs:
           node scripts/bootstrap-site-workspace.mjs --mode unbound-frontend --output "$sandbox/unbound-site"
           node scripts/validate-manifest.mjs "$sandbox/unbound-site/site.manifest.json"
           test "$(git -C "$sandbox/unbound-site" branch --show-current)" = main
+          python3 - "$sandbox/unbound-site/whps.lock.json" "$(git rev-parse HEAD)" <<'PY'
+          import json,sys
+          p=json.load(open(sys.argv[1],encoding='utf8'))
+          assert p['lockVersion']==2
+          assert p['toolkitSource']['commit']==sys.argv[2]
+          assert p['generator']['sourceCommit']==sys.argv[2]
+          assert p['toolkitSource']['releaseVerification']=='not-performed'
+          PY
+          python3 scripts/validate-json-schema.py schemas/whps-adoption-lock.schema.json < "$sandbox/unbound-site/whps.lock.json" | python3 -c 'import json,sys; assert json.load(sys.stdin)["valid"]'
           node scripts/bootstrap-site-workspace.mjs --mode wix-handoff --output "$sandbox/wix-site" --handoff examples/wix-generated-prompt.example.txt
           node scripts/validate-manifest.mjs "$sandbox/wix-site/site.manifest.json"
           test "$(git -C "$sandbox/wix-site" branch --show-current)" = main

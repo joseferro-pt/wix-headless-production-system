@@ -1,0 +1,141 @@
+name: Publish and verify WHPS release
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Approved version, e.g. v0.2.0"
+        required: true
+        type: string
+      source_sha:
+        description: "Approved 40-character main commit SHA"
+        required: true
+        type: string
+      approval:
+        description: "Enter PUBLISH- followed by the approved version"
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: whps-release-publication
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      actions: read
+    env:
+      GH_TOKEN: ${{ github.token }}
+      RELEASE_TAG: ${{ inputs.version }}
+      APPROVED_SHA: ${{ inputs.source_sha }}
+      APPROVAL: ${{ inputs.approval }}
+    steps:
+      - name: Require explicit approval and immutable current main revision
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$RELEASE_TAG" =~ ^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]] || { echo 'BLOCK: invalid SemVer tag'; exit 1; }
+          [[ "$APPROVED_SHA" =~ ^[a-f0-9]{40}$ ]] || { echo 'BLOCK: invalid source SHA'; exit 1; }
+          test "$APPROVAL" = "PUBLISH-$RELEASE_TAG" || { echo 'BLOCK: approval text mismatch'; exit 1; }
+          test "$GITHUB_REF" = 'refs/heads/main' || { echo 'BLOCK: workflow must run from main'; exit 1; }
+          test "$GITHUB_SHA" = "$APPROVED_SHA" || { echo 'BLOCK: dispatch SHA is not approved source'; exit 1; }
+          LATEST="$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/main" --jq .object.sha)"
+          test "$LATEST" = "$APPROVED_SHA" || { echo 'BLOCK: main moved after approval'; exit 1; }
+      - name: Check out exact release source
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.source_sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Verify notes and successful validation and CodeQL on exact main source
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$APPROVED_SHA" || { echo 'BLOCK: checkout revision mismatch'; exit 1; }
+          test -s "docs/releases/$RELEASE_TAG.md" || { echo 'BLOCK: release notes missing'; exit 1; }
+          for workflow in validate.yml codeql.yml; do
+            gh api "repos/$GITHUB_REPOSITORY/actions/workflows/$workflow/runs?head_sha=$APPROVED_SHA&event=push&per_page=100" > "$RUNNER_TEMP/$workflow.json"
+            jq -e --arg sha "$APPROVED_SHA" \
+              '[.workflow_runs[] | select(.head_sha==$sha and .event=="push" and .status=="completed" and .conclusion=="success")] | length>0' \
+              "$RUNNER_TEMP/$workflow.json" >/dev/null || { echo "BLOCK: no passing exact-commit $workflow"; exit 1; }
+          done
+          jq -r --arg sha "$APPROVED_SHA" \
+            '[.workflow_runs[] | select(.head_sha==$sha and .conclusion=="success") | .html_url][0]' \
+            "$RUNNER_TEMP/validate.yml.json" > "$RUNNER_TEMP/ci-url.txt"
+          test -s "$RUNNER_TEMP/ci-url.txt"
+      - name: Re-run offline release contracts and synthetic integrations
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m pip install -r requirements.txt -r requirements-dev.txt
+          node scripts/check-repository-boundary.mjs
+          node scripts/check-release-readiness.mjs --release --version "$RELEASE_TAG"
+          node --test tests/*.test.mjs
+          python3 -m unittest discover -s tests -p 'test_*.py' -v
+          node scripts/plan-wix-resources.mjs --input examples/resource-plan.synthetic.json > "$RUNNER_TEMP/plan.json"
+          python3 scripts/validate-json-schema.py schemas/resource-plan-output.schema.json < "$RUNNER_TEMP/plan.json" | python3 -c 'import json,sys; assert json.load(sys.stdin)["valid"]'
+          sandbox="$(mktemp -d)"
+          trap 'rm -rf "$sandbox"' EXIT
+          node scripts/bootstrap-site-workspace.mjs --mode unbound-frontend --output "$sandbox/unbound-site"
+          node scripts/validate-manifest.mjs "$sandbox/unbound-site/site.manifest.json"
+          python3 - "$sandbox/unbound-site/whps.lock.json" "$APPROVED_SHA" <<'PY'
+          import json,sys
+          lock=json.load(open(sys.argv[1],encoding='utf8'))
+          assert lock['toolkitSource']['commit']==sys.argv[2]
+          assert lock['generator']['sourceCommit']==sys.argv[2]
+          assert lock['toolkitSource']['releaseVerification']=='not-performed'
+          PY
+          python3 scripts/validate-json-schema.py schemas/whps-adoption-lock.schema.json < "$sandbox/unbound-site/whps.lock.json" | python3 -c 'import json,sys; assert json.load(sys.stdin)["valid"]'
+          node scripts/bootstrap-site-workspace.mjs --mode wix-handoff --output "$sandbox/wix-site" --handoff examples/wix-generated-prompt.example.txt
+          node scripts/validate-manifest.mjs "$sandbox/wix-site/site.manifest.json"
+      - name: Create or verify immutable annotated tag
+        shell: bash
+        run: |
+          set -euo pipefail
+          REF_PATH="repos/$GITHUB_REPOSITORY/git/ref/tags/$RELEASE_TAG"
+          if gh api "$REF_PATH" > "$RUNNER_TEMP/tag-ref.json" 2>"$RUNNER_TEMP/tag-error.log"; then
+            echo 'Existing tag: verify, never move'
+          elif grep -Eq 'HTTP 404|404 Not Found' "$RUNNER_TEMP/tag-error.log"; then
+            TAG_SHA="$(gh api --method POST "repos/$GITHUB_REPOSITORY/git/tags" -f tag="$RELEASE_TAG" -f message="WHPS $RELEASE_TAG approved source $APPROVED_SHA" -f object="$APPROVED_SHA" -f type=commit --jq .sha)"
+            test -n "$TAG_SHA"
+            gh api --method POST "repos/$GITHUB_REPOSITORY/git/refs" -f ref="refs/tags/$RELEASE_TAG" -f sha="$TAG_SHA" >/dev/null
+            gh api "$REF_PATH" > "$RUNNER_TEMP/tag-ref.json"
+          else
+            echo 'BLOCK: tag check failed; not treating API error as absence'; exit 1
+          fi
+          TAG_SHA="$(jq -r '.object.sha' "$RUNNER_TEMP/tag-ref.json")"
+          jq -e '.object.type=="tag"' "$RUNNER_TEMP/tag-ref.json" >/dev/null || { echo 'BLOCK: tag is not annotated'; exit 1; }
+          gh api "repos/$GITHUB_REPOSITORY/git/tags/$TAG_SHA" > "$RUNNER_TEMP/tag-object.json"
+          jq -e --arg tag "$RELEASE_TAG" --arg sha "$APPROVED_SHA" '.tag==$tag and .object.type=="commit" and .object.sha==$sha' "$RUNNER_TEMP/tag-object.json" >/dev/null || { echo 'BLOCK: tag identity mismatch'; exit 1; }
+      - name: Publish or verify GitHub Release
+        shell: bash
+        run: |
+          set -euo pipefail
+          RELEASE_PATH="repos/$GITHUB_REPOSITORY/releases/tags/$RELEASE_TAG"
+          if gh api "$RELEASE_PATH" > "$RUNNER_TEMP/release.json" 2>"$RUNNER_TEMP/release-error.log"; then
+            echo 'Existing release: verify without modifying it'
+          elif grep -Eq 'HTTP 404|404 Not Found' "$RUNNER_TEMP/release-error.log"; then
+            cp "docs/releases/$RELEASE_TAG.md" "$RUNNER_TEMP/notes.md"
+            {
+              printf '\n## Publication evidence\n\n'
+              printf -- '- Approved source: %s\n' "$APPROVED_SHA"
+              printf -- '- Exact-commit CI: %s\n' "$(cat "$RUNNER_TEMP/ci-url.txt")"
+              printf -- '- Release job: %s/%s/actions/runs/%s\n' "$GITHUB_SERVER_URL" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID"
+              printf -- '- Licence: Apache-2.0, see LICENSE and NOTICE\n'
+            } >> "$RUNNER_TEMP/notes.md"
+            gh release create "$RELEASE_TAG" --verify-tag --title "WHPS $RELEASE_TAG" --notes-file "$RUNNER_TEMP/notes.md"
+            gh api "$RELEASE_PATH" > "$RUNNER_TEMP/release.json"
+          else
+            echo 'BLOCK: release API failed; not treating error as missing'; exit 1
+          fi
+          jq -e --arg tag "$RELEASE_TAG" --arg sha "$APPROVED_SHA" '.tag_name==$tag and .draft==false and .prerelease==false and (.body|contains($sha))' "$RUNNER_TEMP/release.json" >/dev/null || { echo 'BLOCK: released artifact/provenance mismatch'; exit 1; }
+          echo "PASS: immutable $RELEASE_TAG tag and release independently verified"
+          jq -r .html_url "$RUNNER_TEMP/release.json"
