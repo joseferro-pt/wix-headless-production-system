@@ -18,11 +18,11 @@ Make Wix's generated prompt the **immutable technical handoff**, not a substitut
 
 1. Read `AGENTS.md` and `docs/CONTROL-ROOM.md`.
 2. Read `docs/01-OPERATING-MODEL.md` and `docs/02-WIX-HANDOFF.md`.
-3. For a Wix-generated website, save **the exact original Wix prompt** as a plain UTF-8 text file, then run:
+3. Install validator dependencies with `python3 -m pip install -r requirements.txt`. For a Wix-generated website, save **the exact original Wix prompt** as a plain UTF-8 text file, then run:
 
    ```sh
    node scripts/intake-wix-handoff.mjs path/to/wix-prompt.txt ../website-project
-   node scripts/validate-manifest.mjs output/client-project/site.manifest.json
+   node scripts/validate-manifest.mjs ../website-project/site.manifest.json
    ```
 
 4. Inspect the **actual** Wix-downloaded ZIP and the `wix.config.json` it contains before development; compare `siteId` / `appId` with the handoff. Do not initialise a fresh Wix project over a pre-bound project.

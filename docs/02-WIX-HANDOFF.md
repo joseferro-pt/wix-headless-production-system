@@ -8,11 +8,17 @@ The prompt may include a generic brief plus: `https://wix.com/headless/skill.md`
 
 Always invoke the intake tool with an output directory **outside this repository**. The tool's generated handoff, manifests, real identifiers and Wix project source belong solely in the website repository. A system-level sample may use synthetic identifiers for tests.
 
+## Full validation and safe intake
+
+Install `python3 -m pip install -r requirements.txt` before running validation. The validator enforces Draft 2020-12 JSON Schema constraints, requires the preserved original prompt for `wix-handoff`, and validates mode-specific requirements for an `existing-repository` or an `unbound-frontend`.
+
+Intake builds its output in a temporary sibling directory and renames it only after both files are written. The destination must not exist or be within the WHPS toolkit checkout, including through a symlinked parent. No Wix API calls are made.
+
 ## Automated intake
 
 ```sh
 node scripts/intake-wix-handoff.mjs ./incoming/original-wix-prompt.txt ../my-site-repository
-node scripts/validate-manifest.mjs ./clients/my-site/site.manifest.json
+node scripts/validate-manifest.mjs ../my-site-repository/site.manifest.json
 ```
 
 The intake parser:

@@ -9,9 +9,7 @@
     "projectKey",
     "lifecycleState",
     "entryMode",
-    "handoff",
     "business",
-    "wix",
     "site"
   ],
   "properties": {
@@ -118,12 +116,6 @@
     "wix": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "siteId",
-        "clientId",
-        "dashboardUrl",
-        "bindingVerified"
-      ],
       "properties": {
         "siteId": {
           "type": "string",
@@ -181,5 +173,61 @@
         }
       }
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "entryMode": {
+            "const": "wix-handoff"
+          }
+        },
+        "required": [
+          "entryMode"
+        ]
+      },
+      "then": {
+        "required": [
+          "handoff",
+          "wix"
+        ],
+        "properties": {
+          "wix": {
+            "required": [
+              "siteId",
+              "clientId",
+              "dashboardUrl",
+              "bindingVerified"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "entryMode": {
+            "const": "existing-repository"
+          }
+        },
+        "required": [
+          "entryMode"
+        ]
+      },
+      "then": {
+        "required": [
+          "wix"
+        ],
+        "properties": {
+          "wix": {
+            "required": [
+              "siteId",
+              "clientId",
+              "bindingVerified"
+            ]
+          }
+        }
+      }
+    }
+  ]
 }

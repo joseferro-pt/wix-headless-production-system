@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased — WHPS-R01 foundation correction (proposal)
+
+- Enforce JSON Schema Draft 2020-12 with format checking; validate relevant entry modes and fail closed when original Wix handoff is unavailable.
+- Prepare Wix-generated intake atomically and block outputs within the toolkit checkout, including symlinked parents.
+- Harden untrusted ZIP inspection and distinguish a provenance claim from verified origin.
+- Add dependency declaration, failure-path regression tests, and CI installation of validator tooling.
+
 ## Unreleased — system/site boundary separation
 
 - Recast WHPS as a site-agnostic tooling and standards distribution.
