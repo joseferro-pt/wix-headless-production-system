@@ -2,7 +2,7 @@
 
 ## Purpose and scope
 
-This policy concerns versioned **WHPS toolkit distributions**, never Wix website deployments. The toolkit has an approved initial `v0.1.0` release candidate. Confirm its actual publication through GitHub Releases. A merged commit, manifest schema version, or green CI workflow alone **is not** a GitHub Release. R05 will publish the first release only after all approval gates are met.
+This policy concerns versioned **WHPS toolkit distributions**, never Wix website deployments. The first toolkit release [`v0.1.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0) was published on 12 October 2026, targeting approved commit `802acf1b536b502fcacdffc1d6b7ce371aa2d3f7`. A merged commit, manifest schema version or green CI workflow alone **is not** a GitHub Release; future publications still require all acceptance gates.
 
 ## Independent version numbers
 
@@ -11,7 +11,7 @@ This policy concerns versioned **WHPS toolkit distributions**, never Wix website
 - **Wix CLI/SDK/skill versions:** platform dependencies that must be revalidated in a website environment; the toolkit does not freeze Wix's external contracts.
 - **Website version:** entirely within that site's repository and release process. No toolkit release implies a website deploy.
 
-Use [Semantic Versioning](https://semver.org/) as the proposed baseline. Prior to 1.0, an incompatible public interface or schema migration should increment **MINOR** and include a migration note; compatible bug fixes normally increment **PATCH**. Any deliberate MAJOR upgrade should document breaking changes and the support timeline. This policy was implemented in merged R04 and is applied to the v0.1.0 release candidate. The published tag and GitHub Release are verified separately.
+Use [Semantic Versioning](https://semver.org/) as the proposed baseline. Prior to 1.0, an incompatible public interface or schema migration should increment **MINOR** and include a migration note; compatible bug fixes normally increment **PATCH**. Any deliberate MAJOR upgrade should document breaking changes and the support timeline. This policy was implemented in R04 and applied to published v0.1.0. The annotated tag and GitHub Release were independently verified.
 
 ## Release lifecycle and evidence
 
@@ -30,14 +30,14 @@ Do not tag or publish before gates G0–G4. Release assets are optional; if supp
 ## Local preflight commands
 
 ```sh
-python3 -m pip install -r requirements.txt
+python3 -m pip install -r requirements.txt -r requirements-dev.txt
 node scripts/check-repository-boundary.mjs
 node scripts/check-release-readiness.mjs --policy
 node --test tests/*.test.mjs
 python3 -m unittest discover -s tests -p 'test_*.py' -v
 ```
 
-`node scripts/check-release-readiness.mjs --release --version v0.1.0` performs additional **offline prerequisites**. Until licensing is accepted and a real `LICENSE` is committed, it must **fail closed**. A passing local check never proves CI status, a human decision, platform compatibility, tag integrity or a published release. These require separate recorded evidence.
+`node scripts/check-release-readiness.mjs --release --version v0.1.0` performs additional **offline prerequisites**. It must **fail closed** if an accepted licence or matching release-specific changelog is missing. A passing local check never proves CI status, a human decision, platform compatibility, tag integrity or a published release. These require separate recorded evidence.
 
 ## Release record minimum
 
@@ -61,5 +61,5 @@ python3 -m unittest discover -s tests -p 'test_*.py' -v
 
 1. **Licence:** [decision record](13-LICENSING-DECISION.md) accepted; Apache-2.0 terms committed in `LICENSE`.
 2. **GitHub rulesets:** [protection proposal](14-REPOSITORY-PROTECTION.md) remains documented but unimplemented. This open governance exception is disclosed; it does not authorise force pushes.
-3. **First release version:** the first candidate is `v0.1.0`, distinct from `schemaVersion: 0.1.0`. GitHub release existence requires verification.
+3. **First release version:** `v0.1.0` is published and distinct from `schemaVersion: 0.1.0`. Future tags require independent approval and verification.
 4. **Support commitment:** only CI-tested runtime versions and documented issues; no website-specific Wix runtime support guarantee.

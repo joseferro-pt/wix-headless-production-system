@@ -7,7 +7,7 @@
 - The Apache-2.0 R05 candidate was merged as `802acf1b536b502fcacdffc1d6b7ce371aa2d3f7` in PR #6.
 - `Validate production protocol` passed for that exact source commit (run `38252364682`). The original publisher then failed during `git push origin refs/tags/v0.1.0` with GitHub reporting `fatal error in commit_refs` (run `38252394032`).
 - Subsequent commits added CodeQL and an empty funding template; those revisions are **not** the previously approved R05 release candidate.
-- Subsequent publisher runs either failed to confirm the expected `main` head or passed without executing publication steps. As of this review, the API returned no `refs/tags/v0.1.0` and no GitHub Releases.
+- Subsequent publisher runs either failed to confirm the expected `main` head or passed without executing publication steps. At the time of the original R05.1 review, the API showed no `refs/tags/v0.1.0` and no GitHub Releases. Publication was subsequently recovered and verified.
 - No root cause for GitHub's internal tag push rejection has been established. This procedure uses the documented GitHub REST API as an alternative; its success remains subject to actual GitHub permissions and server behaviour.
 
 ## Recovery design
@@ -26,7 +26,13 @@ The job must:
 
 **If GitHub again rejects the tag-reference creation**, stop. Do not change tag targets, force-push, invent a successful release, or try creating a release at an arbitrary new commit. Review the job logs and repository permissions with the owner. A release created manually through GitHub's Releases UI is a possible separate approved fallback, but verify annotated-tag requirements before claiming G5/G6 acceptance.
 
-## Operator procedure (after this change is merged)
+## Verified publication outcome (12 October 2026)
+
+The explicit [R05.1 recovery workflow](https://github.com/joseferro-pt/wix-headless-production-system/actions/runs/38257202876) completed successfully, including both the annotated-tag and GitHub Release steps. The published [`v0.1.0` release](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0) is neither a draft nor a prerelease. Annotated tag object `d1bed61f5f5b731644cb1b0821129514a78c6a93` points to the exact approved source commit `802acf1b536b502fcacdffc1d6b7ce371aa2d3f7`, which passed [CI](https://github.com/joseferro-pt/wix-headless-production-system/actions/runs/38252364682).
+
+**G5 and G6 are satisfied.** The later `main` maintenance commits (including the recovery workflow itself) are not contained in that immutable release. The recovery workflow should not be rerun for routine maintenance or a new version.
+
+## Historical operator procedure (already completed)
 
 1. Verify the PR was merged and the new `main` CI run succeeded.
 2. Go to **Actions → Recover and verify WHPS v0.1.0 → Run workflow**.
@@ -44,4 +50,4 @@ The job must:
 
 ## Acceptance gate
 
-R05.1 is **implemented** when the recovery PR is merged and CI passes. It is **published and verified** only after a successful manual run, observed annotated `v0.1.0` tag resolving to `802acf1b536b502fcacdffc1d6b7ce371aa2d3f7`, a published GitHub Release, and recorded verification evidence.
+**Gate satisfied:** PR #8 merged, the recovery workflow succeeded, and the annotated tag and published GitHub Release match `802acf1b536b502fcacdffc1d6b7ce371aa2d3f7`. Refer to the verified evidence above.

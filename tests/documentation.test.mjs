@@ -44,7 +44,7 @@ test('all relative Markdown document links point to an existing file', async () 
   assert.deepEqual(errors, []);
 });
 
-test('entry documentation separates merged review work from unpublished toolkit release', async () => {
+test('entry documentation distinguishes the published release from unreleased maintenance', async () => {
   const [readme, room, adoption] = await Promise.all([
     readFile(join(root, 'README.md'), 'utf8'),
     readFile(join(root, 'docs/CONTROL-ROOM.md'), 'utf8'),
@@ -53,6 +53,10 @@ test('entry documentation separates merged review work from unpublished toolkit 
   assert.match(readme, /R01[^\n]*merged/i);
   assert.match(readme, /R02[^\n]*merged/i);
   assert.match(room, /WHPS-R04[^\n]*release governance/i);
-  assert.match(adoption, /confirm[^\n]*tag and GitHub Release/i);
+  assert.match(adoption, /published[^\n]*v0\.1\.0/i);
+  assert.ok(adoption.includes('802acf1b536b502fcacdffc1d6b7ce371aa2d3f7'));
+  assert.match(readme, /v0\.1\.0 published 12 October 2026/);
+  assert.match(room, /Published and verified/i);
+  assert.match(room, /WHPS-R05\.2[^\n]*Post-release reconciliation/);
   assert.match(readme, /does \*\*not\*\* download Wix's ZIP/i);
 });

@@ -4,17 +4,23 @@ This file records **toolkit development**, not website deployments. Entries unde
 
 ## Unreleased
 
-### WHPS-R05.1 · Recover release publication (proposed)
+### WHPS-R05.2 · Post-release reconciliation (proposed)
 
-- Replace the failed one-time automatic v0.1.0 publisher with an explicit, idempotent and independently verified manual recovery procedure.
-- Reconcile R05 merge, Apache-2.0 contribution/security guidance and missing publication evidence.
-- Keep the approved R05 source commit unchanged and keep all website projects outside WHPS.
+- Configure grouped weekly Python and GitHub Actions Dependabot updates with CI-tested YAML structure.
+- Reconcile Control Room, release governance, adoption documentation and release verification evidence.
+- Preserve the already published `v0.1.0` source and keep all real websites in independent repositories.
+
+### WHPS-R05.1 · Publication recovery (merged and executed, 2026-10-12)
+
+- Replace the failed automatic publisher with an explicit, verified manual recovery procedure.
+- Successfully publish the v0.1.0 annotated tag and GitHub Release targeting `802acf1b536b502fcacdffc1d6b7ce371aa2d3f7`.
+- See [recovery workflow](https://github.com/joseferro-pt/wix-headless-production-system/actions/runs/38257202876) and [GitHub Release](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0). Recovery code is **unreleased** and not included in the original v0.1.0 snapshot.
 
 - Post-v0.1.0 changes will be documented here.
 
 ## v0.1.0 — 2026-10-12
 
-First toolkit release candidate: Apache-2.0 licensing and the R01–R04 tested offline production-system foundation. See [v0.1.0 release notes](docs/releases/v0.1.0.md). Git tag and GitHub Release must be verified separately.
+First published toolkit release: Apache-2.0 licensing and the R01–R04 validated offline framework. [GitHub Release](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0); source commit `802acf1b536b502fcacdffc1d6b7ce371aa2d3f7`. Later maintenance belongs to **Unreleased** and does not change this tag.
 
 ### WHPS-R04 · Release governance (merged, 2026-10-12)
 

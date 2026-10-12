@@ -7,7 +7,8 @@
 | Node.js | **22.x** | Explicit `actions/setup-node` CI runtime, verified by workflow |
 | Python | **3.12.x** | Explicit `actions/setup-python` CI runtime, verified by workflow |
 | OS | **Ubuntu Linux (GitHub-hosted `ubuntu-latest`)** | Automated CI checks; runner image changes over time |
-| Python package | `jsonschema>=4.23,<5` | Declared dependency, installed and exercised by CI; not pinned to exact patch |
+| Python package | `jsonschema>=4.23,<5` | Runtime dependency, installed and exercised by CI; not pinned to exact patch |
+| Maintainer YAML verification | `PyYAML>=6.0.2,<7` | Development-only `requirements-dev.txt` dependency used for Dependabot configuration tests in CI, **not included in the v0.1.0 release** |
 | Wix Headless platform | Current official Wix skill and Wix CLI/SDK instructions | External authority; **no live Wix integration tested by toolkit CI** |
 | Node.js 20 / 24, Python 3.13, Windows, macOS | Not in official CI matrix | **Not guaranteed**; supplementary local results are not published support commitments |
 

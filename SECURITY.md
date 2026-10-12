@@ -22,7 +22,7 @@ Include a minimal synthetic reproduction, the affected source revision, conditio
 
 ## Supported versions
 
-The Apache-2.0 `v0.1.0` toolkit candidate is merged, but no tag or GitHub Release was visible at the R05.1 review. Treat publication as **pending independent verification**. The early 0.x line is a developer-tooling baseline, not a guarantee of Wix site or long-term compatibility. Later support statements must be backed by actual release evidence.
+The Apache-2.0 [`v0.1.0` release](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0) was published on 12 October 2026 from commit `802acf1b536b502fcacdffc1d6b7ce371aa2d3f7`. It is an early developer-tooling baseline, **not** a promise of long-term support or Wix runtime compatibility. Future support claims require separate release evidence.
 
 ## Detection limitations
 

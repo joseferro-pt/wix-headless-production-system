@@ -14,7 +14,7 @@ WHPS is a **website-independent toolkit**. Contributions should improve reusable
 The initial CI-tested environment is **Node.js 22, Python 3.12, Ubuntu Linux**. See [support policy](docs/12-SUPPORT-COMPATIBILITY.md) before claiming additional compatibility.
 
 ```sh
-python3 -m pip install -r requirements.txt
+python3 -m pip install -r requirements.txt -r requirements-dev.txt
 node scripts/check-repository-boundary.mjs
 node scripts/check-release-readiness.mjs --policy
 node --test tests/*.test.mjs
