@@ -2,6 +2,8 @@ name: Validate production protocol
 on:
   push:
   pull_request:
+permissions:
+  contents: read
 jobs:
   contracts:
     runs-on: ubuntu-latest
@@ -15,6 +17,8 @@ jobs:
           python-version: '3.12'
       - name: Install JSON Schema validator dependency
         run: python -m pip install -r requirements.txt
+      - name: Scan all tracked toolkit files for site identifiers and credentials
+        run: node scripts/check-repository-boundary.mjs
       - name: Test handoff parser and manifest contracts
         run: node --test tests/*.test.mjs
       - name: Check toolkit and website separation

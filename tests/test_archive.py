@@ -47,3 +47,50 @@ class ArchiveAuditTests(unittest.TestCase):
         self.assertEqual(r['status'],'BLOCKED')
 
 if __name__=='__main__': unittest.main()
+
+class ArchiveAdversarialTests(unittest.TestCase):
+    setUp = ArchiveAuditTests.setUp
+    tearDown = ArchiveAuditTests.tearDown
+    """Synthetic malicious archives only: never download client content in toolkit tests."""
+
+    def test_bad_file_names(self):
+        from zipfile import ZipFile
+        paths = ['C:/windows/secrets.txt', '/etc/passwd', 'project/../../escape.txt', 'project\\..\\private.txt']
+        original = self.path.read_bytes()
+        for name in paths:
+            with self.subTest(name=name):
+                self.path.write_bytes(original)
+                with ZipFile(self.path, 'a') as z:
+                    z.writestr(name, 'synthetic malicious path')
+                self.assertEqual(module.audit(self.path, self.manifest, 'unverified')['status'], 'BLOCKED')
+
+    def test_symlink_is_blocked(self):
+        import stat
+        from zipfile import ZipInfo
+        info = ZipInfo('project/link.txt')
+        info.create_system = 3
+        info.external_attr = (stat.S_IFLNK | 0o777) << 16
+        with ZipFile(self.path, 'a') as z: z.writestr(info, '../wherever')
+        result = module.audit(self.path, self.manifest, 'unverified')
+        self.assertIn('Symbolic link', str(result['blockers']))
+
+    def test_member_limit_fails_closed(self):
+        from unittest.mock import patch
+        with patch.object(module, 'MAX_FILES', 1):
+            result = module.audit(self.path, self.manifest, 'unverified')
+        self.assertIn('Too many archive members', str(result['blockers']))
+
+    def test_compression_ratio_fails_closed(self):
+        from zipfile import ZIP_DEFLATED
+        with ZipFile(self.path, 'a') as z:
+            z.writestr('project/compressed.dat', b'x' * (2 * 1024 * 1024), compress_type=ZIP_DEFLATED)
+        result = module.audit(self.path, self.manifest, 'unverified')
+        self.assertIn('Extreme compression ratio', str(result['blockers']))
+
+    def test_corrupt_config_cannot_pass(self):
+        with ZipFile(self.path, 'w') as z:
+            z.writestr('project/index.html', '<p>Test</p>')
+            z.writestr('project/wix.config.json', '{invalid json}')
+        result = module.audit(self.path, self.manifest, 'wix-original')
+        self.assertEqual(result['status'], 'BLOCKED')
+        self.assertFalse(result['identityMatchesHandoff'])

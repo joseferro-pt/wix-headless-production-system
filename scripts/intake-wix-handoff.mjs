@@ -9,9 +9,11 @@ const systemRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
 export function parseHandoff(text) {
   const grab = (pattern, label) => {
-    const match = text.match(pattern);
-    if (!match) throw new Error(`Missing ${label} in Wix handoff`);
-    return match[1];
+    const matches = [...text.matchAll(new RegExp(pattern.source, [...new Set((pattern.flags + 'g').split(''))].join('')))];
+    if (!matches.length) throw new Error(`Missing ${label} in Wix handoff`);
+    if (new Set(matches.map(m => m[1].toLowerCase())).size !== 1)
+      throw new Error(`MISMATCH: conflicting ${label} values in Wix handoff`);
+    return matches[0][1];
   };
   const uuid = '([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})';
   const siteId = grab(new RegExp(`My\\s+Wix\\s+Site\\s+ID\\s+is\\s*:\\s*${uuid}`, 'i'), 'Site ID');

@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased — WHPS-R02 verification and security (proposal)
+
+- Add Git-indexed scanner across hidden workflow and source files for non-synthetic identifiers and high-confidence credential signatures, without leaking detected values.
+- Add deterministic identity/path property-style tests, conflicting handoff identity rejection, negative manifest/archive cases and symlinked original-handoff protection.
+- Add guard to CI with read-only token permissions; document coverage limits and independent per-site security testing.
+
+
 ## Unreleased — WHPS-R01 foundation correction (proposal)
 
 - Enforce JSON Schema Draft 2020-12 with format checking; validate relevant entry modes and fail closed when original Wix handoff is unavailable.
