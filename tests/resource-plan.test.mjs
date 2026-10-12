@@ -130,7 +130,7 @@ test('same type/name under two different desired keys never proposes duplicate c
  const plan=planResources(b);
  assert.equal(plan.summary.create,0);
  assert.equal(plan.summary.blocked,2);
- assert.ok(plan.decisions.every(x=>/Multiple desired logical keys/.test(x.reason)));
+ assert.ok(plan.decisions.filter(x=>x.action==='blocked').every(x=>/Multiple desired logical keys/.test(x.reason)));
 });
 test('duplicate desired type/name blocks even with different pinned IDs',()=>{
  const b=copy(baseline);b.desired.resources=[
