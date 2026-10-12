@@ -2,7 +2,7 @@
 
 ## Current evidence
 
-During R04/R05 inspection, GitHub reported **zero repository rulesets**. The connector cannot confirm classic branch-protection settings through its current permissions; treat those as **unverified**, not disabled. This document proposes settings but does not apply them.
+During the R05.1 inspection, GitHub still reported **zero repository rulesets**. The connector cannot confirm classic branch-protection settings through its current permissions; treat those as **unverified**, not disabled. This document proposes settings but does not apply them.
 
 ## Recommended `main` rules
 

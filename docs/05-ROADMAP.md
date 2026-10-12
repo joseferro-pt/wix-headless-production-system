@@ -10,9 +10,10 @@ This roadmap contains **only WHPS tooling and governance** work. Real websites h
 | WHPS-R02 | Strengthen negative tests and repo boundary scanning | **Merged**, CI passed | PR #3 |
 | WHPS-R03 | Consolidate authority, terminology and documentation | **Merged**, CI passed | PR #4 |
 | WHPS-R04 | Establish licence, security, contribution, runtime and release governance | **Merged**, CI passed | PR #5; owner selected Apache-2.0 for R05 |
-| WHPS-R05 | Publish first verified toolkit foundation | **Candidate under review** | `v0.1.0` release PR, successful exact-SHA CI, annotated tag, GitHub Release verification |
+| WHPS-R05 | Publish first verified toolkit foundation | **Candidate merged; publishing failed** | PR #6, passed exact-SHA checks, tag and GitHub Release still missing |
+| WHPS-R05.1 | Recover publication and reconcile repository readiness | **In review** | Explicit manual recovery, verified annotated tag and GitHub Release, current security and policy records |
 
-Apache-2.0 is accepted for the toolkit. `v0.1.0` is the release candidate; confirm whether a release has actually been published via GitHub Releases. The manifest `0.1.0` schema version remains independent.
+Apache-2.0 is accepted for the toolkit. `v0.1.0` is the release candidate; the initial publication failed. Follow the [R05.1 recovery procedure](15-PUBLICATION-RECOVERY.md) and verify both Git tag and GitHub Release before claiming publication. The manifest `0.1.0` schema version remains independent.
 
 ## Later system-development work packets
 

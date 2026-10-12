@@ -15,7 +15,7 @@ The Wix-generated handoff establishes technical identity, **not** verified busin
 - **R01:** foundation corrections merged: schema-aware validation, atomic intake, ZIP safeguards.
 - **R02:** verification improvements merged: synthetic negative tests and tracked-content security guard.
 - **R03:** documentation consolidation merged; policy and status terminology reconciled.
-- **R04:** merged into `main`; release governance and policy checks in place. **R05:** v0.1.0 release candidate; GitHub publication is verified separately.
+- **R04:** merged into `main`; release governance and policy checks in place. **R05:** candidate merged (PR #6); first publication failed. **R05.1:** manual recovery workflow and repository-readiness corrections are under review.
 - **Toolkit release candidate:** `v0.1.0`. The manifest schema remains separately versioned as `0.1.0`. Do not infer that a tag or GitHub Release exists until [the release page](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0) is confirmed.
 - **Licence:** [Apache-2.0](LICENSE), with repository copyright attribution in [NOTICE](NOTICE). This does not license Wix-owned code or independently managed websites.
 
@@ -66,7 +66,7 @@ Start with the [documentation map](docs/00-DOCUMENTATION-MAP.md), then the [syst
 - [Accepted Apache-2.0 licence decision](docs/13-LICENSING-DECISION.md)
 - [Branch and tag protection proposal](docs/14-REPOSITORY-PROTECTION.md)
 
-Apache-2.0 is accepted. GitHub protection settings remain proposed, not applied. The [v0.1.0 release record](docs/releases/v0.1.0.md) describes the R05 candidate and publication prerequisites.
+Apache-2.0 is accepted. GitHub protection settings remain proposed, not applied. The [v0.1.0 release record](docs/releases/v0.1.0.md) describes the approved candidate and the [R05.1 recovery procedure](docs/15-PUBLICATION-RECOVERY.md) describes the explicit manual release and verification gates.
 
 ## Official Wix references
 
