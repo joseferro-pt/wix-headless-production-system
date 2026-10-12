@@ -1,33 +1,35 @@
-# 05 — Implementation roadmap
+# Roadmap — production system, not a website
 
-## WHPS-001 — Authority, intake and manifest [FOUNDATION PREPARED]
+Only WHPS **tooling** and **standards** belong in this roadmap. Individual site tasks must not appear here.
 
-Deliverables: this system baseline, exact-prompt parser, JSON Schema, resource registry contract, process/QA/approval rules, dry-run tests. Exit condition: agent can parse Wix's prompt without changing a user's site.
+## WHPS-001 — Foundation [BASELINE PUBLISHED]
+- Protocol, handoff parser, manifest schemas, read-only archive audit, synthetic fixtures and initial CI.
+- Scope reconciliation and system/site separation introduced in the next proposed change.
 
-## WHPS-002 — Validate against a real Wix project [NEXT]
+## WHPS-002 — Offline website repository bootstrap [NEXT]
+- Generate a site-local manifest, project AGENTS, business brief and Control Room **outside this toolkit checkout**.
+- Accept the Wix handoff and existing ZIP without provisioning another Wix site.
+- Verify source lineage, Wix IDs and output configuration without downloading live customer content.
+- Test with synthetic fixtures only; publish a consumable version of the toolkit.
 
-1. Acquire the real Wix-generated blank-site ZIP for the existing example site.
-2. Read only; list files, package manager, framework, Wix config and deployment settings with `python scripts/audit-wix-archive.py ./original.zip ./client/site.manifest.json --provenance wix-original`.
-3. Compare config IDs to handoff; log any divergence, do not 'fix' by creating a new site.
-4. Write an import pilot report and file manifest (hashes, sizes, risks).
-5. Decide whether the starter should be a thin overlay or framework-specific package.
+## WHPS-003 — Wix resource planner [PLANNED]
+- Pure desired-versus-observed diff, safe dry-run actions, schema verification and idempotency tests.
+- No actual Wix writes in the WHPS repo; site adapters and approved mutations run from client projects.
 
-## WHPS-003 — Wix reconciliation engine [PLANNED]
+## WHPS-004 — Reusable frontend primitives [PLANNED]
+- Accessibility, typography, navigation, form states, SEO and error handling distributed as reusable code/templates.
+- Framework-specific modules with documented compatibility, not a single universal site built into WHPS.
 
-Read-only import of actual installed apps and resources, compare with intended integrations, produce a dry-run delta. Only implement writes after exact API contracts and approval rules are settled.
+## WHPS-005 — Quality framework [PLANNED]
+- Contract tests, artifact checks, synthetic integration fixtures, security scanning and optional visual test guidance.
+- Per-client CI pipelines are generated in their own repositories; global CI never deploys websites.
 
-## WHPS-004 — Starter architecture [PLANNED]
+## WHPS-006 — Distribution and compatibility [PLANNED]
+- Version/tag adoption, semantic versioning, release notes, upgrades and migration checks.
+- Document compatibility with upstream Wix CLI, SDK and skill revisions.
 
-Build reusable navigation, layout, form states, SEO, design tokens and error boundaries *on top of* the framework shipped in the actual Wix project. Avoid creating an unrelated static clone.
+## WHPS-007 — Governance and maintainability [PLANNED]
+- CONTRIBUTING, SECURITY, license policy, decision records, supported runtimes and maintenance cadence.
 
-## WHPS-005 — Automated QA [PLANNED]
-
-Contract validation, fast build checks and optional Playwright/visual tests based on the real framework and access. Clearly separate headless API integration tests from browser/production acceptance.
-
-## WHPS-006 — GitHub and release pilot [PLANNED]
-
-Publish this system as a dedicated GitHub repo; add branch protections if available; test a sample project checkout; make a preview and deliberate release with observed URLs. Avoid using an unrelated existing repository.
-
-## Pilot outcome to target
-
-With nothing more than the exact Wix-generated prompt and an accessible archive, intake should identify the existing Wix project, preserve its identity, produce a versioned specification, implement and validate changes, and return evidence of an approved live release. No duplicate Wix sites and no silent backend side effects.
+## Acceptance criterion
+A user can adopt a tagged WHPS release in a new, independent website repository, complete its lifecycle and upgrade the tools without WHPS containing that site's identity, content, code or production records.

@@ -1,6 +1,14 @@
 # AGENTS.md — Wix Headless Production Protocol
 
-Applies to AI coding agents operating the production system or individual websites created from it. This is an **overlay** on official Wix instructions, not a substitute for them.
+**This file governs the WHPS toolkit repository only.** For a website repository, use `blueprints/site/AGENTS.md` and its adopted system-version record. The toolkit provides reusable rules and tools; it never becomes a client's deployment workspace. This is an **overlay** on official Wix instructions, not a substitute for them.
+
+## System-only invariant
+
+- This checkout is NEVER a Wix site deployment target. Do not log into a client's Wix account, run `wix release`, download private client assets, seed live Wix data or create project-specific records here.
+- Keep only **synthetic** example identifiers and fixtures. Never add a real client's `wix.config.json`, business brief, handoff, backend IDs, project decisions, evidence, screenshots, production URLs or release reports.
+- Site-generated output must be written **outside** this checkout, into an independent website repository or temporary sandbox; the toolkit may supply templates and CLI routines, but not a central clients directory.
+- Treat project adoption as versioned: record the toolkit version/tag in the website repository, and update deliberately. No automatic uncontrolled cross-project rollout.
+- System CI uses synthetic fixtures only and must never require real Wix authentication or deployment credentials.
 
 ## Read order and authority
 

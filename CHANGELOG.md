@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased — system/site boundary separation
+
+- Recast WHPS as a site-agnostic tooling and standards distribution.
+- Move the site-specific pilot report out of the current repository tree.
+- Replace project-specific milestones with synthetic contract tests and system packaging.
+- Add generic site-repository blueprints, adoption guidance and a repository-boundary CI guard.
+- Preserve the original v0.1 baseline commit and history; this change does not rewrite prior Git history.
+
 ## 0.1.0 — 2026-10-12
 
 - Established Wix handoff-first production overlay, authority map and stage gates.

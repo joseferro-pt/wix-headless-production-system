@@ -14,3 +14,8 @@ incoming/
 __pycache__/
 *.py[cod]
 .pytest_cache/
+sites/
+client-projects/
+generated/
+artifacts/
+.whps-workspace/
