@@ -23,6 +23,10 @@ An existing repository must not be used as the output destination. Continue the 
 
 WHPS-002 is developing an offline website-repository bootstrap with a recorded, exact WHPS version. **This automation is not in v0.1.0 and remains unreleased.** Later upgrades still require a decision in each independent website repository. No automatic change propagation is permitted.
 
+## Site-local resource reconciliation
+
+The unreleased [WHPS-003 resource planner](17-READ-ONLY-RESOURCE-PLANNER.md) accepts a strict desired/observed metadata bundle from an independent website repository. Its offline JSON proposal does not authorise creating, updating or retiring Wix resources. Snapshot collection, approval and any backend changes remain website-local.
+
 ## Three entry modes
 
 - `wix-handoff`: Wix-created identity and downloaded project, with preserved prompt.

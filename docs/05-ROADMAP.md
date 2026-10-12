@@ -21,14 +21,16 @@ Apache-2.0 is accepted and the first WHPS toolkit release [`v0.1.0`](https://git
 | ID | Deliverable | Status |
 |---|---|---|
 | WHPS-001 | Original framework, docs and first safety tooling | Baseline present, subsequently corrected in R01/R02 |
-| WHPS-002 | Generic offline website repository bootstrap outside WHPS | **In development**, PR review pending; not in v0.1.0 |
-| WHPS-003 | Pure desired-vs-observed Wix resource reconciliation planner | Planned |
+| WHPS-002 | Generic offline website repository bootstrap outside WHPS | **Merged**, CI passed; not in v0.1.0 |
+| WHPS-003 | Pure desired-vs-observed Wix resource reconciliation planner | **In development**, PR review pending; not in v0.1.0 |
 | WHPS-004 | Framework-specific reusable frontend building blocks | Planned |
 | WHPS-005 | Automated quality guidance and contract tests for adopters | Planned |
 | WHPS-006 | Versioned distribution and explicit adoption/migration process | Planned |
 | WHPS-007 | Sustainable maintenance, contributing, security and compatibility guidance | Governance baseline merged in R04; further work later |
 
 WHPS-002 must support the separate-site architecture without invoking Wix backend writes or deploying real sites from the WHPS repository. See [the WHPS-002 offline bootstrap contract](16-SITE-WORKSPACE-BOOTSTRAP.md). The pre-existing Wix handoff CLI still performs **offline manifest intake only**. The separate WHPS-002 development CLI can initialise a new local Git repository and copy generic site blueprints, but does not download a Wix template, handle existing repository adoption or create a remote.
+
+WHPS-003 is intentionally an [offline, read-only planner](17-READ-ONLY-RESOURCE-PLANNER.md). It does not query Wix, claim snapshot provenance, infer unsafe deletions or implement resource-specific Wix operations. Real observations and plan approval belong to independent website repositories.
 
 ## Product completion criterion
 
