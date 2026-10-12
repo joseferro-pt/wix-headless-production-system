@@ -53,7 +53,7 @@ python3 -m unittest discover -s tests -p 'test_*.py' -v
 
 - All system modifications use PRs against `main`, no direct production site actions.
 - Prefer fast-forward-compatible changes and reviewed merges; do not rewrite published release tags.
-- An incorrect release requires a corrective release/advisory, not silent repointing of a public tag.
+- An incorrect release requires a corrective release/advisory, not silent repointing of a public tag. For R05.1 use the [explicit recovery procedure](15-PUBLICATION-RECOVERY.md); a green skipped publication job is not a published release.
 - Site repositories adopt a **specific tag plus commit** after release, independently. Toolkit updates do not fan out to sites automatically.
 - For severe security problems, follow [SECURITY](../SECURITY.md) and the separate incident procedure; public history deletion is never a routine release step.
 

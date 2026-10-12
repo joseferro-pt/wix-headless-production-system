@@ -22,7 +22,7 @@ Include a minimal synthetic reproduction, the affected source revision, conditio
 
 ## Supported versions
 
-No versioned WHPS toolkit release has been published yet. The main branch is **development-only**, not a long-term supported release line. A support window will be declared in the first release notes during R05, based on the approved compatibility policy.
+The Apache-2.0 `v0.1.0` toolkit candidate is merged, but no tag or GitHub Release was visible at the R05.1 review. Treat publication as **pending independent verification**. The early 0.x line is a developer-tooling baseline, not a guarantee of Wix site or long-term compatibility. Later support statements must be backed by actual release evidence.
 
 ## Detection limitations
 

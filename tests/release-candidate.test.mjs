@@ -19,13 +19,13 @@ test('first release notes are honest about schema and site deployment',async()=>
  assert.match(notes,/not.*production-complete website generator/i);
  assert.match(notes,/cannot independently prove Wix source provenance/i);
 });
-test('one-time publish workflow requires main CI success and exact merge commit',async()=>{
+test('manual release recovery requires exact approved source and permission gate', async()=>{
  const workflow=await get('.github/workflows/publish-v0.1.0.yml');
- assert.match(workflow,/workflow_run:/);
- assert.match(workflow,/head_branch == 'main'/);
- assert.match(workflow,/workflow_run\.conclusion == 'success'/);
- assert.match(workflow,/workflow_run\.event == 'push'/);
+ assert.match(workflow,/workflow_dispatch:/);
+ assert.doesNotMatch(workflow,/workflow_run:/);
+ assert.match(workflow,/PUBLISH-v0\.1\.0/);
+ assert.match(workflow,/802acf1b536b502fcacdffc1d6b7ce371aa2d3f7/);
  assert.match(workflow,/check-release-readiness\.mjs --release --version v0\.1\.0/);
- assert.match(workflow,/git tag -a v0\.1\.0/);
- assert.match(workflow,/gh release create v0\.1\.0/);
+ assert.match(workflow,/gh api --method POST/);
+ assert.match(workflow,/gh release create/);
 });

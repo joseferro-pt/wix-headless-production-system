@@ -4,6 +4,12 @@ This file records **toolkit development**, not website deployments. Entries unde
 
 ## Unreleased
 
+### WHPS-R05.1 · Recover release publication (proposed)
+
+- Replace the failed one-time automatic v0.1.0 publisher with an explicit, idempotent and independently verified manual recovery procedure.
+- Reconcile R05 merge, Apache-2.0 contribution/security guidance and missing publication evidence.
+- Keep the approved R05 source commit unchanged and keep all website projects outside WHPS.
+
 - Post-v0.1.0 changes will be documented here.
 
 ## v0.1.0 — 2026-10-12

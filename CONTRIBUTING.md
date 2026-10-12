@@ -7,7 +7,7 @@ WHPS is a **website-independent toolkit**. Contributions should improve reusable
 1. Read [agent guidance](AGENTS.md), [system boundaries](docs/06-SYSTEM-BOUNDARIES.md), [authority and decisions](docs/10-AUTHORITY-AND-DECISIONS.md), and [release governance](docs/11-RELEASE-GOVERNANCE.md).
 2. Confirm that your change belongs in WHPS rather than an independent website repository.
 3. Check current GitHub issues/PRs for related work, or open a scoped issue for larger changes. Do **not** disclose security vulnerabilities in public issues.
-4. **Licensing is still under review.** Public GitHub visibility does not grant permission to redistribute or modify this repository. External contributions should wait for an accepted licence and any accompanying contribution terms; no licence grant is implied by this file.
+4. **Licensing is accepted:** original WHPS material is distributed under [Apache License 2.0](LICENSE). Contributors must have the right to submit their work, preserve applicable notices and avoid including third-party Wix or client materials. The Apache-2.0 terms, rather than public repository visibility, govern redistribution.
 
 ## Development environment
 

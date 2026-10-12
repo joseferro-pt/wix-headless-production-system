@@ -12,6 +12,7 @@ WHPS has **one system repository** and any number of independently owned website
 6. [Terminology](09-TERMINOLOGY.md): consistent status, release and entry-mode names.
 7. [Release governance](11-RELEASE-GOVERNANCE.md): candidate gates, tags, documentation and release evidence.
 8. [Support and compatibility](12-SUPPORT-COMPATIBILITY.md), [licence decision](13-LICENSING-DECISION.md), [repository protection](14-REPOSITORY-PROTECTION.md): distribution prerequisites.
+9. [Publication recovery](15-PUBLICATION-RECOVERY.md): R05.1 manual release repair and independent verification.
 
 ## Reference by task
 

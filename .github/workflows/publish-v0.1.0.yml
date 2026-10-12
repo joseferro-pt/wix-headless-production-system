@@ -1,54 +1,67 @@
-name: Publish WHPS v0.1.0
+name: Recover and verify WHPS v0.1.0
 
-# Explicitly one initial-release marker in an approved main merge. Never deploy Wix sites.
+# WHPS-R05.1: explicitly authorised recovery. Never triggered by a routine push.
+# This workflow does not access Wix or any website repository.
 on:
-  workflow_run:
-    workflows: ["Validate production protocol"]
-    types: [completed]
+  workflow_dispatch:
+    inputs:
+      approval:
+        description: 'Type PUBLISH-v0.1.0 to approve this one-time recovery'
+        type: string
+        required: true
+
 permissions:
   contents: read
+
+concurrency:
+  group: whps-v0.1.0-publication
+  cancel-in-progress: false
+
 jobs:
   publish:
-    if: >-
-      github.event.workflow_run.conclusion == 'success' &&
-      github.event.workflow_run.event == 'push' &&
-      github.event.workflow_run.head_branch == 'main'
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 15
     permissions:
       contents: write
+      actions: read
+    env:
+      GH_TOKEN: ${{ github.token }}
+      RELEASE_TAG: v0.1.0
+      # Immutable R05-approved merge commit; subsequent CodeQL/FUNDING commits are NOT this release.
+      APPROVED_SHA: 802acf1b536b502fcacdffc1d6b7ce371aa2d3f7
+      APPROVAL: ${{ inputs.approval }}
     steps:
-      - name: Checkout exact green main commit
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.workflow_run.head_sha }}
-          fetch-depth: 2
-      - name: Confirm only the approved R05 merge can publish
-        id: candidate
-        env:
-          SOURCE_SHA: ${{ github.event.workflow_run.head_sha }}
+      - name: Confirm explicit approval and default branch
         shell: bash
         run: |
           set -euo pipefail
-          git fetch origin main --depth=2
-          test "$(git rev-parse HEAD)" = "$SOURCE_SHA"
-          test "$(git rev-parse origin/main)" = "$SOURCE_SHA"
-          if git diff --name-only HEAD^1 HEAD | grep -Fxq 'docs/releases/v0.1.0.md'; then
-            echo "eligible=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "No R05 release marker in this main change: no publication"
-            echo "eligible=false" >> "$GITHUB_OUTPUT"
-          fi
+          test "$APPROVAL" = 'PUBLISH-v0.1.0' || { echo 'BLOCK: explicit approval text does not match'; exit 1; }
+          test "$GITHUB_REF" = 'refs/heads/main' || { echo 'BLOCK: run recovery on main'; exit 1; }
+      - name: Check out the approved R05 release candidate
+        uses: actions/checkout@v4
+        with:
+          ref: 802acf1b536b502fcacdffc1d6b7ce371aa2d3f7
+          fetch-depth: 0
+          persist-credentials: false
       - uses: actions/setup-node@v4
-        if: steps.candidate.outputs.eligible == 'true'
         with:
           node-version: '22'
       - uses: actions/setup-python@v5
-        if: steps.candidate.outputs.eligible == 'true'
         with:
           python-version: '3.12'
-      - name: R05 offline release gate
-        if: steps.candidate.outputs.eligible == 'true'
+      - name: Verify immutable source and passing push validation
+        id: source
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$APPROVED_SHA" || { echo 'BLOCK: wrong source revision'; exit 1; }
+          git fetch origin main
+          git merge-base --is-ancestor "$APPROVED_SHA" origin/main || { echo 'BLOCK: approved source is not in main history'; exit 1; }
+          gh api "repos/${GITHUB_REPOSITORY}/actions/workflows/validate.yml/runs?head_sha=${APPROVED_SHA}&event=push&per_page=100" > "$RUNNER_TEMP/approved-ci.json"
+          jq -e --arg sha "$APPROVED_SHA" '[.workflow_runs[] | select(.head_sha == $sha and .event == "push" and .conclusion == "success")] | length > 0' "$RUNNER_TEMP/approved-ci.json" >/dev/null || { echo 'BLOCK: approved revision has no successful push validation'; exit 1; }
+          jq -r --arg sha "$APPROVED_SHA" '[.workflow_runs[] | select(.head_sha == $sha and .event == "push" and .conclusion == "success") | .html_url][0]' "$RUNNER_TEMP/approved-ci.json" > "$RUNNER_TEMP/validation-url.txt"
+          test -s "$RUNNER_TEMP/validation-url.txt"
+      - name: Re-run offline release prerequisites on the approved revision
         shell: bash
         run: |
           set -euo pipefail
@@ -57,33 +70,58 @@ jobs:
           node scripts/check-release-readiness.mjs --release --version v0.1.0
           node --test tests/*.test.mjs
           python -m unittest discover -s tests -p 'test_*.py' -v
-      - name: Create annotated tag and GitHub Release
-        if: steps.candidate.outputs.eligible == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-          SOURCE_SHA: ${{ github.event.workflow_run.head_sha }}
-          VALIDATION_URL: ${{ github.event.workflow_run.html_url }}
+      - name: Recover annotated tag without overwriting any existing reference
         shell: bash
         run: |
           set -euo pipefail
-          if git ls-remote --exit-code --tags origin 'refs/tags/v0.1.0' >/dev/null 2>&1; then
-            echo 'v0.1.0 tag already exists: verify it manually; refusing to overwrite'
+          REF_PATH="repos/${GITHUB_REPOSITORY}/git/ref/tags/${RELEASE_TAG}"
+          if gh api "$REF_PATH" > "$RUNNER_TEMP/tag-ref.json" 2> "$RUNNER_TEMP/tag-error.log"; then
+            echo 'Existing tag found: will verify its object, never update it'
+          elif grep -Eq 'HTTP 404|404 Not Found' "$RUNNER_TEMP/tag-error.log"; then
+            echo 'Tag missing: creating a new annotated tag object and reference'
+            TAG_SHA="$(gh api --method POST "repos/${GITHUB_REPOSITORY}/git/tags" \
+              -f tag="$RELEASE_TAG" \
+              -f message="WHPS v0.1.0 approved R05 source $APPROVED_SHA" \
+              -f object="$APPROVED_SHA" -f type=commit --jq .sha)"
+            test -n "$TAG_SHA"
+            gh api --method POST "repos/${GITHUB_REPOSITORY}/git/refs" \
+              -f ref="refs/tags/${RELEASE_TAG}" -f sha="$TAG_SHA" > /dev/null
+            gh api "$REF_PATH" > "$RUNNER_TEMP/tag-ref.json"
+          else
+            echo 'BLOCK: could not inspect existing tag; refusing to treat an API error as absence'
             exit 1
           fi
-          if gh release view v0.1.0 >/dev/null 2>&1; then
-            echo 'v0.1.0 GitHub Release already exists: refusing to recreate'
+          TAG_OBJECT_SHA="$(jq -r '.object.sha' "$RUNNER_TEMP/tag-ref.json")"
+          jq -e '.object.type == "tag"' "$RUNNER_TEMP/tag-ref.json" >/dev/null || { echo 'BLOCK: tag reference is not annotated'; exit 1; }
+          gh api "repos/${GITHUB_REPOSITORY}/git/tags/${TAG_OBJECT_SHA}" > "$RUNNER_TEMP/tag-object.json"
+          jq -e --arg sha "$APPROVED_SHA" --arg tag "$RELEASE_TAG" \
+            '.tag == $tag and .object.type == "commit" and .object.sha == $sha' \
+            "$RUNNER_TEMP/tag-object.json" >/dev/null || { echo 'BLOCK: existing tag is not on the approved commit'; exit 1; }
+      - name: Publish GitHub Release if missing; then independently verify
+        shell: bash
+        run: |
+          set -euo pipefail
+          RELEASE_PATH="repos/${GITHUB_REPOSITORY}/releases/tags/${RELEASE_TAG}"
+          if gh api "$RELEASE_PATH" > "$RUNNER_TEMP/release.json" 2> "$RUNNER_TEMP/release-error.log"; then
+            echo 'Existing GitHub Release found: verifying, not modifying'
+          elif grep -Eq 'HTTP 404|404 Not Found' "$RUNNER_TEMP/release-error.log"; then
+            cp docs/releases/v0.1.0.md "$RUNNER_TEMP/whps-v0.1.0-notes.md"
+            {
+              printf '\n## Publication evidence\n\n'
+              printf -- '- Approved source commit: `%s`\n' "$APPROVED_SHA"
+              printf -- '- Successful exact-commit CI: %s\n' "$(cat "$RUNNER_TEMP/validation-url.txt")"
+              printf -- '- Licence: Apache-2.0, see source LICENSE and NOTICE\n'
+              printf -- '- Publication recovery workflow: %s\n' "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+            } >> "$RUNNER_TEMP/whps-v0.1.0-notes.md"
+            gh release create "$RELEASE_TAG" --verify-tag --title 'WHPS v0.1.0' \
+              --notes-file "$RUNNER_TEMP/whps-v0.1.0-notes.md"
+            gh api "$RELEASE_PATH" > "$RUNNER_TEMP/release.json"
+          else
+            echo 'BLOCK: could not inspect existing release; refusing to treat an API error as absence'
             exit 1
           fi
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git tag -a v0.1.0 -m "WHPS v0.1.0 approved source $SOURCE_SHA"
-          git push origin refs/tags/v0.1.0
-          cp docs/releases/v0.1.0.md "$RUNNER_TEMP/whps-release-notes.md"
-          {
-            printf '\n## Verified publication provenance\n\n'
-            printf -- '- Source commit: `%s`\n' "$SOURCE_SHA"
-            printf -- '- Exact-commit validation: %s\n' "$VALIDATION_URL"
-            printf -- '- Licence: Apache-2.0 (LICENSE and NOTICE at the source revision)\n'
-          } >> "$RUNNER_TEMP/whps-release-notes.md"
-          gh release create v0.1.0 --verify-tag --title 'WHPS v0.1.0' --notes-file "$RUNNER_TEMP/whps-release-notes.md"
-          gh release view v0.1.0 --json url,tagName,isDraft,isPrerelease,targetCommitish
+          jq -e --arg tag "$RELEASE_TAG" --arg sha "$APPROVED_SHA" \
+            '.tag_name == $tag and .draft == false and .prerelease == false and (.body | contains($sha))' \
+            "$RUNNER_TEMP/release.json" >/dev/null || { echo 'BLOCK: publication provenance cannot be verified'; exit 1; }
+          echo "PASS: annotated $RELEASE_TAG tag resolves to the approved source; the GitHub Release exists and records the source SHA"
+          jq -r '.html_url' "$RUNNER_TEMP/release.json"
