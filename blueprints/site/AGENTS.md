@@ -1,21 +1,26 @@
-# Website AGENTS.md — template
+# Site AGENTS.md — generic blueprint
 
-This template belongs in a **single website repository**, not the WHPS production-system repo.
+**Copy and customise in one independent website repository.** This file in WHPS is only a template: never add real Wix site identifiers, client facts or deployment evidence to the toolkit source.
 
-## Authorities
-1. Explicit business requirements and accepted decisions.
-2. Original Wix handoff and the actual website-local `wix.config.json`.
-3. Current Wix Headless skill, SDK and CLI documentation.
-4. This site's approved brief, designs, content, Wix registry and tests.
-5. The adopted tagged WHPS release and its reusable guidance.
+## Authority by domain
 
-## Site operation
-- Read the existing Wix binding and backend state before generating resources.
-- Never create a replacement Wix site when this repository is already bound to one.
-- Keep all real Wix IDs, site artifacts, business facts, design files, code and release records **in this repository**, never upstream in WHPS.
-- Verify source, build output, integration and permissions before a production release.
-- Keep secrets in secure environment variables, never Git or logs.
-- Record the toolkit version in a site-local version record and upgrade deliberately.
+1. User/client-approved outcomes and factual business brief govern what the website should say and do.
+2. Current official Wix Headless/CLI/SDK technical references govern Wix integration behaviour.
+3. The original Wix handoff, actual `wix.config.json` and verified Wix backend observations must reconcile for identity and resource operations.
+4. This website's accepted code, content, designs, tests and decision records govern its implementation.
+5. The explicitly pinned WHPS **Git SHA** or, after a release has actually been published, approved release tag supplies reusable tooling guidance. It cannot overrule Wix API contracts or client approvals.
 
-## Deployment
-Build and release only from this website's own project checkout, following the current Wix instructions. Never deploy from the WHPS toolkit repository.
+Follow the full system decision model: `docs/10-AUTHORITY-AND-DECISIONS.md` in the adopted WHPS source.
+
+## Site-only operations
+
+- Keep Wix site/client IDs, original prompt/archive, media, business facts, resource registry, release logs and approvals in **this site's repository**; never push them upstream into WHPS.
+- Investigate a mismatching Wix binding rather than provisioning another site.
+- Review read-only Wix resource state before any authorised mutation; do not create duplicate forms, apps or CMS collections.
+- Keep Wix session secrets and API tokens in a secure environment, never source control or logs.
+- Record the WHPS revision adopted here; update only through reviewed, site-specific changes.
+- Build and release only from this site project using its applicable Wix hosting path and permissions.
+
+## Evidence
+
+A passing WHPS toolkit test is not a site build or deploy. Record actual site QA, operator approval, release command result and post-release verification in this website repository's Control Room.

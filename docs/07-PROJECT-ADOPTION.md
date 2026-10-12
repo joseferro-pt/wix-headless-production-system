@@ -1,21 +1,25 @@
-# Adoption by an independent website repository
+# 07 — Adoption by an independent website repository
 
-## Preflight
-1. Create or identify an independent **website repository**, separate from WHPS.
-2. Keep the user's exact Wix-generated prompt and downloaded archive there; inspect and validate the existing Wix binding.
-3. Select an explicit WHPS version/tag and record it in the website-local documentation.
-4. Copy or generate site-local AGENTS, Control Room and business brief from the reusable blueprints.
-5. Complete site-specific requirements and decisions in the website repository, not in WHPS.
-6. Follow the current official Wix skill for the actual managed create/connect/iterate path.
-7. Run tests, obtain production approval as required, release from the website checkout and record verified outcomes there.
+WHPS is a **toolkit**, not the parent Git repository for websites. Each website checkout is independently owned and deployable. See [system boundaries](06-SYSTEM-BOUNDARIES.md) and [the operating model](01-OPERATING-MODEL.md).
 
-## Version pinning
-Initially, record the WHPS Git tag and commit manually in the site repository. Later, the installer can generate a lockfile and support safe, reviewed upgrades.
+## Today: development-only manual adoption
 
-## Boundary diagram
-WHPS (generic tools & releases) -> Website A (version N, Wix site A).
-WHPS (generic tools & releases) -> Website B (version N-1, Wix site B).
-Upgrades are explicit, not propagated automatically. No website pushes its live records upstream into WHPS.
+1. Create or locate a **separate site repository**. Do not nest it within WHPS or add it as a submodule.
+2. Record the exact WHPS **Git commit SHA** used for any scripts/templates copied. There is **no published WHPS release tag yet**; the tagged-release workflow is a future R04–R05 deliverable.
+3. If Wix provided an original handoff, preserve it in that site workspace. The current offline CLI can create a manifest and copy the prompt into a **new, empty** outside directory. It does not create the Git repository or download the Wix template.
+4. Check the actual downloaded Wix project before altering framework or running `init`; do not duplicate an existing binding.
+5. Copy and adapt `blueprints/site/AGENTS.md` and `blueprints/site/docs/CONTROL-ROOM.md`; keep the site business brief, Wix resources and release evidence **in the site repo**.
+6. Re-read the current official Wix skill and relevant framework references. Do not treat WHPS as an alternative Wix provisioning specification.
+7. Run website-local tests and record the actual release result, permissions and approval using a site-local report. WHPS CI never tests or deploys that live site.
 
-## Original Wix handoff
-The Wix prompt is technical bootstrap evidence, not a confirmed business brief. Site IDs belong in the website only. Never re-initialize a correctly bound Wix site simply because a new checkout is empty.
+## Future: versioned adoption
+
+Following R05, a website may pin a reviewed WHPS release **tag plus commit**, with a recorded upgrade decision. Later tooling may generate a version lock and update proposal. No automatic change propagation to websites is permitted by the current governance policy.
+
+## Three entry modes
+
+- `wix-handoff`: Wix-created identity and downloaded project, with preserved prompt.
+- `existing-repository`: Existing source and Wix binding examined before iteration.
+- `unbound-frontend`: Brought-in frontend with no confirmed Wix binding; potential connect/create activity requires correct Wix flow and approval.
+
+These are manifest modes, not claims that all paths have complete automation today. The offline `intake-wix-handoff.mjs` script handles **only** the first case.

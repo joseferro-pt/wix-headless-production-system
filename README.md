@@ -1,53 +1,36 @@
-# Wix Headless Website Production System
+# Wix Headless Website Production System (WHPS)
 
-**Version:** 0.1.0 — foundation baseline (separation refactor proposed)  
-**Date:** 2026-10-12  
-**Scope:** repeatable delivery for Wix-managed Headless websites. Not an individual client website.
+**Status:** Development baseline, not yet published as a release.  
+**Manifest schema version:** `0.1.0`.  
+**Scope:** A reusable toolkit and operating framework for Wix Headless website delivery. **Not** a website repository or a multi-client workspace.
 
-## Repository boundary
+## What belongs here
 
-This is a **tooling and standards repository**, not a website repository, project portfolio, client directory, or production Wix integration. It contains only reusable source, schemas, policies, blueprints, documentation and synthetic test fixtures. It must not carry real Wix site IDs, client business details, site code, site-specific audit reports, raw handoffs or deployments. Each website lives in its **own independent repository** and adopts a tagged WHPS release.
+Reusable policies, automation, schemas, synthetic fixtures, checks, blueprints and documentation. Each website has **its own repository**, Wix identity, frontend, content, client decisions, QA records and releases. Do not copy real Wix identifiers or site data into WHPS. See [system boundaries](docs/06-SYSTEM-BOUNDARIES.md).
 
-The system's GitHub Actions test the **toolkit itself** without reading or mutating any live Wix site. Site code, Wix resources and site releases belong to the corresponding website repository. See `docs/06-SYSTEM-BOUNDARIES.md` and `docs/07-PROJECT-ADOPTION.md`.
+The Wix-generated handoff establishes technical identity, **not** verified business facts. The current official Wix skill and documentation govern Wix API/CLI behaviour; our toolkit governs repeatable delivery. See [authority and decisions](docs/10-AUTHORITY-AND-DECISIONS.md).
 
-## Purpose
+## Current maturity
 
-Make Wix's generated prompt the **immutable technical handoff**, not a substitute for the business brief. Apply a reproducible governance and delivery overlay while preserving the official Wix skill, existing site identity, project structure, and CLI workflow.
+- **R01:** foundation corrections merged: schema-aware validation, atomic intake, ZIP safeguards.
+- **R02:** verification improvements merged: synthetic negative tests and tracked-content security guard.
+- **R03:** documentation consolidation under review, not yet accepted or merged.
+- **R04/R05:** release governance and first verified toolkit release remain ahead.
+- `0.1.0` currently identifies a manifest contract and historical foundation baseline. **There is no published WHPS GitHub Release or endorsed version tag yet.** Until R05, record an exact Git commit SHA when adopting this development toolkit.
 
-## Start here
+## Quick start: offline Wix handoff intake
 
-1. Read `AGENTS.md` and `docs/CONTROL-ROOM.md`.
-2. Read `docs/01-OPERATING-MODEL.md` and `docs/02-WIX-HANDOFF.md`.
-3. Install validator dependencies with `python3 -m pip install -r requirements.txt`. For a Wix-generated website, save **the exact original Wix prompt** as a plain UTF-8 text file, then run:
+From a WHPS checkout, with Python 3 and Node.js 22 available:
 
-   ```sh
-   node scripts/intake-wix-handoff.mjs path/to/wix-prompt.txt ../website-project
-   node scripts/validate-manifest.mjs ../website-project/site.manifest.json
-   ```
+```sh
+python3 -m pip install -r requirements.txt
+node scripts/intake-wix-handoff.mjs /path/to/original-wix-prompt.txt ../example-website
+node scripts/validate-manifest.mjs ../example-website/site.manifest.json
+```
 
-4. Inspect the **actual** Wix-downloaded ZIP and the `wix.config.json` it contains before development; compare `siteId` / `appId` with the handoff. Do not initialise a fresh Wix project over a pre-bound project.
-5. Complete the project-specific business brief using `templates/BUSINESS-BRIEF.md` and the phases in `docs/01-OPERATING-MODEL.md`.
-6. Follow the currently applicable official Wix skill for implementation and release. Use `docs/04-QA-RELEASE.md` for additional QA and audit requirements.
+`../example-website` is a **new path outside WHPS**, not an existing website or Git repository. The script only creates the original handoff and a site manifest, and refuses existing target directories. It does **not** download Wix's ZIP, initialise Git, provision Wix resources, authenticate or deploy. Preserve the original Wix-provided project and check its binding in the **website workspace**, following [handoff instructions](docs/02-WIX-HANDOFF.md). For existing-site or unbound-frontend modes, follow the [operating model](docs/01-OPERATING-MODEL.md); the current intake CLI only implements the Wix-generated-handoff mode.
 
-## Contents
-
-- `AGENTS.md`: AI agent instructions and source-of-truth hierarchy.
-- `docs/CONTROL-ROOM.md`: decisions, baseline and work packets.
-- `docs/01-OPERATING-MODEL.md`: stages, gates, and ownership.
-- `docs/02-WIX-HANDOFF.md`: first-run and existing-project entry routes.
-- `docs/03-WIX-RESOURCE-GOVERNANCE.md`: resource registry and safe backend changes.
-- `docs/04-QA-RELEASE.md`: source verification, test matrix and release report.
-- `docs/05-ROADMAP.md`: work packages and next iteration.
-- `docs/06-SYSTEM-BOUNDARIES.md`: enforceable system/site separation.
-- `docs/07-PROJECT-ADOPTION.md`: how a separate website repository adopts a system release.
-- `blueprints/site/`: generic, synthetic project-local agent and control-room examples.
-- `schemas/`: JSON Schemas for project and Wix resource manifests.
-- `templates/`: business brief, decision record, work packet, release report.
-- `scripts/`: read-only prompt parser, offline manifest validation, and read-only ZIP auditor.
-- `tests/`: executable contracts, deterministic property-style tests and synthetic security fixtures.
-- `docs/08-VERIFICATION-SECURITY.md`: scope and limitations of toolkit security testing.
-
-## Verification
+## Validate this toolkit
 
 ```sh
 python3 -m pip install -r requirements.txt
@@ -56,22 +39,31 @@ node --test tests/*.test.mjs
 python3 -m unittest discover -s tests -p 'test_*.py' -v
 ```
 
-These are **toolkit** checks, not evidence that any individual Wix site is deployed or working.
+The tests use synthetic inputs and do not access Wix. A passing system CI run **does not** verify an individual website or a deployment. See [verification and security](docs/08-VERIFICATION-SECURITY.md).
 
-## Initial boundaries
+## Documentation
 
-- **This package does not deploy or create a Wix site.** It is the production system, not a frontend project.
-- **This repository is already the system's canonical GitHub source.** Website repositories must be provisioned independently.
-- **This package does not replace official Wix skills or SDK docs.** Re-check live docs during each implementation run; they may change independently.
-- **No Wix secrets** belong in project manifests, files, issues, chat transcripts, or Git history. A public client ID is not a secret, but credentials/tokens are.
+Start with the [documentation map](docs/00-DOCUMENTATION-MAP.md), then the [system Control Room](docs/CONTROL-ROOM.md) and [roadmap](docs/05-ROADMAP.md). Reusable site-specific examples are in `blueprints/site/`; they are **not** actual clients.
 
-## Official references
+| Path | Responsibility |
+|---|---|
+| `AGENTS.md` | Agent rules for WHPS **itself** |
+| `docs/` | Operating model, Wix coordination, quality, boundaries, decisions and system roadmap |
+| `blueprints/site/` | Generic website-local files to copy/adapt into a separate site repo |
+| `schemas/` | Machine-readable project data contracts |
+| `scripts/` | Offline intake, inspection and validation tools |
+| `tests/`, `examples/` | Tests and explicitly synthetic fixtures |
+| `.github/` | CI for the toolkit, never Wix deployments |
 
-- Primary skill: https://wix.com/headless/skill.md
-- Public Wix skill source: https://github.com/wix/skills/blob/main/skills/wix-headless/SKILL.md
-- Wix Headless AI toolkit: https://dev.wix.com/docs/go-headless/get-started/headless-ai-toolkit
-- Wix CLI reference: https://dev.wix.com/docs/wix-cli/command-reference/introduction
+## Official Wix references
+
+- [Wix Headless skill](https://wix.com/headless/skill.md)
+- [Public skill source](https://github.com/wix/skills/blob/main/skills/wix-headless/SKILL.md)
+- [Wix Headless AI toolkit](https://dev.wix.com/docs/go-headless/get-started/headless-ai-toolkit)
+- [Wix CLI](https://dev.wix.com/docs/wix-cli/command-reference/introduction)
+
+Always check currently applicable Wix instructions when working on a site; the toolkit does not freeze Wix platform behaviour.
 
 ## Change control
 
-A change to the **production system** is versioned here. A change to an **individual Wix site** is versioned in that site's repository. Project-specific identity and business content must not be written into these global templates.
+Changes to WHPS use reviewed commits and its system-only work packets. Changes to websites use **their own** repositories, approvals and releases. Do not represent merged code, a schema version, a Git tag or a verified live website as interchangeable milestones. [Terminology](docs/09-TERMINOLOGY.md) defines each.

@@ -1,39 +1,55 @@
-# CONTROL ROOM — WHPS (system only)
+# CONTROL ROOM — WHPS system development
 
-**Scope:** Wix Headless production *toolkit*, never a client website.
-**Baseline:** v0.1.0, committed to main. **Next:** system/site boundary proposal; adoption subject to review.
-**Canonical repository:** https://github.com/joseferro-pt/wix-headless-production-system
+**Scope:** Reusable production toolkit only. No Wix client site or site delivery is managed here.  
+**Canonical repo:** https://github.com/joseferro-pt/wix-headless-production-system  
+**Schema contract:** `0.1.0`; **published toolkit releases:** none as of 2026-10-12.  
+**Source status:** R01 and R02 merged and CI-passed; R03 proposed for review.
 
-## Authority and limits
-- Official Wix skill and live Wix docs: implementation contract, rechecked when required.
-- WHPS repo: reusable policies, schemas, blueprints, validators, tests and versioned releases.
-- Individual website repo: Wix site binding, handoff, verified business facts, design, frontend code, Wix resources, decisions, QA and release evidence.
-- No real client IDs, client audits, website source or Wix site mutations inside WHPS.
+## Evidence baseline (12 October 2026)
 
-## Decisions
-| ID | Decision | Status |
+| Event | Status | Source |
 |---|---|---|
-| DR-001 | WHPS is site-agnostic and reusable, not a portfolio or multi-client workspace. | Proposed |
-| DR-002 | Each website owns a standalone repository and chooses a WHPS release version. | Proposed |
-| DR-003 | System CI runs against synthetic fixtures and does not access client Wix sites. | Proposed |
-| DR-004 | Wix provisioning/CLI semantics remain governed by current official Wix references. | Existing principle |
+| System/site separation | Merged | PR #1, merge commit `abbf9d4` |
+| R01 foundation corrections | Merged, main CI passed | PR #2 |
+| R02 verification and security | Merged, main CI passed | PR #3 |
+| R03 documentation consolidation | In development / PR review | Current R03 changes; **not accepted until merged** |
+| First tagged toolkit release | Not published | GitHub Releases currently empty |
 
-## System work packets
-| ID | Goal | Status |
+**Revalidation:** review the actual GitHub PR, commit and CI state before changing any of these labels. Merging does not imply a published toolkit release.
+
+## System decision register
+
+| ID | Policy | Evidence/status |
 |---|---|---|
-| WHPS-001 | Foundation and source-control baseline | Prepared; GitHub baseline published |
-| WHPS-002 | Project generator contracts and synthetic fixtures | Next |
-| WHPS-003 | Pure Wix resource reconciliation planner; dry run only | Planned |
-| WHPS-004 | Framework-specific reusable starter primitives | Planned |
-| WHPS-005 | Automated contract, accessibility and release-policy checks | Planned |
-| WHPS-006 | Versioned distribution, changelog and migration policy | Planned |
-| WHPS-007 | Security, contribution and multi-project adoption documentation | Planned |
+| DR-001 | WHPS is site-agnostic, never a client workspace | User-directed; implemented by PR #1 |
+| DR-002 | Each website uses its own repository | User-directed; implementation toolkit still evolving |
+| DR-003 | System CI uses only synthetic test inputs, no Wix credentials | Implemented working rule; R02 verification passed |
+| DR-004 | Current official Wix technical guidance governs Wix operations | Documented working rule; verify upstream when deploying |
+| DR-005 | Record system/schema version separately from website releases | Proposed R03 terminology clarification |
 
-## Acceptance gate for site independence
-- No live Wix IDs, customer content, site-specific audit reports or site application code in tracked files.
-- Synthetic fixtures exercise parsers and validators.
-- A generated project goes outside the system checkout and contains its own AGENTS and Control Room.
-- WHPS can be tested without credentials or network access to client sites.
+Definitions and evidence rules: [authority/decisions](10-AUTHORITY-AND-DECISIONS.md), [terminology](09-TERMINOLOGY.md).
 
-## Next step
-Complete WHPS-002 with a generic, offline site-workspace initializer and tests using synthetic fixtures. Pilot deployments, where authorized, take place in separate site repositories, not here.
+## Review-to-development sequence
+
+| Packet | Status | Exit evidence |
+|---|---|---|
+| WHPS-R01 · Correct foundation | Merged | PR #2 + CI success |
+| WHPS-R02 · Strengthen verification | Merged | PR #3 + CI success |
+| WHPS-R03 · Consolidate documentation | In review | Terminology, authority, roadmap, README, blueprints consistent; CI |
+| WHPS-R04 · Release governance | Queued | Licence, contribution/security policy, supported runtimes, tags/release workflow |
+| WHPS-R05 · Verified foundation | Queued | Approved release candidate, checks, tag and published release evidence |
+
+## Product-development backlog
+
+`WHPS-001`: initial foundation (merged work); `WHPS-002`: generic site-workspace bootstrap (not started); `WHPS-003`: read-only resource planner; `WHPS-004`: frontend primitives; `WHPS-005`: quality framework; `WHPS-006`: distribution/compatibility; `WHPS-007`: maintainability. Details: [roadmap](05-ROADMAP.md).
+
+## Current gate
+
+**Complete and review R03**, then R04 and R05 before presenting the toolkit as a published reusable release. WHPS-002 remains subsequent product work, not a reason to import a real website ZIP into WHPS.
+
+## Constraints and known limits
+
+- No real Wix identifiers, site archives, content or deployments in the toolkit.
+- The offline archive auditor does not independently attest original Wix provenance.
+- Automated scanning cannot guarantee discovery of every credential or historical secret.
+- A website built using WHPS is verified only through that website's own tests and deployment report.

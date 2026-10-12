@@ -1,53 +1,42 @@
-# 04 — QA and Wix-managed release protocol
+# 04 — QA and Wix-managed site release protocol
 
-## Minimum verification matrix
+This is **site-project guidance**, not a WHPS system deployment workflow. Site releases use the *website's* source checkout and current applicable Wix instructions; WHPS CI only validates toolkit code and synthetic fixtures.
 
-| Gate | Mandatory evidence |
+## Site quality gates
+
+| Gate | Minimum site-local evidence |
 |---|---|
-| Identity | handoff Site ID matches `wix.config.json.siteId`; Client ID matches `appId` |
-| Code | valid source checkout, dependencies declared, no credentials committed |
-| Business facts | no unverified real-world claims represented as facts |
-| Integration | live Wix resource IDs tracked; no placeholder integration masquerading as functional |
-| Build | documented framework build succeeds, output folder verified |
-| Accessibility | basic keyboard/navigation, semantic hierarchy, contrast, form labels |
-| Responsive | mobile/tablet/desktop visual check where test environment supports it |
-| SEO | titles, descriptions, canonical strategy, robots/indexability review |
-| Risk | live-site change approval and non-destructive backend plan |
-| Release | actual Wix CLI result, source commit/tag, live URL and dashboard URL |
-| Post-release | targeted smoke check, correct domain and Wix functionality; document anything untested |
+| Identity | Real Wix binding reconciles with supplied identifiers; conflicts blocked |
+| Source | Commit, dependencies, framework and output directory verified |
+| Business | Published claims traceable to approved facts, no invented details |
+| Wix integrations | Real resource bindings; no pretend working form/cart/member workflow |
+| Quality | Applicable build, accessibility, keyboard, responsive and SEO checks recorded |
+| Approval | Required production or destructive-change authorisations documented |
+| Deployment | Actual Wix command result and live URL, not guessed URLs |
+| Post-release | Permitted smoke checks with any unavailable checks explicitly disclosed |
 
-## Reconcile Wix's official flow
+## Operational principles
 
-Wix's current managed skill asks agents not to run repeated `build + release` cycles and to release **once at the end**. Therefore:
+- Follow the **current** Wix managed project flow, checking create/connect/iterate distinctions and framework-specific commands.
+- Avoid repeated build-plus-release attempts simply to preview. Use the current documented preview mechanisms only where supported and requested.
+- Wix backend data writes do not automatically roll back with a frontend redeploy; record an independent recovery plan before destructive changes.
+- Release to a published site only when the necessary approval is clear.
+- Treat `implemented`, `build-passed`, `released` and `verified` as different states. See [terminology](09-TERMINOLOGY.md).
 
-- Run offline static checks, contract checks, and the **actual documented build** once the implementation is ready.
-- If a preview is requested or needed for human acceptance, Wix CLI `preview` is a distinct preview operation **after building**; don't use production release as a preview mechanism.
-- Add manual/device/browser testing only when authorized and available. Do not falsely claim unavailable visual or payment tests were performed.
-- A failed build is a code defect. A successful release is not proof of every interactive workflow.
-- Do not release to an already-published site without release authorization.
+## Deployment boundary
 
-## Before `release`
-
-Confirm the original Wix project is on disk and tied to the intended site, `site.outputDirectory` exists and contains correct entry files. For plain static projects, Wix's managed notes call out `index.html` and correct outputDirectory as necessary. Check relevant framework instructions in the current skill.
-
-The exact release command currently documented for managed projects:
+For Wix-managed projects, the current documented release command is:
 
 ```sh
 CI=1 npx @wix/cli@latest release
 ```
 
-Run it in the **actual client project directory** with authenticated Wix CLI. Do not execute it from the production-system repo.
+Run it **only from the independently managed site checkout** after its applicable preflight and approval gates, not from WHPS. Re-check Wix's current platform contract rather than assuming the command never changes. Site release reports should use [the reusable template](../templates/RELEASE-REPORT.md) **within that site repo**.
 
-## Final report
+## Toolkit validation limits
 
-Use `templates/RELEASE-REPORT.md`. Distinguish `implemented`, `build-passed`, `released`, and `verified`. Show real URL returned by release, not one inferred from an ID. Always hand off the site dashboard and any outstanding permission/setup requirements. If a release has a real blocker, disclose it.
+- Full manifest validation requires the declared Python `jsonschema` dependency; missing tooling fails validation.
+- The offline ZIP auditor rejects known unsafe archive structures and size/compression cases, but cannot prove original Wix provenance, source trust, active Wix integration, build success or website runtime behaviour.
+- A passing WHPS test suite is **not** a valid proof of a deployed Wix website.
 
-## Recovery and rollback
-
-Store last known good commit/tag and capture the deployed release reference. For code rollback, reconstruct from that revision and follow documented Wix deployment steps. Wix business data changes require separately scoped backups/export/migrations and **are not** automatically rolled back by redeploying frontend code.
-
-## WHPS R01 validator and archive-audit limitations
-
-- Full manifest validation requires Python 3 and the declared `jsonschema` dependency. Missing or unusable validation tooling is a failure, not a silently skipped check.
-- A claimed `--provenance wix-original` archive is **not proof** of original Wix origin; the offline auditor always marks provenance as unverified and returns `REVIEW_REQUIRED` when no structural blockers exist.
-- The archive inspector rejects unsafe paths, duplicate members, link entries and bounded excessive sizes/compression. It does not execute, extract, authenticate, deploy, or verify runtime behaviour.
+See [verification/security](08-VERIFICATION-SECURITY.md) and [authority](10-AUTHORITY-AND-DECISIONS.md).

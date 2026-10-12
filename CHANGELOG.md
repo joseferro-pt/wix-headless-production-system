@@ -1,32 +1,36 @@
 # Changelog
 
-## Unreleased — WHPS-R02 verification and security (proposal)
+This file records **toolkit development**, not website deployments. Entries under **Unreleased** do not imply a version tag or published GitHub Release. The manifest `schemaVersion` is tracked separately.
 
-- Add Git-indexed scanner across hidden workflow and source files for non-synthetic identifiers and high-confidence credential signatures, without leaking detected values.
-- Add deterministic identity/path property-style tests, conflicting handoff identity rejection, negative manifest/archive cases and symlinked original-handoff protection.
-- Add guard to CI with read-only token permissions; document coverage limits and independent per-site security testing.
+## Unreleased
 
+### WHPS-R03 · Documentation consolidation (proposed)
 
-## Unreleased — WHPS-R01 foundation correction (proposal)
+- Align README, agent rules, Control Room, roadmap, project adoption and website blueprints with merged R01/R02 state.
+- Add a documentation map, terminology glossary and domain-specific authority/decision contract.
+- Clarify that WHPS does **not** yet have a published toolkit release, tagged adoption mechanism or complete website bootstrap engine.
+- Add a synthetic, offline documentation-reference test.
 
-- Enforce JSON Schema Draft 2020-12 with format checking; validate relevant entry modes and fail closed when original Wix handoff is unavailable.
-- Prepare Wix-generated intake atomically and block outputs within the toolkit checkout, including symlinked parents.
-- Harden untrusted ZIP inspection and distinguish a provenance claim from verified origin.
-- Add dependency declaration, failure-path regression tests, and CI installation of validator tooling.
+### WHPS-R02 · Verification and security (merged, 2026-10-12)
 
-## Unreleased — system/site boundary separation
+- Add Git-indexed scanning for accidental Wix identifiers and high-confidence credentials without echoing their values.
+- Add deterministic identity/path property-style tests, negative manifest/archive cases and symlink protections.
+- Apply read-only GitHub Actions permissions and document detection limits.
 
-- Recast WHPS as a site-agnostic tooling and standards distribution.
-- Move the site-specific pilot report out of the current repository tree.
-- Replace project-specific milestones with synthetic contract tests and system packaging.
-- Add generic site-repository blueprints, adoption guidance and a repository-boundary CI guard.
-- Preserve the original v0.1 baseline commit and history; this change does not rewrite prior Git history.
+### WHPS-R01 · Foundation correction (merged, 2026-10-12)
 
-## 0.1.0 — 2026-10-12
+- Enforce JSON Schema Draft 2020-12 validation, entry-mode conditions and preserved original handoff requirements.
+- Make offline intake atomic and block targets inside the toolkit checkout.
+- Harden untrusted ZIP inspection and distinguish provenance claims from proof.
 
-- Established Wix handoff-first production overlay, authority map and stage gates.
-- Added offline prompt parser with strict consistency checks and preservation of original prompt.
-- Added project and resource JSON Schema definitions.
-- Added baseline governance, QA/release, business brief and decision templates.
-- Added automated test suite, read-only Wix project ZIP auditor and example GitHub Actions workflow.
-- No live Wix site changes, GitHub commits, or releases performed.
+### Site-independence refactor (merged, 2026-10-12)
+
+- Separate system governance from project-specific site records and roadmap milestones.
+- Introduce generic website blueprints and site-repository boundaries.
+- Remove one site-specific pilot report from the current tree; **historical Git commits still retain it**.
+
+## Initial development baseline — 2026-10-12
+
+- Created the first Wix handoff parser, JSON Schemas, read-only archive auditor, synthetic tests and operating documents.
+- Published the baseline **commit** to GitHub, followed by the reviewed refactors above.
+- **Not a formally tagged or published WHPS release.**
