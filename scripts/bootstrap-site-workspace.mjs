@@ -2,8 +2,8 @@
 /**
  * WHPS-002: offline, non-destructive scaffold of ONE independent website Git repository.
  * Does not contact Wix, download source, connect a site or publish/deploy.
- * This generator is unreleased development code; the adoption lock references only
- * the previously published WHPS foundation v0.1.0.
+ * The lock pins the actual generating checkout commit, and independently records
+ * the original v0.1.0 baseline; tagging is not proof of a published GitHub Release.
  */
 import { execFileSync } from 'node:child_process';
 import { readFile, writeFile, lstat, realpath, mkdir, mkdtemp, rename, rm } from 'node:fs/promises';
@@ -21,6 +21,26 @@ export const FOUNDATION = Object.freeze({
   tag: 'v0.1.0',
   commit: '802acf1b536b502fcacdffc1d6b7ce371aa2d3f7',
 });
+
+const commitPattern=/^[0-9a-f]{40}$/;
+const semverPattern=/^v(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)$/;
+
+/** Git revision of the actual code doing the bootstrap, never a hardcoded old tag. */
+export function detectToolkitSource(exec = args => execFileSync('git', ['-C', toolRoot, ...args], { encoding: 'utf8' })) {
+  const commit = exec(['rev-parse', 'HEAD']).trim();
+  if (!commitPattern.test(commit)) throw new Error('Cannot determine valid generating WHPS source commit');
+  const tags = exec(['tag', '--points-at', 'HEAD']).trim().split('\n').filter(tag => semverPattern.test(tag));
+  if (tags.length > 1) throw new Error('Multiple release-version tags on source; cannot identify toolkit version');
+  const tag = tags[0] ?? null;
+  return {
+    repository: FOUNDATION.repository,
+    commit,
+    tag,
+    state: tag ? 'tagged-checkout-unverified' : 'unreleased-checkout',
+    releaseVerification: 'not-performed',
+  };
+}
+
 const USAGE = [
   'Usage: node scripts/bootstrap-site-workspace.mjs --mode wix-handoff|unbound-frontend --output <new-directory>',
   '       [--project-key <lowercase-kebab-key>] [--handoff <original-wix-prompt.txt>]',
@@ -97,16 +117,23 @@ export function buildInitialManifest(mode, projectKey, handoffText) {
   };
 }
 
-export function createAdoptionLock() {
+export function createAdoptionLock(source=detectToolkitSource()) {
+  if (!source || !commitPattern.test(source.commit) ||
+      (source.tag!==null && !semverPattern.test(source.tag)) ||
+      !['tagged-checkout-unverified','unreleased-checkout'].includes(source.state) ||
+      source.releaseVerification!=='not-performed' || source.repository!==FOUNDATION.repository ||
+      (source.tag===null)!==(source.state==='unreleased-checkout'))
+    throw new Error('Invalid generating toolkit source identity');
   return {
-    lockVersion: 1,
-    toolkitRelease: { ...FOUNDATION },
+    lockVersion: 2,
+    toolkitSource: { ...source },
+    foundationBaseline: { ...FOUNDATION },
     manifestSchemaVersion: '0.1.0',
-    generator: { name: 'WHPS-002', status: 'unreleased-development' },
+    generator: { name: 'WHPS-002', sourceCommit: source.commit, sourceTag: source.tag },
   };
 }
 
-function siteReadme(projectKey, mode) {
+function siteReadme(projectKey, mode, source) {
   const next = mode === 'wix-handoff'
     ? 'Preserve and examine the original Wix-provided project; cross-check wix.config.json and the supplied identifiers before any connect/iterate operation.'
     : 'Add or inspect the real frontend in this repository. Determine whether to use the current Wix connect/create process, with explicit approval, before assigning any binding.';
@@ -115,8 +142,10 @@ function siteReadme(projectKey, mode) {
     '',
     '**Entry mode:** ' + mode,
     '**Current status:** unverified bootstrap; no site implementation or Wix release has been performed.',
-    '**Toolkit foundation:** WHPS v0.1.0, pinned in whps.lock.json.',
-    '**Generator:** WHPS-002 unreleased development code; this generator is NOT part of v0.1.0.',
+    '**Generator source commit:** ' + source.commit + ' (tag: ' + (source.tag??'none') + ').',
+    '**Release verification:** not performed. A local Git tag is not proof of publication.',
+    '**Original baseline reference:** WHPS v0.1.0 (historical, not the generator version).',
+    '**Generator:** WHPS-002 from the exact checkout recorded in whps.lock.json.',
     '',
     'This is a new **independent local Git repository**, not a Wix project, not a hosted website and not a remote GitHub repository.',
     'The original handoff (if provided), site identifiers, business facts and source belong here, never upstream in WHPS.',
@@ -156,6 +185,7 @@ export async function bootstrapSiteWorkspace(
   if (!VALID_KEY.test(name) || !VALID_KEY.test(key) || key !== name)
     throw new Error('Directory basename and project key must match in lowercase kebab-case');
   if (await exists(target)) throw new Error('Output already exists: refusing to modify existing source');
+  const sourceIdentity = detectToolkitSource();
   const manifest = buildInitialManifest(mode, key, handoffText);
   const errors = validateManifest(manifest, handoffText);
   if (errors.length) throw new Error('Invalid bootstrap manifest: ' + errors.join('; '));
@@ -168,14 +198,14 @@ export async function bootstrapSiteWorkspace(
   try {
     stage = await mkdtemp(join(parent, '.' + name + '-whps-stage-'));
     const source = async (path) => readFile(join(toolRoot, path), 'utf8');
-    const pinned = FOUNDATION.tag + ' @ ' + FOUNDATION.commit;
+    const pinned = (sourceIdentity.tag ?? 'unreleased') + ' @ ' + sourceIdentity.commit;
     const agent = await source('blueprints/site/AGENTS.md');
     const control = await source('blueprints/site/docs/CONTROL-ROOM.md');
     const brief = await source('templates/BUSINESS-BRIEF.md');
     const files = new Map([
       ['site.manifest.json', JSON.stringify(manifest, null, 2) + '\n'],
-      ['whps.lock.json', JSON.stringify(createAdoptionLock(), null, 2) + '\n'],
-      ['README.md', siteReadme(key, mode)],
+      ['whps.lock.json', JSON.stringify(createAdoptionLock(sourceIdentity), null, 2) + '\n'],
+      ['README.md', siteReadme(key, mode, sourceIdentity)],
       ['.gitignore', siteIgnore],
       ['AGENTS.md', agent.replace(
         'The explicitly pinned WHPS **Git SHA** or, after a release has actually been published, approved release tag',
@@ -196,7 +226,7 @@ export async function bootstrapSiteWorkspace(
     if (await exists(target)) throw new Error('Output appeared during bootstrap; refusing overwrite');
     await safeParent(parent, name);
     await rename(stage, target);
-    return { projectKey: key, mode, outputDirectory: target, foundation: FOUNDATION, files: [...files.keys()] };
+    return { projectKey: key, mode, outputDirectory: target, source: sourceIdentity, foundation: FOUNDATION, files: [...files.keys()] };
   } finally {
     if (stage) await rm(stage, { recursive: true, force: true });
   }
@@ -216,7 +246,7 @@ async function main() {
   process.stdout.write(
     'Created NEW local Git workspace: ' + result.outputDirectory +
     '\nEntry mode: ' + result.mode +
-    '\nToolkit pin: ' + FOUNDATION.tag + ' @ ' + FOUNDATION.commit +
+    '\nGenerator source: ' + result.source.commit + ' (tag: ' + (result.source.tag??'none') + ', remote release unverified)' +
     '\nWix identity, business facts and deployment remain unverified.\n');
 }
 
