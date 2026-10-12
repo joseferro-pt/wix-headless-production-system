@@ -4,6 +4,13 @@ This file records **toolkit development**, not website deployments. Entries unde
 
 ## Unreleased
 
+### WHPS-R06 · v0.2.0 release hardening (candidate, in PR)
+
+- Block duplicate desired type/name resource creations and add machine-readable output schema validation for the offline WHPS-003 planner.
+- Record the **exact generating Git checkout** and optional unverified exact tag in a v2 website adoption lock; keep v0.1.0 only as historical foundation evidence.
+- Add a reusable, manual-only source-SHA-bound release publisher with no tag rewrites, exact-commit CI/CodeQL checks and independent release verification.
+- Add release-focused regression tests, integration smoke checks and candidate release notes. No live Wix site work and no automatic publication.
+
 ### WHPS-003 · Offline read-only Wix resource planner (in PR, not released)
 
 - Add metadata-only desired/observed reconciliation with a strict standalone JSON Schema, optional historical registry and synthetic example.
@@ -31,6 +38,13 @@ This file records **toolkit development**, not website deployments. Entries unde
 - See [recovery workflow](https://github.com/joseferro-pt/wix-headless-production-system/actions/runs/38257202876) and [GitHub Release](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0). Recovery code is **unreleased** and not included in the original v0.1.0 snapshot.
 
 - Post-v0.1.0 changes will be documented here.
+
+## v0.2.0 — Candidate (not yet published)
+
+- First prospective release of WHPS-002 independent local Git site bootstrap and WHPS-003 read-only resource planner.
+- Correct planner duplicate-creation ambiguity, validate plan output contract, and record exact source checkout provenance for generated site workspaces.
+- Introduce explicitly approved and verifiable generic GitHub release publication and documented compatibility scope.
+- No website deployments, live Wix API access, client data or migrations of existing website repositories.
 
 ## v0.1.0 — 2026-10-12
 

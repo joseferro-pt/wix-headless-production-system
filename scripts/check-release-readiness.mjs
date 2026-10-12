@@ -38,6 +38,9 @@ export async function checkReadiness(repoRoot=root, {release=false, version=null
       errorsOf('Licence choice is not explicitly accepted',errors);
     const license=(await read('LICENSE')) || (await read('LICENSE.md'));
     if(!license.trim())errorsOf('An accepted complete LICENSE file is required',errors);
+    const notes=await read('docs/releases/'+version+'.md');
+    if(!notes.trim() || !notes.includes('WHPS '+version))
+      errorsOf('Version-specific release notes missing or do not name the approved version',errors);
     const changelog=await read('CHANGELOG.md');
     if(version && !changelog.includes(`## ${version}`))
       errorsOf(`CHANGELOG is missing approved release heading ${version}`,errors);

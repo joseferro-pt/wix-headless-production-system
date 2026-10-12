@@ -55,3 +55,11 @@ test('policy check fails closed on missing files and missing CI governance gate'
     assert.ok(errors.some(x=>x.includes('Boundary check')));
   }finally{await rm(dir,{recursive:true,force:true});}
 });
+
+test('v0.2.0 offline release candidate has licence, changelog and versioned notes',async()=>{
+  assert.deepEqual(await checkReadiness(root,{release:true,version:'v0.2.0'}),[]);
+});
+test('future tag with no approved release notes cannot pass readiness',async()=>{
+  const errors=await checkReadiness(root,{release:true,version:'v0.3.0'});
+  assert.ok(errors.some(x=>/Version-specific release notes/.test(x)));
+});
