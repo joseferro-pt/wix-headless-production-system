@@ -4,10 +4,14 @@
 
 The prompt may include a generic brief plus: `https://wix.com/headless/skill.md`, a Wix-managed Headless template download URL, public Client ID, Site ID and target dashboard URL. Use the official prompt **verbatim** as input.
 
+## Repository isolation
+
+Always invoke the intake tool with an output directory **outside this repository**. The tool's generated handoff, manifests, real identifiers and Wix project source belong solely in the website repository. A system-level sample may use synthetic identifiers for tests.
+
 ## Automated intake
 
 ```sh
-node scripts/intake-wix-handoff.mjs ./incoming/original-wix-prompt.txt ./clients/my-site
+node scripts/intake-wix-handoff.mjs ./incoming/original-wix-prompt.txt ../my-site-repository
 node scripts/validate-manifest.mjs ./clients/my-site/site.manifest.json
 ```
 

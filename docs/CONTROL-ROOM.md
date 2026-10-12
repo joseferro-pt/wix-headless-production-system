@@ -1,65 +1,39 @@
-# CONTROL ROOM — Wix Headless Website Production System
+# CONTROL ROOM — WHPS (system only)
 
-**System ID:** WHPS  
-**Version:** 0.1.0  
-**Date:** 2026-10-12  
-**Status:** Foundation prepared / not yet adopted as frozen release  
-**Owner:** Project operator  
-**Primary scope:** Meta-workflow, not any single website.
+**Scope:** Wix Headless production *toolkit*, never a client website.
+**Baseline:** v0.1.0, committed to main. **Next:** system/site boundary proposal; adoption subject to review.
+**Canonical repository:** https://github.com/joseferro-pt/wix-headless-production-system
 
-## Current purpose
+## Authority and limits
+- Official Wix skill and live Wix docs: implementation contract, rechecked when required.
+- WHPS repo: reusable policies, schemas, blueprints, validators, tests and versioned releases.
+- Individual website repo: Wix site binding, handoff, verified business facts, design, frontend code, Wix resources, decisions, QA and release evidence.
+- No real client IDs, client audits, website source or Wix site mutations inside WHPS.
 
-Define an audit-friendly, reusable and scalable delivery workflow beginning from Wix's *own* generated Headless site prompt. Don't replace Wix's site provisioning or official skill.
-
-## Technical evidence baseline
-
-- Wix Headless skill source: `wix/skills/skills/wix-headless/SKILL.md` (observed Git blob SHA `9f8dea32724e09baf33bf32452912236337d2783` on 2026-10-12). Revalidate on each client build; this is an observation, not a frozen API contract.
-- Core skill distinguishes managed / self-managed / stripe; managed create / connect / iterate.
-- Existing connected project uses `wix.config.json` and skips `init` on iterate.
-- Managed release publishes via Wix CLI; Wix's managed guide instructs to release once at the end.
-- This v0.1 package does not copy the Wix skill; it links to the official source.
-
-## Adopted working decisions
-
-| ID | Decision | State |
+## Decisions
+| ID | Decision | Status |
 |---|---|---|
-| DR-001 | Wix-provided handoff is authoritative for site identity, not for business truth. | Proposed for adoption |
-| DR-002 | Retain original Wix project and do not create duplicate sites on handoff entry. | Proposed for adoption |
-| DR-003 | Keep a central production-system repository and separate repos per actual site. | Proposed for adoption |
-| DR-004 | Store desired Wix integration state separately from observed Wix resource state. | Proposed for adoption |
-| DR-005 | Explicit source, QA, deployment and verified-production statuses. | Proposed for adoption |
-| DR-006 | No destructive or unapproved already-live production operations. | Proposed for adoption |
+| DR-001 | WHPS is site-agnostic and reusable, not a portfolio or multi-client workspace. | Proposed |
+| DR-002 | Each website owns a standalone repository and chooses a WHPS release version. | Proposed |
+| DR-003 | System CI runs against synthetic fixtures and does not access client Wix sites. | Proposed |
+| DR-004 | Wix provisioning/CLI semantics remain governed by current official Wix references. | Existing principle |
 
-## Work packets
+## System work packets
+| ID | Goal | Status |
+|---|---|---|
+| WHPS-001 | Foundation and source-control baseline | Prepared; GitHub baseline published |
+| WHPS-002 | Project generator contracts and synthetic fixtures | Next |
+| WHPS-003 | Pure Wix resource reconciliation planner; dry run only | Planned |
+| WHPS-004 | Framework-specific reusable starter primitives | Planned |
+| WHPS-005 | Automated contract, accessibility and release-policy checks | Planned |
+| WHPS-006 | Versioned distribution, changelog and migration policy | Planned |
+| WHPS-007 | Security, contribution and multi-project adoption documentation | Planned |
 
-| ID | Name | Status | Deliverable |
-|---|---|---|---|
-| WHPS-001 | Authority, intake and manifests | Draft prepared | this baseline, parser, schema |
-| WHPS-002 | Existing project import pilot | Partial: derived archive audited | original Wix ZIP remains unavailable |
-| WHPS-003 | Wix state reconciliation | Not started | read-only inventory and dry-run change plan |
-| WHPS-004 | Starter architecture | Not started | framework-appropriate shared primitives, no duplicate boilerplate |
-| WHPS-005 | QA and deployment gates | Draft protocol | actionable integration/check scripts |
-| WHPS-006 | GitHub pilot repository and CI | Not started | repository with controlled checks and branch policy |
+## Acceptance gate for site independence
+- No live Wix IDs, customer content, site-specific audit reports or site application code in tracked files.
+- Synthetic fixtures exercise parsers and validators.
+- A generated project goes outside the system checkout and contains its own AGENTS and Control Room.
+- WHPS can be tested without credentials or network access to client sites.
 
-## Acceptance criteria for WHPS-001
-
-- [x] Recorded source-of-truth and existing-site identity safeguards.
-- [x] Captured workflow modes and lifecycle.
-- [x] Authored parser for Wix-generated prompt and JSON Schema manifest.
-- [x] Authored read-only/offline validation and fixtures.
-- [x] Defined backend registry and release report templates.
-- [ ] Review and adopt working decisions.
-- [ ] Test against the **actual** downloaded Wix project ZIP and verified `wix.config.json`.
-- [ ] Commit into a dedicated GitHub repository.
-
-## Open questions for next phase
-
-- Which stack is shipped by the real Wix ZIP? (Do not infer.)
-- Which test runner and visual checks should be standard per framework?
-- What is the preferred Git branching/deployment policy for an agency vs solo site?
-- Is release approval required on every production push or only on published/monetized sites?
-- What is the default policy for brand imagery and user-approved copy?
-
-## Next operation
-
-Complete **WHPS-002** against the original Wix-provided project archive in a read-only development checkout: examine files, validate IDs, record the framework, run the official skill preflight, and create an import checklist. Do not release the website as part of the system pilot.
+## Next step
+Complete WHPS-002 with a generic, offline site-workspace initializer and tests using synthetic fixtures. Pilot deployments, where authorized, take place in separate site repositories, not here.

@@ -12,6 +12,8 @@ jobs:
           node-version: '22'
       - name: Test handoff parser and manifest contracts
         run: node --test tests/*.test.mjs
+      - name: Check toolkit and website separation
+        run: node --test tests/system-boundary.test.mjs
       - name: Python archive contract tests
         run: python -m unittest discover -s tests -p 'test_*.py' -v
       - name: Sample intake and offline validation

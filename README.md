@@ -1,8 +1,14 @@
 # Wix Headless Website Production System
 
-**Version:** 0.1.0 — foundation / working draft  
+**Version:** 0.1.0 — foundation baseline (separation refactor proposed)  
 **Date:** 2026-10-12  
 **Scope:** repeatable delivery for Wix-managed Headless websites. Not an individual client website.
+
+## Repository boundary
+
+This is a **tooling and standards repository**, not a website repository, project portfolio, client directory, or production Wix integration. It contains only reusable source, schemas, policies, blueprints, documentation and synthetic test fixtures. It must not carry real Wix site IDs, client business details, site code, site-specific audit reports, raw handoffs or deployments. Each website lives in its **own independent repository** and adopts a tagged WHPS release.
+
+The system's GitHub Actions test the **toolkit itself** without reading or mutating any live Wix site. Site code, Wix resources and site releases belong to the corresponding website repository. See `docs/06-SYSTEM-BOUNDARIES.md` and `docs/07-PROJECT-ADOPTION.md`.
 
 ## Purpose
 
@@ -15,7 +21,7 @@ Make Wix's generated prompt the **immutable technical handoff**, not a substitut
 3. For a Wix-generated website, save **the exact original Wix prompt** as a plain UTF-8 text file, then run:
 
    ```sh
-   node scripts/intake-wix-handoff.mjs path/to/wix-prompt.txt output/client-project
+   node scripts/intake-wix-handoff.mjs path/to/wix-prompt.txt ../website-project
    node scripts/validate-manifest.mjs output/client-project/site.manifest.json
    ```
 
@@ -32,7 +38,9 @@ Make Wix's generated prompt the **immutable technical handoff**, not a substitut
 - `docs/03-WIX-RESOURCE-GOVERNANCE.md`: resource registry and safe backend changes.
 - `docs/04-QA-RELEASE.md`: source verification, test matrix and release report.
 - `docs/05-ROADMAP.md`: work packages and next iteration.
-- `docs/06-PILOT-AUDIT.md`: partial findings from the first read-only example.
+- `docs/06-SYSTEM-BOUNDARIES.md`: enforceable system/site separation.
+- `docs/07-PROJECT-ADOPTION.md`: how a separate website repository adopts a system release.
+- `blueprints/site/`: generic, synthetic project-local agent and control-room examples.
 - `schemas/`: JSON Schemas for project and Wix resource manifests.
 - `templates/`: business brief, decision record, work packet, release report.
 - `scripts/`: read-only prompt parser, offline manifest validation, and read-only ZIP auditor.
@@ -41,7 +49,7 @@ Make Wix's generated prompt the **immutable technical handoff**, not a substitut
 ## Initial boundaries
 
 - **This package does not deploy or create a Wix site.** It is the production system, not a frontend project.
-- **This package does not provision a GitHub repository.** Import it into a dedicated repository when one has been chosen.
+- **This repository is already the system's canonical GitHub source.** Website repositories must be provisioned independently.
 - **This package does not replace official Wix skills or SDK docs.** Re-check live docs during each implementation run; they may change independently.
 - **No Wix secrets** belong in project manifests, files, issues, chat transcripts, or Git history. A public client ID is not a secret, but credentials/tokens are.
 
