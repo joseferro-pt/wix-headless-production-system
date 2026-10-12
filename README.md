@@ -1,6 +1,6 @@
 # Wix Headless Website Production System (WHPS)
 
-**Status:** v0.1.0 first-release candidate; confirm actual publication through GitHub Releases.  
+**Status:** [v0.1.0 published 12 October 2026](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0); later changes on `main` are not part of that release.  
 **Manifest schema version:** `0.1.0`.  
 **Scope:** A reusable toolkit and operating framework for Wix Headless website delivery. **Not** a website repository or a multi-client workspace.
 
@@ -15,8 +15,8 @@ The Wix-generated handoff establishes technical identity, **not** verified busin
 - **R01:** foundation corrections merged: schema-aware validation, atomic intake, ZIP safeguards.
 - **R02:** verification improvements merged: synthetic negative tests and tracked-content security guard.
 - **R03:** documentation consolidation merged; policy and status terminology reconciled.
-- **R04:** merged into `main`; release governance and policy checks in place. **R05:** candidate merged (PR #6); first publication failed. **R05.1:** manual recovery workflow and repository-readiness corrections are under review.
-- **Toolkit release candidate:** `v0.1.0`. The manifest schema remains separately versioned as `0.1.0`. Do not infer that a tag or GitHub Release exists until [the release page](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0) is confirmed.
+- **R04:** governance merged. **R05:** release candidate merged. **R05.1:** recovery merged and v0.1.0 publication verified. **R05.2:** post-release documentation and dependency-update cleanup proposed for review.
+- **Published toolkit release:** [`v0.1.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0), annotated tag targeting `802acf1b536b502fcacdffc1d6b7ce371aa2d3f7`. The manifest schema is separately versioned as `0.1.0`.
 - **Licence:** [Apache-2.0](LICENSE), with repository copyright attribution in [NOTICE](NOTICE). This does not license Wix-owned code or independently managed websites.
 
 ## Quick start: offline Wix handoff intake
@@ -33,8 +33,10 @@ node scripts/validate-manifest.mjs ../example-website/site.manifest.json
 
 ## Validate this toolkit
 
+Install runtime requirements plus the maintainer-only YAML checker:
+
 ```sh
-python3 -m pip install -r requirements.txt
+python3 -m pip install -r requirements.txt -r requirements-dev.txt
 node scripts/check-repository-boundary.mjs
 node scripts/check-release-readiness.mjs --policy
 node --test tests/*.test.mjs
@@ -55,6 +57,7 @@ Start with the [documentation map](docs/00-DOCUMENTATION-MAP.md), then the [syst
 | `schemas/` | Machine-readable project data contracts |
 | `scripts/` | Offline intake, inspection and validation tools |
 | `tests/`, `examples/` | Tests and explicitly synthetic fixtures |
+| `requirements-dev.txt` | Additional maintainer-only YAML verification dependency |
 | `.github/` | CI for the toolkit, never Wix deployments |
 
 ## Governance and contributing
@@ -66,7 +69,7 @@ Start with the [documentation map](docs/00-DOCUMENTATION-MAP.md), then the [syst
 - [Accepted Apache-2.0 licence decision](docs/13-LICENSING-DECISION.md)
 - [Branch and tag protection proposal](docs/14-REPOSITORY-PROTECTION.md)
 
-Apache-2.0 is accepted. GitHub protection settings remain proposed, not applied. The [v0.1.0 release record](docs/releases/v0.1.0.md) describes the approved candidate and the [R05.1 recovery procedure](docs/15-PUBLICATION-RECOVERY.md) describes the explicit manual release and verification gates.
+Apache-2.0 is accepted. GitHub protection settings remain proposed, not applied. The [v0.1.0 release](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0) is published and [R05.1 recovery evidence](docs/15-PUBLICATION-RECOVERY.md) records the successful verification; neither R05.1 nor R05.2 changes its immutable source.
 
 ## Official Wix references
 

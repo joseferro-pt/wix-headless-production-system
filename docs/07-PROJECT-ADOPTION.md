@@ -2,19 +2,19 @@
 
 WHPS is a **toolkit**, not the parent Git repository for websites. Each website checkout is independently owned and deployable. See [system boundaries](06-SYSTEM-BOUNDARIES.md) and [the operating model](01-OPERATING-MODEL.md).
 
-## Today: development-only manual adoption
+## Today: manual adoption of the published v0.1.0 toolkit
 
 1. Create or locate a **separate site repository**. Do not nest it within WHPS or add it as a submodule.
-2. Record the exact WHPS **Git commit SHA** used for any scripts/templates copied. Apache-2.0 is the accepted licence. `v0.1.0` is the initial toolkit release candidate. **Confirm the tag and GitHub Release exist** before pinning them; until publication, development-only adoption uses the exact reviewed commit.
+2. Pin the published [`v0.1.0` toolkit release](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0) and record its full source commit `802acf1b536b502fcacdffc1d6b7ce371aa2d3f7` in the site's own adoption record. In a separate WHPS checkout, check `git rev-parse 'v0.1.0^{commit}'` matches that SHA. Never depend on a floating `main` revision. Apache-2.0 governs WHPS, not a site's own code or content.
 3. If Wix provided an original handoff, preserve it in that site workspace. The current offline CLI can create a manifest and copy the prompt into a **new, empty** outside directory. It does not create the Git repository or download the Wix template.
 4. Check the actual downloaded Wix project before altering framework or running `init`; do not duplicate an existing binding.
 5. Copy and adapt `blueprints/site/AGENTS.md` and `blueprints/site/docs/CONTROL-ROOM.md`; keep the site business brief, Wix resources and release evidence **in the site repo**.
 6. Re-read the current official Wix skill and relevant framework references. Do not treat WHPS as an alternative Wix provisioning specification.
 7. Run website-local tests and record the actual release result, permissions and approval using a site-local report. WHPS CI never tests or deploys that live site.
 
-## Future: versioned adoption
+## Future: automated adoption
 
-After R05 is published and verified, a website may pin a reviewed WHPS release **tag plus commit**, with a recorded upgrade decision. Later tooling may generate a version lock and update proposal. No automatic change propagation to websites is permitted by the current governance policy.
+WHPS-002 will develop an offline website-repository bootstrap with a recorded, exact WHPS version. **This automation is not in v0.1.0.** Later upgrades still require a decision in each independent website repository. No automatic change propagation is permitted.
 
 ## Three entry modes
 
