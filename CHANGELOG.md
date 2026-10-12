@@ -4,7 +4,14 @@ This file records **toolkit development**, not website deployments. Entries unde
 
 ## Unreleased
 
-### WHPS-R05.2 · Post-release reconciliation (proposed)
+### WHPS-002 · Independent website workspace bootstrap (in PR, not published)
+
+- Add a strictly offline new-directory CLI supporting `wix-handoff` and `unbound-frontend`; initialise an independent local Git repository and copy generic site guidance.
+- Lock the **published v0.1.0 foundation tag and full SHA** while explicitly identifying the WHPS-002 generator as unreleased development tooling.
+- Reject existing destinations and existing-repository mode; block unsafe paths and symlinked parents; rollback staging on errors.
+- Add synthetic failure tests and CI smoke checks; no Wix backend interactions, GitHub repository creation, or deployments.
+
+### WHPS-R05.2 · Post-release reconciliation (merged, 2026-10-12)
 
 - Configure grouped weekly Python and GitHub Actions Dependabot updates with CI-tested YAML structure.
 - Reconcile Control Room, release governance, adoption documentation and release verification evidence.

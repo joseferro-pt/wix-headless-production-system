@@ -29,3 +29,15 @@ jobs:
         run: |
           node scripts/intake-wix-handoff.mjs examples/wix-generated-prompt.example.txt /tmp/example-site
           node scripts/validate-manifest.mjs /tmp/example-site/site.manifest.json
+      - name: WHPS-002 offline site bootstrap smoke test
+        shell: bash
+        run: |
+          set -euo pipefail
+          sandbox="$(mktemp -d)"
+          trap 'rm -rf "$sandbox"' EXIT
+          node scripts/bootstrap-site-workspace.mjs --mode unbound-frontend --output "$sandbox/unbound-site"
+          node scripts/validate-manifest.mjs "$sandbox/unbound-site/site.manifest.json"
+          test "$(git -C "$sandbox/unbound-site" branch --show-current)" = main
+          node scripts/bootstrap-site-workspace.mjs --mode wix-handoff --output "$sandbox/wix-site" --handoff examples/wix-generated-prompt.example.txt
+          node scripts/validate-manifest.mjs "$sandbox/wix-site/site.manifest.json"
+          test "$(git -C "$sandbox/wix-site" branch --show-current)" = main

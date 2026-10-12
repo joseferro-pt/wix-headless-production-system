@@ -12,9 +12,16 @@ WHPS is a **toolkit**, not the parent Git repository for websites. Each website 
 6. Re-read the current official Wix skill and relevant framework references. Do not treat WHPS as an alternative Wix provisioning specification.
 7. Run website-local tests and record the actual release result, permissions and approval using a site-local report. WHPS CI never tests or deploys that live site.
 
+## WHPS-002 development bootstrap (not released in v0.1.0)
+
+For a **brand-new** site workspace, a newer WHPS development checkout offers `scripts/bootstrap-site-workspace.mjs`, which initialises local Git and copies site-specific generic templates. This executable does **not** belong to the published v0.1.0 tag. It records a v0.1.0 foundation pin with an explicit unreleased-generator designation. See [the bootstrap contract](16-SITE-WORKSPACE-BOOTSTRAP.md) before using it.
+
+An existing repository must not be used as the output destination. Continue the manual protocol above to inspect and adopt tooling without overwriting source or Wix configuration.
+
 ## Future: automated adoption
 
-WHPS-002 will develop an offline website-repository bootstrap with a recorded, exact WHPS version. **This automation is not in v0.1.0.** Later upgrades still require a decision in each independent website repository. No automatic change propagation is permitted.
+
+WHPS-002 is developing an offline website-repository bootstrap with a recorded, exact WHPS version. **This automation is not in v0.1.0 and remains unreleased.** Later upgrades still require a decision in each independent website repository. No automatic change propagation is permitted.
 
 ## Three entry modes
 

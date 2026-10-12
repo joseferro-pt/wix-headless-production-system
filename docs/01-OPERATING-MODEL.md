@@ -17,7 +17,7 @@ This file defines a **reusable protocol** which is adopted and executed **inside
 | `existing-repository` | Existing site repo and verified Wix identity | Use the applicable Wix **iterate** path; preserve binding |
 | `unbound-frontend` | Frontend without verified Wix binding | Assess Wix **connect/create** path and necessary authorisation |
 
-The current WHPS CLI **implements only offline `wix-handoff` intake**. Other modes are contract definitions and manual workflows pending further tooling.
+The original WHPS intake CLI **implements only offline `wix-handoff` intake**. Separate, unreleased WHPS-002 development tooling can create a **new** local Git repository for `wix-handoff` or `unbound-frontend`, without Wix operations. `existing-repository` continues to require manual, non-destructive adoption; the bootstrap must refuse existing destinations. See [site bootstrap](16-SITE-WORKSPACE-BOOTSTRAP.md).
 
 ## Website lifecycle and gates
 
