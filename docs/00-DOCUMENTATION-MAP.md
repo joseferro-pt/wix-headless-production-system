@@ -10,6 +10,8 @@ WHPS has **one system repository** and any number of independently owned website
 4. [Roadmap](05-ROADMAP.md): review milestones R01–R05 and later system work packets.
 5. [Authority and decisions](10-AUTHORITY-AND-DECISIONS.md): how to resolve conflicts and record approvals.
 6. [Terminology](09-TERMINOLOGY.md): consistent status, release and entry-mode names.
+7. [Release governance](11-RELEASE-GOVERNANCE.md): candidate gates, tags, documentation and release evidence.
+8. [Support and compatibility](12-SUPPORT-COMPATIBILITY.md), [licence decision](13-LICENSING-DECISION.md), [repository protection](14-REPOSITORY-PROTECTION.md): distribution prerequisites.
 
 ## Reference by task
 
@@ -21,7 +23,8 @@ WHPS has **one system repository** and any number of independently owned website
 | Validate a website release | [QA/release protocol](04-QA-RELEASE.md) | Site CI and site release report |
 | Draw system/site boundary | [System boundaries](06-SYSTEM-BOUNDARIES.md) | One independent repo per website |
 | Adopt toolkit in a site | [Project adoption](07-PROJECT-ADOPTION.md) | Site's pinned WHPS SHA/tag |
-| System validation and threat model | [Verification/security](08-VERIFICATION-SECURITY.md) | Site-specific security checks |
+| System validation and threat model | [Verification/security](08-VERIFICATION-SECURITY.md) and [security policy](../SECURITY.md) | Site-specific security checks |
+| Contributing and external distribution | [Contributing](../CONTRIBUTING.md) and [release governance](11-RELEASE-GOVERNANCE.md) | Site-specific contribution/release policy |
 
 ## Artifacts and ownership
 
@@ -29,4 +32,4 @@ WHPS has **one system repository** and any number of independently owned website
 
 ## Version notes
 
-The `0.1.0` number in the manifest schema is a **schema contract version**. It is **not** a published WHPS release. Until a versioned release is actually published, sites may record a specific reviewed Git commit SHA for development-only adoption.
+The `0.1.0` number in the manifest schema is a **schema contract version**. It is **not** a published WHPS release. The repository currently has no accepted licence, so no external reuse grant should be inferred. Until a versioned release is actually published, sites may record a specific reviewed Git commit SHA for development-only adoption.

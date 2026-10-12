@@ -12,7 +12,9 @@ Avoid reusing one status term for different objects. See [authority](10-AUTHORIT
 | **Business brief** | Client-approved facts, audience, content and intended features | Source and explicit approval in site repo |
 | **Manifest schema version** | Data contract recognised by validator (`0.1.0` currently) | JSON Schema and validator implementation |
 | **Toolkit baseline** | A reviewed set of files present on `main` | Git commit SHA |
-| **Toolkit release** | Deliberately published and versioned distribution of WHPS | Release tag plus release record; **none published yet** |
+| **Toolkit release** | Deliberately published and versioned distribution of WHPS | Accepted release decision, version tag and GitHub Release; **none published yet** |
+| **Release candidate** | A reviewed source revision proposed for eventual publication | Proposed tag/version, CI, decision and release-readiness record; not automatically published |
+| **Supported runtime** | Tooling environment backed by CI evidence and published support policy | Node 22, Python 3.12 on Ubuntu Linux currently CI-tested |
 | **Website release** | Actual deployment of one site using its Wix project | Wix CLI result, commit and site-local report |
 | **Verified website** | Deployed site with recorded permitted post-release checks | Site-level verification evidence; not system CI |
 | **Work packet** | Bounded change request with acceptance checks | System Control Room or separately in site repo |
@@ -23,7 +25,7 @@ Avoid reusing one status term for different objects. See [authority](10-AUTHORIT
 
 **System work:** `proposed` → `implemented` → `CI-passed` → `merged`; `published-release` is a **separate** event. A draft PR is not merged. `blocked` records an obstacle. A commit in `main` does not by itself create a tag or release.
 
-**Decisions:** `proposed`, `accepted`, `superseded`. An implementation merged into `main` can be an **applied working policy** even before formal decision-record approval; label it accurately rather than claiming an approval that was never made.
+**Decisions:** `proposed`, `accepted`, `superseded`. A licensing proposal is not a grant and a release-readiness check is not publication. An implementation merged into `main` can be an **applied working policy** even before formal decision-record approval; label it accurately rather than claiming an approval that was never made.
 
 **Website lifecycle:** machine values are defined in [the manifest schema](../schemas/site-manifest.schema.json), including `HANDOFF_RECEIVED`, `PREFLIGHT_COMPLETE`, `BRIEF_APPROVED`, `SPEC_APPROVED`, `IMPLEMENTED`, `BACKEND_SYNCED`, `BUILD_PASSED`, `RELEASE_APPROVED`, `RELEASED`, `VERIFIED`, `BLOCKED`. These are site states, **not** system work statuses. `HANDOFF_RECEIVED` describes Wix-generated-prompt intake, not a claim that every website has that prompt.
 

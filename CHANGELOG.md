@@ -4,7 +4,14 @@ This file records **toolkit development**, not website deployments. Entries unde
 
 ## Unreleased
 
-### WHPS-R03 · Documentation consolidation (proposed)
+### WHPS-R04 · Release governance (proposed for review)
+
+- Add contributor and security policies, a CI-tested runtime matrix, draft licence decision and repository-protection recommendations.
+- Define versioning, release approval gates and independently verifiable release evidence.
+- Add a read-only release-governance checker and synthetic tests, and integrate policy validation into CI.
+- Do not publish a licence, tag, GitHub Release, site or deploy operation as part of R04.
+
+### WHPS-R03 · Documentation consolidation (merged, 2026-10-12)
 
 - Align README, agent rules, Control Room, roadmap, project adoption and website blueprints with merged R01/R02 state.
 - Add a documentation map, terminology glossary and domain-specific authority/decision contract.
