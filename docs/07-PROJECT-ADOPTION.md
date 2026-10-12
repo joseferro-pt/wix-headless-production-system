@@ -21,11 +21,15 @@ An existing repository must not be used as the output destination. Continue the 
 ## Future: automated adoption
 
 
-WHPS-002 is developing an offline website-repository bootstrap with a recorded, exact WHPS version. **This automation is not in v0.1.0 and remains unreleased.** Later upgrades still require a decision in each independent website repository. No automatic change propagation is permitted.
+WHPS-002 is merged and proposed for the next v0.2.0 release. It is **not in published v0.1.0**. R06 introduces a v2 lock recording the actual generating Git SHA and optional exact local tag; independent verification of publication remains the adopting website's responsibility. Later upgrades still require a decision in each independent website repository. No automatic change propagation is permitted.
 
 ## Site-local resource reconciliation
 
 The unreleased [WHPS-003 resource planner](17-READ-ONLY-RESOURCE-PLANNER.md) accepts a strict desired/observed metadata bundle from an independent website repository. Its offline JSON proposal does not authorise creating, updating or retiring Wix resources. Snapshot collection, approval and any backend changes remain website-local.
+
+## Release provenance in new site bootstrap locks
+
+R06 introduces whps.lock.json `lockVersion: 2`. The `toolkitSource` and `generator` point to the **actual producing checkout commit**, not the original v0.1.0 foundation. `foundationBaseline` retains that historic v0.1.0 pin for provenance only. A `tagged-checkout-unverified` value records a local tag, **not an independently confirmed GitHub Release**. Verify the tag/commit relationship against the official published Release before marking a site as having adopted a released WHPS generator. Do not automatically overwrite old v1 locks.
 
 ## Three entry modes
 

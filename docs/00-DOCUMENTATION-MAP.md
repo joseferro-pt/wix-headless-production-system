@@ -13,6 +13,7 @@ WHPS has **one system repository** and any number of independently owned website
 7. [Release governance](11-RELEASE-GOVERNANCE.md): candidate gates, tags, documentation and release evidence.
 8. [Support and compatibility](12-SUPPORT-COMPATIBILITY.md), [licence decision](13-LICENSING-DECISION.md), [repository protection](14-REPOSITORY-PROTECTION.md): distribution prerequisites.
 9. [Publication recovery](15-PUBLICATION-RECOVERY.md): R05.1 manual release repair and independent verification.
+10. [R06 v0.2.0 release plan](18-R06-RELEASE-PLAN.md): owner approval gates, exact-checkout provenance and future publication.
 
 ## Reference by task
 
@@ -26,6 +27,7 @@ WHPS has **one system repository** and any number of independently owned website
 | Draw system/site boundary | [System boundaries](06-SYSTEM-BOUNDARIES.md) | One independent repo per website |
 | Adopt toolkit in a site | [Project adoption](07-PROJECT-ADOPTION.md) | Site's pinned WHPS SHA/tag |
 | Bootstrap a **new** local site Git workspace (unreleased WHPS-002) | [Site bootstrap contract](16-SITE-WORKSPACE-BOOTSTRAP.md) | Generated files in new external website repo |
+| Validate a resource plan output from WHPS-003 | [Read-only planner](17-READ-ONLY-RESOURCE-PLANNER.md) and [output schema](../schemas/resource-plan-output.schema.json) | Site-local reviewable proposal |
 | System validation and threat model | [Verification/security](08-VERIFICATION-SECURITY.md) and [security policy](../SECURITY.md) | Site-specific security checks |
 | Contributing and external distribution | [Contributing](../CONTRIBUTING.md) and [release governance](11-RELEASE-GOVERNANCE.md) | Site-specific contribution/release policy |
 
