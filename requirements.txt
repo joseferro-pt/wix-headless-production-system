@@ -1,2 +1,2 @@
 # Runtime dependency for full JSON Schema Draft 2020-12 validation.
-jsonschema>=4.23,<5
+jsonschema>=4.26.0,<5
