@@ -24,6 +24,7 @@ WHPS has **one system repository** and any number of independently owned website
 | Validate a website release | [QA/release protocol](04-QA-RELEASE.md) | Site CI and site release report |
 | Draw system/site boundary | [System boundaries](06-SYSTEM-BOUNDARIES.md) | One independent repo per website |
 | Adopt toolkit in a site | [Project adoption](07-PROJECT-ADOPTION.md) | Site's pinned WHPS SHA/tag |
+| Bootstrap a **new** local site Git workspace (unreleased WHPS-002) | [Site bootstrap contract](16-SITE-WORKSPACE-BOOTSTRAP.md) | Generated files in new external website repo |
 | System validation and threat model | [Verification/security](08-VERIFICATION-SECURITY.md) and [security policy](../SECURITY.md) | Site-specific security checks |
 | Contributing and external distribution | [Contributing](../CONTRIBUTING.md) and [release governance](11-RELEASE-GOVERNANCE.md) | Site-specific contribution/release policy |
 

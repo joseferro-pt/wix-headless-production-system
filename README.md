@@ -31,7 +31,7 @@ node scripts/validate-manifest.mjs ../example-website/site.manifest.json
 
 `../example-website` is a **new path outside WHPS**, not an existing website or Git repository. The script only creates the original handoff and a site manifest, and refuses existing target directories. It does **not** download Wix's ZIP, initialise Git, provision Wix resources, authenticate or deploy. Preserve the original Wix-provided project and check its binding in the **website workspace**, following [handoff instructions](docs/02-WIX-HANDOFF.md). For existing-site or unbound-frontend modes, follow the [operating model](docs/01-OPERATING-MODEL.md); the current intake CLI only implements the Wix-generated-handoff mode.
 
-## Validate this toolkit## WHPS-002 · New independent local site bootstrap (development)
+## WHPS-002 · New independent local site bootstrap (development)
 
 The [WHPS-002 bootstrap design](docs/16-SITE-WORKSPACE-BOOTSTRAP.md) introduces an **unreleased** CLI that creates a local Git repository in a **new directory outside this toolkit**. It does not create Wix resources, download a site, authenticate, create a GitHub remote or deploy.
 
@@ -45,6 +45,8 @@ node scripts/bootstrap-site-workspace.mjs --mode wix-handoff --output ../new-wix
 It supports `wix-handoff` and `unbound-frontend` only. For `existing-repository`, follow [manual adoption](docs/07-PROJECT-ADOPTION.md); the CLI will refuse to overwrite an existing site. Each new workspace records **v0.1.0 + its exact SHA** as the adopted foundation and separately labels WHPS-002 as an **unreleased generator**. The published v0.1.0 source does **not** contain this CLI.
 
 
+
+## Validate this toolkit
 
 Install runtime requirements plus the maintainer-only YAML checker:
 

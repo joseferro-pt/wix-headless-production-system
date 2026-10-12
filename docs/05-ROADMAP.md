@@ -28,7 +28,7 @@ Apache-2.0 is accepted and the first WHPS toolkit release [`v0.1.0`](https://git
 | WHPS-006 | Versioned distribution and explicit adoption/migration process | Planned |
 | WHPS-007 | Sustainable maintenance, contributing, security and compatibility guidance | Governance baseline merged in R04; further work later |
 
-WHPS-002 must support the separate-site architectureSee [WHPS-002 offline site bootstrap contract](16-SITE-WORKSPACE-BOOTSTRAP.md).  without invoking Wix backend writes or deploying real sites from the WHPS repository. The pre-existing Wix handoff CLI still performs **offline manifest intake only**. The separate WHPS-002 development CLI can initialise a new local Git repository and copy generic site blueprints, but does not download a Wix template, handle existing repository adoption or create a remote.
+WHPS-002 must support the separate-site architecture without invoking Wix backend writes or deploying real sites from the WHPS repository. See [the WHPS-002 offline bootstrap contract](16-SITE-WORKSPACE-BOOTSTRAP.md). The pre-existing Wix handoff CLI still performs **offline manifest intake only**. The separate WHPS-002 development CLI can initialise a new local Git repository and copy generic site blueprints, but does not download a Wix template, handle existing repository adoption or create a remote.
 
 ## Product completion criterion
 
