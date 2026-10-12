@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "0.1.0",
+  "siteId": "11111111-1111-4111-8111-111111111111",
+  "desired": {
+    "resources": [
+      {
+        "type": "form",
+        "logicalKey": "website-enquiry",
+        "desiredName": "Website enquiry",
+        "wixId": "22222222-2222-4222-8222-222222222222"
+      },
+      {
+        "type": "cms-collection",
+        "logicalKey": "services",
+        "desiredName": "Services"
+      }
+    ]
+  },
+  "observed": {
+    "siteId": "11111111-1111-4111-8111-111111111111",
+    "source": "synthetic-offline-fixture",
+    "capturedAt": "2026-10-12T12:00:00Z",
+    "completeness": "complete",
+    "coveredTypes": [
+      "form",
+      "cms-collection"
+    ],
+    "resources": [
+      {
+        "type": "form",
+        "wixId": "22222222-2222-4222-8222-222222222222",
+        "observedName": "Website enquiry"
+      }
+    ]
+  },
+  "registry": {
+    "schemaVersion": "0.1.0",
+    "siteId": "11111111-1111-4111-8111-111111111111",
+    "resources": [
+      {
+        "type": "form",
+        "logicalKey": "website-enquiry",
+        "wixId": "22222222-2222-4222-8222-222222222222",
+        "state": "verified",
+        "source": "synthetic-fixture"
+      }
+    ]
+  }
+}
