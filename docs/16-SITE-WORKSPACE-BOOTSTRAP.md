@@ -43,7 +43,7 @@ An existing site checkout must **never** be a destination. For an existing sourc
 ## Files created in the new website checkout
 
 - `site.manifest.json`: conforms to manifest schema 0.1.0; no business facts or Wix verification invented.
-- `whps.lock.json`: a **v2 lock** with the actual generating `toolkitSource` repository, full local Git SHA, optional exact-match tag, state (`unreleased-checkout` or `tagged-checkout-unverified`) and `releaseVerification: not-performed`. The generator separately records the same SHA/tag, and `foundationBaseline` preserves the historic v0.1.0 reference. A local tag alone never certifies a published GitHub Release.
+- `whps.lock.json`: a **v2 lock**, validated by [the adoption-lock schema](../schemas/whps-adoption-lock.schema.json), with the actual generating `toolkitSource` repository, full local Git SHA, optional exact-match tag, state (`unreleased-checkout` or `tagged-checkout-unverified`) and `releaseVerification: not-performed`. The generator separately records the same SHA/tag, and `foundationBaseline` preserves the historic v0.1.0 reference. A local tag alone never certifies a published GitHub Release.
 - `README.md`: website-local startup and approval steps.
 - `AGENTS.md`, `docs/CONTROL-ROOM.md`, `docs/BUSINESS-BRIEF.md`: site-specific copies of **generic** source templates, with key and adopted foundation reference.
 - `.gitignore`: basic secret and build output exclusions.

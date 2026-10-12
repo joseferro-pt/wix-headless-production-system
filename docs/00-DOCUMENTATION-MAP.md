@@ -27,6 +27,7 @@ WHPS has **one system repository** and any number of independently owned website
 | Draw system/site boundary | [System boundaries](06-SYSTEM-BOUNDARIES.md) | One independent repo per website |
 | Adopt toolkit in a site | [Project adoption](07-PROJECT-ADOPTION.md) | Site's pinned WHPS SHA/tag |
 | Bootstrap a **new** local site Git workspace (unreleased WHPS-002) | [Site bootstrap contract](16-SITE-WORKSPACE-BOOTSTRAP.md) | Generated files in new external website repo |
+| Validate a new website's source-provenance lock | [Adoption-lock schema](../schemas/whps-adoption-lock.schema.json) and [R06 plan](18-R06-RELEASE-PLAN.md) | Site-local whps.lock.json |
 | Validate a resource plan output from WHPS-003 | [Read-only planner](17-READ-ONLY-RESOURCE-PLANNER.md) and [output schema](../schemas/resource-plan-output.schema.json) | Site-local reviewable proposal |
 | System validation and threat model | [Verification/security](08-VERIFICATION-SECURITY.md) and [security policy](../SECURITY.md) | Site-specific security checks |
 | Contributing and external distribution | [Contributing](../CONTRIBUTING.md) and [release governance](11-RELEASE-GOVERNANCE.md) | Site-specific contribution/release policy |

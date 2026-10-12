@@ -12,7 +12,7 @@
 
 ## Lock semantics and migration
 
-`whps.lock.json` v1 named `toolkitRelease: v0.1.0` while the bootstrap generator itself was not in that published tag. v2 corrects this by recording:
+`whps.lock.json` v1 named `toolkitRelease: v0.1.0` while the bootstrap generator itself was not in that published tag. v2 corrects this by recording (validated by [the v2 adoption-lock schema](../schemas/whps-adoption-lock.schema.json)):
 
 - `toolkitSource.repository`, `toolkitSource.commit`: exact 40-character Git revision which created the workspace.
 - `toolkitSource.tag`: exact local SemVer tag pointing to HEAD, or null.
