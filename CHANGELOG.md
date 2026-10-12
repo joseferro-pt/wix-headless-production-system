@@ -4,7 +4,14 @@ This file records **toolkit development**, not website deployments. Entries unde
 
 ## Unreleased
 
-### WHPS-002 · Independent website workspace bootstrap (in PR, not published)
+### WHPS-003 · Offline read-only Wix resource planner (in PR, not released)
+
+- Add metadata-only desired/observed reconciliation with a strict standalone JSON Schema, optional historical registry and synthetic example.
+- Prefer stable ID and unique exact type/name; block missing, ambiguous and cross-site identities; require type coverage for absence claims.
+- Propose create/reuse/update/retire/blocked/untracked actions without API calls or backend mutations. Explicit retirement intent and human approval are required.
+- Add negative regression tests, documentation and offline CI smoke check.
+
+### WHPS-002 · Independent website workspace bootstrap (merged, not yet published)
 
 - Add a strictly offline new-directory CLI supporting `wix-handoff` and `unbound-frontend`; initialise an independent local Git repository and copy generic site guidance.
 - Lock the **published v0.1.0 foundation tag and full SHA** while explicitly identifying the WHPS-002 generator as unreleased development tooling.

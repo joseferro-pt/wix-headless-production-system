@@ -8,6 +8,10 @@
 
 Never treat a stale JSON registry as definitive proof of what's currently on Wix.
 
+## WHPS-003 offline planner
+
+The [WHPS-003 read-only planner](17-READ-ONLY-RESOURCE-PLANNER.md) consumes supplied desired/observed metadata and an optional historical registry. It **never fetches live Wix data or executes a mutation**. It requires explicit covered resource types and a declared complete/partial snapshot; only complete, type-covered observations can produce create/retire proposals. A missing registered Wix ID, ambiguous type/name match or cross-site identity mismatch blocks planning. The tool emits proposals requiring separate website-local authorisation and fresh Wix verification.
+
 ## Safe reconciliation
 
 1. Fetch installed solutions and relevant entities using an authorized read-only context.

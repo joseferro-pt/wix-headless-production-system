@@ -3,7 +3,7 @@
 **Scope:** Reusable production toolkit only. No Wix client site or site delivery is managed here.  
 **Canonical repo:** https://github.com/joseferro-pt/wix-headless-production-system  
 **Schema contract:** `0.1.0`; **published toolkit release:** [`v0.1.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0).  
-**Source status:** R01–R05 merged; R05.1 recovery merged and publication verified. R05.2 post-release reconciliation has merged. WHPS-002 development is proposed for PR review, and the bootstrap CLI is not published.
+**Source status:** R01–R05 merged; R05.1 recovery merged and publication verified. R05.2 post-release reconciliation has merged. WHPS-002 merged with green CI, but its CLI remains unreleased. WHPS-003 is in PR review: metadata-only reconciliation without Wix access.
 
 ## Evidence baseline (12 October 2026)
 
@@ -44,15 +44,16 @@ Definitions and evidence rules: [authority/decisions](10-AUTHORITY-AND-DECISIONS
 | WHPS-R05 · Verified foundation | **Published and verified** | PR #6, annotated tag and GitHub Release |
 | WHPS-R05.1 · Publication recovery | **Merged and verified** | PR #8 and recovery run `38257202876` |
 | WHPS-R05.2 · Post-release reconciliation | **Merged** | PR #9, merged validation and Dependabot checks |
-| WHPS-002 · Independent site bootstrap | **In development; not released** | New-directory Git scaffold, synthetic tests and [contract](16-SITE-WORKSPACE-BOOTSTRAP.md); PR acceptance pending |
+| WHPS-002 · Independent site bootstrap | **Merged, unreleased** | PR #12, validated site scaffold and [contract](16-SITE-WORKSPACE-BOOTSTRAP.md) |
+| WHPS-003 · Read-only reconciliation planner | **In development; PR review pending** | Strict desired/observed contract, deterministic planner, [governance](17-READ-ONLY-RESOURCE-PLANNER.md) and synthetic tests |
 
 ## Product-development backlog
 
-`WHPS-001`: initial foundation (merged work); `WHPS-002`: generic site-workspace bootstrap (development); `WHPS-003`: read-only resource planner; `WHPS-004`: frontend primitives; `WHPS-005`: quality framework; `WHPS-006`: distribution/compatibility; `WHPS-007`: maintainability. Details: [roadmap](05-ROADMAP.md).
+`WHPS-001`: initial foundation (merged work); `WHPS-002`: generic site-workspace bootstrap (merged, unreleased); `WHPS-003`: read-only resource planner (in development); `WHPS-004`: frontend primitives; `WHPS-005`: quality framework; `WHPS-006`: distribution/compatibility; `WHPS-007`: maintainability. Details: [roadmap](05-ROADMAP.md).
 
 ## Current gate
 
-**Review the WHPS-002 bootstrap PR** with its synthetic safety and Git tests; do not merge without green CI. The first release remains immutable: **do not rerun recovery or move the tag**. Repository protection and confidential vulnerability reporting remain owner-controlled follow-ups.
+**Review the WHPS-003 planner PR** and synthetic safety/CI evidence before merging. The first release remains immutable: **do not rerun recovery or move the tag**. Repository protection and confidential vulnerability reporting remain owner-controlled follow-ups.
 
 ## Constraints and known limits
 

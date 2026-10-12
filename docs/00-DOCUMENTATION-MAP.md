@@ -21,6 +21,7 @@ WHPS has **one system repository** and any number of independently owned website
 | Lifecycle and entry modes | [Operating model](01-OPERATING-MODEL.md) | Site project Control Room |
 | Interpret Wix handoff | [Wix handoff](02-WIX-HANDOFF.md) | Original prompt and ZIP in site repo |
 | Reconcile Wix backend | [Resource governance](03-WIX-RESOURCE-GOVERNANCE.md) | Site resource registry and Wix backend |
+| Compare desired vs supplied observed resource snapshot (WHPS-003) | [Read-only reconciliation planner](17-READ-ONLY-RESOURCE-PLANNER.md) | Site-local snapshot, prior registry and review plan |
 | Validate a website release | [QA/release protocol](04-QA-RELEASE.md) | Site CI and site release report |
 | Draw system/site boundary | [System boundaries](06-SYSTEM-BOUNDARIES.md) | One independent repo per website |
 | Adopt toolkit in a site | [Project adoption](07-PROJECT-ADOPTION.md) | Site's pinned WHPS SHA/tag |

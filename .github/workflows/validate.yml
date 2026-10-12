@@ -29,6 +29,11 @@ jobs:
         run: |
           node scripts/intake-wix-handoff.mjs examples/wix-generated-prompt.example.txt /tmp/example-site
           node scripts/validate-manifest.mjs /tmp/example-site/site.manifest.json
+      - name: WHPS-003 offline read-only planner smoke test
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/plan-wix-resources.mjs --input examples/resource-plan.synthetic.json | python3 -c 'import json,sys; p=json.load(sys.stdin); assert p["execution"] == "never"; assert p["summary"]["reuse"] == 1; assert p["summary"]["create"] == 1; assert p["approval"] == "required-for-every-change"'
       - name: WHPS-002 offline site bootstrap smoke test
         shell: bash
         run: |

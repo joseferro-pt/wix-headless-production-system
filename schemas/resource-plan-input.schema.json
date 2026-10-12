@@ -1,0 +1,244 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/whps/resource-plan-input.schema.json",
+  "title": "WHPS-003 offline resource planning input 0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "siteId",
+    "desired",
+    "observed"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "0.1.0"
+    },
+    "siteId": {
+      "$ref": "#/$defs/uuid"
+    },
+    "desired": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "resources"
+      ],
+      "properties": {
+        "resources": {
+          "type": "array",
+          "maxItems": 500,
+          "items": {
+            "$ref": "#/$defs/desired"
+          }
+        }
+      }
+    },
+    "observed": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "siteId",
+        "source",
+        "capturedAt",
+        "completeness",
+        "coveredTypes",
+        "resources"
+      ],
+      "properties": {
+        "siteId": {
+          "$ref": "#/$defs/uuid"
+        },
+        "source": {
+          "$ref": "#/$defs/name"
+        },
+        "capturedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "completeness": {
+          "enum": [
+            "complete",
+            "partial"
+          ]
+        },
+        "coveredTypes": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 7,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/kind"
+          }
+        },
+        "resources": {
+          "type": "array",
+          "maxItems": 2000,
+          "items": {
+            "$ref": "#/$defs/observed"
+          }
+        }
+      }
+    },
+    "registry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "siteId",
+        "resources"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "0.1.0"
+        },
+        "siteId": {
+          "$ref": "#/$defs/uuid"
+        },
+        "resources": {
+          "type": "array",
+          "maxItems": 2000,
+          "items": {
+            "$ref": "#/$defs/registryResource"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "uuid": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "kind": {
+      "enum": [
+        "form",
+        "cms-collection",
+        "booking-service",
+        "store-product",
+        "event",
+        "app",
+        "other"
+      ]
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "pattern": "\\S"
+    },
+    "logicalKey": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "desired": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "logicalKey",
+        "desiredName"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/$defs/kind"
+        },
+        "logicalKey": {
+          "$ref": "#/$defs/logicalKey"
+        },
+        "desiredName": {
+          "$ref": "#/$defs/name"
+        },
+        "wixId": {
+          "$ref": "#/$defs/name"
+        },
+        "intent": {
+          "enum": [
+            "present",
+            "retire"
+          ]
+        }
+      }
+    },
+    "observed": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "wixId",
+        "observedName"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/$defs/kind"
+        },
+        "wixId": {
+          "$ref": "#/$defs/name"
+        },
+        "observedName": {
+          "$ref": "#/$defs/name"
+        },
+        "revision": {
+          "$ref": "#/$defs/name"
+        }
+      }
+    },
+    "registryResource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "logicalKey",
+        "wixId",
+        "state",
+        "source"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/$defs/kind"
+        },
+        "logicalKey": {
+          "$ref": "#/$defs/logicalKey"
+        },
+        "wixId": {
+          "$ref": "#/$defs/name"
+        },
+        "state": {
+          "enum": [
+            "observed",
+            "verified",
+            "untracked",
+            "missing",
+            "retired"
+          ]
+        },
+        "source": {
+          "$ref": "#/$defs/name"
+        },
+        "observedName": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/name"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "observedAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

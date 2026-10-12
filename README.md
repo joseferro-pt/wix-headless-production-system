@@ -15,7 +15,7 @@ The Wix-generated handoff establishes technical identity, **not** verified busin
 - **R01:** foundation corrections merged: schema-aware validation, atomic intake, ZIP safeguards.
 - **R02:** verification improvements merged: synthetic negative tests and tracked-content security guard.
 - **R03:** documentation consolidation merged; policy and status terminology reconciled.
-- **R04:** governance merged. **R05:** release candidate merged. **R05.1:** recovery merged and v0.1.0 publication verified. **R05.2:** post-release reconciliation merged. **WHPS-002:** independent site bootstrap in development, not yet released.
+- **R04:** governance merged. **R05:** release candidate merged. **R05.1:** recovery merged and v0.1.0 publication verified. **R05.2:** post-release reconciliation merged. **WHPS-002:** bootstrap merged, not yet released. **WHPS-003:** read-only resource planner proposed for review.
 - **Published toolkit release:** [`v0.1.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0), annotated tag targeting `802acf1b536b502fcacdffc1d6b7ce371aa2d3f7`. The manifest schema is separately versioned as `0.1.0`.
 - **Licence:** [Apache-2.0](LICENSE), with repository copyright attribution in [NOTICE](NOTICE). This does not license Wix-owned code or independently managed websites.
 
@@ -46,6 +46,14 @@ It supports `wix-handoff` and `unbound-frontend` only. For `existing-repository`
 
 
 
+## WHPS-003 · Read-only resource reconciliation (development)
+
+The [unreleased offline planner](docs/17-READ-ONLY-RESOURCE-PLANNER.md) compares desired resource metadata with an explicitly supplied observed snapshot, and optionally a historical registry. It emits JSON proposals (`create`, `reuse`, `update`, `retire`, `blocked`, `untracked`) **without contacting Wix or executing any change**. Snapshot coverage, uniqueness and identity mismatches are checked; all proposed operations require site-local approval.
+
+    node scripts/plan-wix-resources.mjs --input examples/resource-plan.synthetic.json
+
+WHPS-003 is not part of the published v0.1.0 toolkit. Real snapshot inputs and plans belong in each independent website repository, never WHPS.
+
 ## Validate this toolkit
 
 Install runtime requirements plus the maintainer-only YAML checker:
@@ -74,6 +82,7 @@ Start with the [documentation map](docs/00-DOCUMENTATION-MAP.md), then the [syst
 | `tests/`, `examples/` | Tests and explicitly synthetic fixtures |
 | `requirements-dev.txt` | Additional maintainer-only YAML verification dependency |
 | `docs/16-SITE-WORKSPACE-BOOTSTRAP.md` | Unreleased site-bootstrap CLI behaviour and safety boundaries |
+| `docs/17-READ-ONLY-RESOURCE-PLANNER.md` | WHPS-003 read-only desired-vs-observed reconciliation contract |
 | `.github/` | CI for the toolkit, never Wix deployments |
 
 ## Governance and contributing
