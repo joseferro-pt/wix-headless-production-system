@@ -36,6 +36,6 @@ Record the scope, rationale, alternatives, owner/authority, status, evidence, da
 | R01 manifest/intake/archive corrections | Implemented and merged (PR #2); CI passed | GitHub commit and workflow |
 | R02 toolkit verification controls | Implemented and merged (PR #3); CI passed | GitHub commit and workflow |
 | R03 documentation consolidation | Implemented and merged (PR #4); CI passed | GitHub commit and workflow |
-| Formal licensing, release versioning and distribution | R04 policy proposed; licence decision pending owner acceptance | No accepted LICENSE, tag or GitHub Release |
+| Formal licensing, release versioning and distribution | R04 merged and Apache-2.0 accepted; R05 candidate pending publication | `LICENSE`, `NOTICE`, release record and GitHub verification |
 
 These statements are a **status ledger**, not a claim that every original DR-001–DR-004 was separately approved. Align the [Control Room](CONTROL-ROOM.md) when a PR is merged or a decision changes.

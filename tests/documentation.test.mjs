@@ -52,7 +52,7 @@ test('entry documentation separates merged review work from unpublished toolkit 
   ]);
   assert.match(readme, /R01[^\n]*merged/i);
   assert.match(readme, /R02[^\n]*merged/i);
-  assert.match(room, /R03[^\n]*documentation/i);
-  assert.match(adoption, /no published WHPS release tag yet/i);
+  assert.match(room, /WHPS-R04[^\n]*release governance/i);
+  assert.match(adoption, /confirm[^\n]*tag and GitHub Release/i);
   assert.match(readme, /does \*\*not\*\* download Wix's ZIP/i);
 });

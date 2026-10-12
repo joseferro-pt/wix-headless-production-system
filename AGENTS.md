@@ -17,7 +17,7 @@ This is the **system** agent contract. It does not authorise editing, provisioni
 3. Respect the applicable Wix technical documentation for integration facts; this toolkit cannot override Wix API contracts. Do not introduce unverified business facts into examples.
 4. Use synthetic fixtures and offline tests. Keep new checks reproducible and fail closed on safety-critical validation errors.
 5. Open a PR against current `main`; verify required CI and the actual diff. Record what passed, what was not tested and any known risks. Use [contributing](CONTRIBUTING.md) and [release governance](docs/11-RELEASE-GOVERNANCE.md). Do not treat a draft PR as merged.
-6. Merge only under the approved review policy. A toolkit Git tag, licence acceptance, publication, branch-protection change or release support commitment requires recorded owner authority. Do not publish or infer approval from test success. A version string is not proof of a GitHub Release.
+6. Merge only under the approved review policy. A toolkit Git tag, licence acceptance, publication, branch-protection change or release support commitment requires recorded owner authority. Do not publish or infer approval from test success. A version string or release-candidate document is not proof of a GitHub Release. Verify the tag and matching commit and public Release.
 
 ## Separate authority domains
 
@@ -34,7 +34,7 @@ Use only evidence-based labels: `proposed`, `implemented`, `CI-passed`, `merged`
 
 ## Distribution and legal boundary
 
-- The repository is public but has no accepted `LICENSE` yet. See [licence decision](docs/13-LICENSING-DECISION.md); do not imply an open-source permission grant.
+- Apache-2.0 is accepted for original WHPS source. See [LICENSE](LICENSE), [NOTICE](NOTICE) and the [licence decision](docs/13-LICENSING-DECISION.md). It does not grant rights to Wix or client website code.
 - Proposed runtime support is constrained to the [CI-tested matrix](docs/12-SUPPORT-COMPATIBILITY.md); Wix runtime compatibility is external and unverified in toolkit CI.
 - `node scripts/check-release-readiness.mjs --policy` is safe for CI. `--release` must block until accepted licensing and a release-specific changelog are present; even then, it is not a publish action.
 

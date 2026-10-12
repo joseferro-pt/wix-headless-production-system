@@ -1,0 +1,89 @@
+name: Publish WHPS v0.1.0
+
+# Explicitly one initial-release marker in an approved main merge. Never deploy Wix sites.
+on:
+  workflow_run:
+    workflows: ["Validate production protocol"]
+    types: [completed]
+permissions:
+  contents: read
+jobs:
+  publish:
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_branch == 'main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout exact green main commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          fetch-depth: 2
+      - name: Confirm only the approved R05 merge can publish
+        id: candidate
+        env:
+          SOURCE_SHA: ${{ github.event.workflow_run.head_sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main --depth=2
+          test "$(git rev-parse HEAD)" = "$SOURCE_SHA"
+          test "$(git rev-parse origin/main)" = "$SOURCE_SHA"
+          if git diff --name-only HEAD^1 HEAD | grep -Fxq 'docs/releases/v0.1.0.md'; then
+            echo "eligible=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "No R05 release marker in this main change: no publication"
+            echo "eligible=false" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/setup-node@v4
+        if: steps.candidate.outputs.eligible == 'true'
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        if: steps.candidate.outputs.eligible == 'true'
+        with:
+          python-version: '3.12'
+      - name: R05 offline release gate
+        if: steps.candidate.outputs.eligible == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install -r requirements.txt
+          node scripts/check-repository-boundary.mjs
+          node scripts/check-release-readiness.mjs --release --version v0.1.0
+          node --test tests/*.test.mjs
+          python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Create annotated tag and GitHub Release
+        if: steps.candidate.outputs.eligible == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_SHA: ${{ github.event.workflow_run.head_sha }}
+          VALIDATION_URL: ${{ github.event.workflow_run.html_url }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git ls-remote --exit-code --tags origin 'refs/tags/v0.1.0' >/dev/null 2>&1; then
+            echo 'v0.1.0 tag already exists: verify it manually; refusing to overwrite'
+            exit 1
+          fi
+          if gh release view v0.1.0 >/dev/null 2>&1; then
+            echo 'v0.1.0 GitHub Release already exists: refusing to recreate'
+            exit 1
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git tag -a v0.1.0 -m "WHPS v0.1.0 approved source $SOURCE_SHA"
+          git push origin refs/tags/v0.1.0
+          cp docs/releases/v0.1.0.md "$RUNNER_TEMP/whps-release-notes.md"
+          {
+            printf '\n## Verified publication provenance\n\n'
+            printf -- '- Source commit: `%s`\n' "$SOURCE_SHA"
+            printf -- '- Exact-commit validation: %s\n' "$VALIDATION_URL"
+            printf -- '- Licence: Apache-2.0 (LICENSE and NOTICE at the source revision)\n'
+          } >> "$RUNNER_TEMP/whps-release-notes.md"
+          gh release create v0.1.0 --verify-tag --title 'WHPS v0.1.0' --notes-file "$RUNNER_TEMP/whps-release-notes.md"
+          gh release view v0.1.0 --json url,tagName,isDraft,isPrerelease,targetCommitish

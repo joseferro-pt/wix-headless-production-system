@@ -24,4 +24,4 @@ The items above describe the **currently validated development environment**. Th
 
 ## Release policy for support
 
-The toolkit has **no published supported release line** today. At R05, specify which WHPS versions are supported, how security fixes are shipped, and what upgrades are recommended. Site repositories pin a toolkit commit/tag; WHPS does not guarantee that downstream sites automatically pick up changes.
+The initial candidate `v0.1.0` is an **early developer toolkit** on the CI-tested runtimes above. The release notes define known limits; future fixes use reviewed patch releases. Do not claim support for Wix site deployments or untested platforms. Site repositories pin a toolkit commit/tag; WHPS does not guarantee that downstream sites automatically pick up changes.

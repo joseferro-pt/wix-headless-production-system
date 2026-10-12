@@ -12,7 +12,7 @@ Avoid reusing one status term for different objects. See [authority](10-AUTHORIT
 | **Business brief** | Client-approved facts, audience, content and intended features | Source and explicit approval in site repo |
 | **Manifest schema version** | Data contract recognised by validator (`0.1.0` currently) | JSON Schema and validator implementation |
 | **Toolkit baseline** | A reviewed set of files present on `main` | Git commit SHA |
-| **Toolkit release** | Deliberately published and versioned distribution of WHPS | Accepted release decision, version tag and GitHub Release; **none published yet** |
+| **Toolkit release** | Deliberately published and versioned distribution of WHPS | Accepted release decision, version tag and verified GitHub Release |
 | **Release candidate** | A reviewed source revision proposed for eventual publication | Proposed tag/version, CI, decision and release-readiness record; not automatically published |
 | **Supported runtime** | Tooling environment backed by CI evidence and published support policy | Node 22, Python 3.12 on Ubuntu Linux currently CI-tested |
 | **Website release** | Actual deployment of one site using its Wix project | Wix CLI result, commit and site-local report |
@@ -33,4 +33,4 @@ Avoid reusing one status term for different objects. See [authority](10-AUTHORIT
 
 ## Canonical terminology rules
 
-Use "original Wix-provided archive" only when its origin is independently grounded. The offline ZIP auditor can verify structure and match identifiers, **not** independently prove provenance. Do not call its result a successful deployment. Use "adopted tag" only once a tag actually exists; before R05 say "pinned commit SHA".
+Use "original Wix-provided archive" only when its origin is independently grounded. The offline ZIP auditor can verify structure and match identifiers, **not** independently prove provenance. Do not call its result a successful deployment. Use "adopted tag" only once its published tag and source SHA actually exist; a release-candidate document is not evidence of publication.

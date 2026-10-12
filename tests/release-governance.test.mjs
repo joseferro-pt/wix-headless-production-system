@@ -12,11 +12,27 @@ test('policy mode verifies that repository governance is wired into CI', async()
   assert.deepEqual(await checkReadiness(root),[]);
 });
 
-test('unaccepted licence prevents release readiness even when all policy files exist',async()=>{
-  const findings=await checkReadiness(root,{release:true,version:'v0.1.0'});
-  assert.ok(findings.some(x=>x.includes('not explicitly accepted')));
-  assert.ok(findings.some(x=>x.includes('LICENSE')));
-  assert.ok(findings.some(x=>x.includes('CHANGELOG')));
+test('Apache-2.0 accepted license and release notes satisfy offline v0.1.0 gate', async()=>{
+  assert.deepEqual(await checkReadiness(root,{release:true,version:'v0.1.0'}),[]);
+});
+
+test('unaccepted or missing licence fails closed in isolated temporary checkout', async()=>{
+  const dir=await mkdtemp(join(tmpdir(),'whps-r05-license-'));
+  try{
+    for(const name of REQUIRED_POLICY_FILES){
+      const target=join(dir,name);
+      await mkdir(dirname(target),{recursive:true});
+      await writeFile(target,await readFile(join(root,name),'utf8'));
+    }
+    await writeFile(join(dir,'CHANGELOG.md'),'## v0.1.0\n');
+    const missing=await checkReadiness(dir,{release:true,version:'v0.1.0'});
+    assert.ok(missing.some(x=>x.includes('LICENSE')));
+    await writeFile(join(dir,'LICENSE'),'synthetic licence placeholder');
+    const decision=await readFile(join(dir,'docs/13-LICENSING-DECISION.md'),'utf8');
+    await writeFile(join(dir,'docs/13-LICENSING-DECISION.md'),decision.replace('**Status:** Accepted','**Status:** Proposed'));
+    const pending=await checkReadiness(dir,{release:true,version:'v0.1.0'});
+    assert.ok(pending.some(x=>x.includes('not explicitly accepted')));
+  } finally { await rm(dir,{recursive:true,force:true}); }
 });
 
 test('malformed SemVer tags are rejected in release mode', async()=>{
