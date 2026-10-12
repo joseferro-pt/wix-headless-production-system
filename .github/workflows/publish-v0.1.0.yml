@@ -38,15 +38,15 @@ jobs:
           test "$APPROVAL" = 'PUBLISH-v0.1.0' || { echo 'BLOCK: explicit approval text does not match'; exit 1; }
           test "$GITHUB_REF" = 'refs/heads/main' || { echo 'BLOCK: run recovery on main'; exit 1; }
       - name: Check out the approved R05 release candidate
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: 802acf1b536b502fcacdffc1d6b7ce371aa2d3f7
           fetch-depth: 0
           persist-credentials: false
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: '22'
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
       - name: Verify immutable source and passing push validation
