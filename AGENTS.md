@@ -16,8 +16,8 @@ This is the **system** agent contract. It does not authorise editing, provisioni
 2. Identify a **system-scoped** change and a measurable acceptance check. Use a system work packet, not a client website task.
 3. Respect the applicable Wix technical documentation for integration facts; this toolkit cannot override Wix API contracts. Do not introduce unverified business facts into examples.
 4. Use synthetic fixtures and offline tests. Keep new checks reproducible and fail closed on safety-critical validation errors.
-5. Open a PR against current `main`; verify required CI and the actual diff. Record what passed, what was not tested and any known risks. Do not treat a draft PR as merged.
-6. Merge or tag only when the review and release rules permit it. A new version string is not proof of a GitHub Release.
+5. Open a PR against current `main`; verify required CI and the actual diff. Record what passed, what was not tested and any known risks. Use [contributing](CONTRIBUTING.md) and [release governance](docs/11-RELEASE-GOVERNANCE.md). Do not treat a draft PR as merged.
+6. Merge only under the approved review policy. A toolkit Git tag, licence acceptance, publication, branch-protection change or release support commitment requires recorded owner authority. Do not publish or infer approval from test success. A version string is not proof of a GitHub Release.
 
 ## Separate authority domains
 
@@ -31,6 +31,12 @@ See [authority and decisions](docs/10-AUTHORITY-AND-DECISIONS.md) for conflict h
 ## Status language
 
 Use only evidence-based labels: `proposed`, `implemented`, `CI-passed`, `merged`, `published-release`, `blocked` for **system** work. Site work has its own lifecycle (`HANDOFF_RECEIVED`, `PREFLIGHT_COMPLETE`, `RELEASED`, `VERIFIED`, etc.). Do not call system merges 'website releases'.
+
+## Distribution and legal boundary
+
+- The repository is public but has no accepted `LICENSE` yet. See [licence decision](docs/13-LICENSING-DECISION.md); do not imply an open-source permission grant.
+- Proposed runtime support is constrained to the [CI-tested matrix](docs/12-SUPPORT-COMPATIBILITY.md); Wix runtime compatibility is external and unverified in toolkit CI.
+- `node scripts/check-release-readiness.mjs --policy` is safe for CI. `--release` must block until accepted licensing and a release-specific changelog are present; even then, it is not a publish action.
 
 ## Quality
 

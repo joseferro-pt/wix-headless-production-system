@@ -14,13 +14,14 @@ The Wix-generated handoff establishes technical identity, **not** verified busin
 
 - **R01:** foundation corrections merged: schema-aware validation, atomic intake, ZIP safeguards.
 - **R02:** verification improvements merged: synthetic negative tests and tracked-content security guard.
-- **R03:** documentation consolidation under review, not yet accepted or merged.
-- **R04/R05:** release governance and first verified toolkit release remain ahead.
-- `0.1.0` currently identifies a manifest contract and historical foundation baseline. **There is no published WHPS GitHub Release or endorsed version tag yet.** Until R05, record an exact Git commit SHA when adopting this development toolkit.
+- **R03:** documentation consolidation merged; policy and status terminology reconciled.
+- **R04:** release governance proposal under review (PR pending acceptance). **R05:** first verified toolkit release not started.
+- `0.1.0` is the manifest schema version, not a published toolkit version. **There is no GitHub Release or endorsed toolkit tag yet.** Until R05, development-only adoption uses an exact Git commit SHA.
+- **Licensing decision pending:** this public repository does not yet have an accepted `LICENSE`. Do not treat public source visibility as an open-source grant. See [licence decision](docs/13-LICENSING-DECISION.md).
 
 ## Quick start: offline Wix handoff intake
 
-From a WHPS checkout, with Python 3 and Node.js 22 available:
+From a WHPS checkout, with the [CI-tested environment](docs/12-SUPPORT-COMPATIBILITY.md) of Node.js 22 and Python 3.12:
 
 ```sh
 python3 -m pip install -r requirements.txt
@@ -35,11 +36,12 @@ node scripts/validate-manifest.mjs ../example-website/site.manifest.json
 ```sh
 python3 -m pip install -r requirements.txt
 node scripts/check-repository-boundary.mjs
+node scripts/check-release-readiness.mjs --policy
 node --test tests/*.test.mjs
 python3 -m unittest discover -s tests -p 'test_*.py' -v
 ```
 
-The tests use synthetic inputs and do not access Wix. A passing system CI run **does not** verify an individual website or a deployment. See [verification and security](docs/08-VERIFICATION-SECURITY.md).
+The tests use synthetic inputs and do not access Wix. The `--policy` gate checks release-governance wiring; `--release --version vX.Y.Z` additionally checks accepted licensing and changelog prerequisites and **must fail** until those are approved. A passing system CI run **does not** verify an individual website or a deployment. See [verification and security](docs/08-VERIFICATION-SECURITY.md).
 
 ## Documentation
 
@@ -54,6 +56,17 @@ Start with the [documentation map](docs/00-DOCUMENTATION-MAP.md), then the [syst
 | `scripts/` | Offline intake, inspection and validation tools |
 | `tests/`, `examples/` | Tests and explicitly synthetic fixtures |
 | `.github/` | CI for the toolkit, never Wix deployments |
+
+## Governance and contributing
+
+- [Contributing and review process](CONTRIBUTING.md)
+- [Security reporting and triage](SECURITY.md)
+- [Release governance](docs/11-RELEASE-GOVERNANCE.md)
+- [Supported environments](docs/12-SUPPORT-COMPATIBILITY.md)
+- [Licence decision proposal](docs/13-LICENSING-DECISION.md)
+- [Branch and tag protection proposal](docs/14-REPOSITORY-PROTECTION.md)
+
+The licence and protection settings have **not** been accepted/applied by this documentation-only policy change. No Git tag or release is created under R04.
 
 ## Official Wix references
 

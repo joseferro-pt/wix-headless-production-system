@@ -15,14 +15,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Install JSON Schema validator dependency
+      - name: Install validator dependency
         run: python -m pip install -r requirements.txt
-      - name: Scan all tracked toolkit files for site identifiers and credentials
+      - name: Scan all tracked toolkit files for site content and credential signatures
         run: node scripts/check-repository-boundary.mjs
+      - name: Check toolkit release-governance wiring (not publication)
+        run: node scripts/check-release-readiness.mjs --policy
       - name: Test handoff parser and manifest contracts
         run: node --test tests/*.test.mjs
-      - name: Check toolkit and website separation
-        run: node --test tests/system-boundary.test.mjs
       - name: Python archive contract tests
         run: python -m unittest discover -s tests -p 'test_*.py' -v
       - name: Sample intake and offline validation
