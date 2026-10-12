@@ -1,1 +1,1 @@
-# wix-headless-production-system
+# Wix Headless Website Production System
