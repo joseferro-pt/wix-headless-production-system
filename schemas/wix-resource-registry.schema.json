@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/whps/wix-resource-registry.schema.json",
+  "title": "WHPS Wix Resource Registry 0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "siteId",
+    "resources"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "0.1.0"
+    },
+    "siteId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "resources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "type",
+          "logicalKey",
+          "wixId",
+          "state",
+          "source"
+        ],
+        "properties": {
+          "type": {
+            "enum": [
+              "form",
+              "cms-collection",
+              "booking-service",
+              "store-product",
+              "event",
+              "app",
+              "other"
+            ]
+          },
+          "logicalKey": {
+            "type": "string",
+            "minLength": 1
+          },
+          "wixId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "state": {
+            "enum": [
+              "observed",
+              "verified",
+              "untracked",
+              "missing",
+              "retired"
+            ]
+          },
+          "source": {
+            "type": "string",
+            "minLength": 1
+          },
+          "observedName": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "observedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

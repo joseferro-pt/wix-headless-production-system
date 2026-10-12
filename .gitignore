@@ -1,0 +1,16 @@
+node_modules/
+.env
+.env.*
+!.env.example
+.wix/
+dist/
+coverage/
+.DS_Store
+# Client-site identity and local source bundles are never stored in the system repo:
+clients/
+incoming/
+*.zip
+
+__pycache__/
+*.py[cod]
+.pytest_cache/

@@ -1,0 +1,185 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/whps/site-manifest.schema.json",
+  "title": "WHPS Site Manifest 0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "projectKey",
+    "lifecycleState",
+    "entryMode",
+    "handoff",
+    "business",
+    "wix",
+    "site"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "0.1.0"
+    },
+    "projectKey": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "lifecycleState": {
+      "enum": [
+        "HANDOFF_RECEIVED",
+        "PREFLIGHT_COMPLETE",
+        "BRIEF_APPROVED",
+        "SPEC_APPROVED",
+        "IMPLEMENTED",
+        "BACKEND_SYNCED",
+        "BUILD_PASSED",
+        "RELEASE_APPROVED",
+        "RELEASED",
+        "VERIFIED",
+        "BLOCKED"
+      ]
+    },
+    "entryMode": {
+      "enum": [
+        "wix-handoff",
+        "existing-repository",
+        "unbound-frontend"
+      ]
+    },
+    "handoff": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "originalFile",
+        "sha256",
+        "skillUrl",
+        "downloadUrl"
+      ],
+      "properties": {
+        "originalFile": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "skillUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "downloadUrl": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "business": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "factsStatus",
+        "name",
+        "sector",
+        "primaryAction"
+      ],
+      "properties": {
+        "factsStatus": {
+          "enum": [
+            "unknown",
+            "proposed",
+            "approved"
+          ]
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sector": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "primaryAction": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "languages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "wix": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "siteId",
+        "clientId",
+        "dashboardUrl",
+        "bindingVerified"
+      ],
+      "properties": {
+        "siteId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "clientId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "dashboardUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "bindingVerified": {
+          "type": "boolean"
+        },
+        "observedLiveUrl": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri"
+        }
+      }
+    },
+    "site": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "framework",
+        "sourceArchiveInspected",
+        "productionReleaseApproved"
+      ],
+      "properties": {
+        "framework": {
+          "type": "string"
+        },
+        "sourceArchiveInspected": {
+          "type": "boolean"
+        },
+        "productionReleaseApproved": {
+          "type": "boolean"
+        },
+        "pages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "requiredIntegrations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

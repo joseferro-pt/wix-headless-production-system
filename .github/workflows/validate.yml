@@ -1,0 +1,20 @@
+name: Validate production protocol
+on:
+  push:
+  pull_request:
+jobs:
+  contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test handoff parser and manifest contracts
+        run: node --test tests/*.test.mjs
+      - name: Python archive contract tests
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Sample intake and offline validation
+        run: |
+          node scripts/intake-wix-handoff.mjs examples/wix-generated-prompt.example.txt /tmp/example-site
+          node scripts/validate-manifest.mjs /tmp/example-site/site.manifest.json
