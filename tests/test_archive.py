@@ -21,8 +21,26 @@ class ArchiveAuditTests(unittest.TestCase):
     def tearDown(self):self.tmp.cleanup()
     def test_good_archive(self):
         r=module.audit(self.path,self.manifest,'wix-original')
-        self.assertEqual(r['status'],'PASS')
+        self.assertEqual(r['status'],'REVIEW_REQUIRED')
+        self.assertFalse(r['provenanceVerified'])
         self.assertTrue(r['identityMatchesHandoff'])
+    def test_unsafe_paths_block(self):
+        with ZipFile(self.path,'a') as z: z.writestr('../malicious.js','alert(1)')
+        self.assertEqual(module.audit(self.path,self.manifest,'unverified')['status'],'BLOCKED')
+
+    def test_duplicate_paths_block(self):
+        import warnings
+        with warnings.catch_warnings():
+            warnings.simplefilter('ignore')
+            with ZipFile(self.path,'a') as z: z.writestr('project/index.html','different')
+        self.assertEqual(module.audit(self.path,self.manifest,'unverified')['status'],'BLOCKED')
+
+    def test_claimed_origin_is_not_verification(self):
+        r=module.audit(self.path,self.manifest,'wix-original')
+        self.assertEqual(r['provenanceClaim'],'wix-original')
+        self.assertFalse(r['provenanceVerified'])
+        self.assertEqual(r['status'],'REVIEW_REQUIRED')
+
     def test_mismatched_identity_blocks(self):
         self.manifest['wix']['siteId']='33333333-3333-4333-8333-333333333333'
         r=module.audit(self.path,self.manifest,'unverified')

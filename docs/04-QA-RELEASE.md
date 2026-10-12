@@ -45,3 +45,9 @@ Use `templates/RELEASE-REPORT.md`. Distinguish `implemented`, `build-passed`, `r
 ## Recovery and rollback
 
 Store last known good commit/tag and capture the deployed release reference. For code rollback, reconstruct from that revision and follow documented Wix deployment steps. Wix business data changes require separately scoped backups/export/migrations and **are not** automatically rolled back by redeploying frontend code.
+
+## WHPS R01 validator and archive-audit limitations
+
+- Full manifest validation requires Python 3 and the declared `jsonschema` dependency. Missing or unusable validation tooling is a failure, not a silently skipped check.
+- A claimed `--provenance wix-original` archive is **not proof** of original Wix origin; the offline auditor always marks provenance as unverified and returns `REVIEW_REQUIRED` when no structural blockers exist.
+- The archive inspector rejects unsafe paths, duplicate members, link entries and bounded excessive sizes/compression. It does not execute, extract, authenticate, deploy, or verify runtime behaviour.
