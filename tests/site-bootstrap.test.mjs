@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import { access, mkdtemp, mkdir, readFile, readdir, rm, symlink, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
@@ -185,4 +185,20 @@ test('existing-repository mode never touches an existing site', async () => {
     }), /existing/);
     assert.deepEqual(await readdir(outputDirectory), ['site.config']);
   });
+});
+
+test('generated v2 site lock passes machine schema and invalid source identity fails',()=>{
+ const real=createAdoptionLock();
+ const validator=join(root,'scripts/validate-json-schema.py');
+ const schemaPath=join(root,'schemas/whps-adoption-lock.schema.json');
+ const validate=value=>{
+   const result=spawnSync('python3',[validator,schemaPath],{input:JSON.stringify(value),encoding:'utf8'});
+   assert.equal(result.status,0,result.stderr);
+   return JSON.parse(result.stdout);
+ };
+ assert.equal(validate(real).valid,true);
+ const broken=structuredClone(real);broken.toolkitSource.commit='not-a-git-revision';
+ assert.equal(validate(broken).valid,false);
+ const falseTag=structuredClone(real);falseTag.toolkitSource.tag='v0.2.0';falseTag.toolkitSource.state='unreleased-checkout';
+ assert.equal(validate(falseTag).valid,false);
 });

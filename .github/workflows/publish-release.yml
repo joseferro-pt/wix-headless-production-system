@@ -93,6 +93,7 @@ jobs:
           assert lock['generator']['sourceCommit']==sys.argv[2]
           assert lock['toolkitSource']['releaseVerification']=='not-performed'
           PY
+          python3 scripts/validate-json-schema.py schemas/whps-adoption-lock.schema.json < "$sandbox/unbound-site/whps.lock.json" | python3 -c 'import json,sys; assert json.load(sys.stdin)["valid"]'
           node scripts/bootstrap-site-workspace.mjs --mode wix-handoff --output "$sandbox/wix-site" --handoff examples/wix-generated-prompt.example.txt
           node scripts/validate-manifest.mjs "$sandbox/wix-site/site.manifest.json"
       - name: Create or verify immutable annotated tag
