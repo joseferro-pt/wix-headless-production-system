@@ -33,4 +33,4 @@ WHPS has **one system repository** and any number of independently owned website
 
 ## Version notes
 
-The `0.1.0` number in the manifest schema is a **schema contract version**. It is **not** a published WHPS release. Apache-2.0 is accepted for the toolkit, and `v0.1.0` is the proposed first release. Adoption should use the published tag and full commit only after verifying the GitHub Release; until then use a reviewed commit SHA as a development reference.
+The `0.1.0` number in the manifest schema is a **schema contract version**. It is **not** a published WHPS release. Apache-2.0 is accepted, and [`v0.1.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0) has been published, resolving to `802acf1b536b502fcacdffc1d6b7ce371aa2d3f7`. Site repositories should adopt the tag together with the full resolved SHA, never a floating `main`.
