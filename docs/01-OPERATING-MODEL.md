@@ -1,46 +1,49 @@
-# 01 — Operating model
+# 01 — Operating model for website delivery
 
-## Roles and sources of truth
+This file defines a **reusable protocol** which is adopted and executed **inside an independent website repository**. It is not a list of website tasks for the WHPS toolkit itself. See [terminology](09-TERMINOLOGY.md) and [authority](10-AUTHORITY-AND-DECISIONS.md).
 
-- **Wix (live business):** Wix-native apps, CRM, forms/submissions, CMS content, bookings and commerce data.
-- **Client site's Git repository:** frontend source, design tokens, tests, the actual project-local `wix.config.json`, accepted copy/config and release history.
-- **System repository:** generic templates, policies, scripts and regression tests; never a client's live Wix data.
-- **Original Wix prompt:** immutable bootstrap evidence (identifiers and source URLs).
-- **Client business brief:** verified commercial facts, offers, voice, positioning and primary customer actions.
+## Evidence and ownership
+
+- **Wix (actual site/backend):** authorised observations of installed apps, CMS, forms, bookings, commerce records and publishing results.
+- **Website Git repository:** original Wix prompt or other confirmed site source, actual `wix.config.json`, project manifest, code, design, content, tests and release records.
+- **Client-approved brief:** verified business facts, intended outcomes and approval evidence.
+- **WHPS:** reusable policies, schemas, blueprints, synthetic tests and offline checks; no actual client website files.
 
 ## Entry modes
 
-**A · Wix handoff:** Exact user-supplied Wix prompt → parse IDs/URLs → download original project → inspect/verify Wix binding → scope business brief → plan → implement → build → review/release.
-
-**B · Existing site:** Locate repo and deployed revision → inspect Wix binding and current Wix site → requirements delta → implement → build → review/release.
-
-**C · Brought-in unbound frontend:** Inspect project + target/site identity before following Wix's official managed connect instructions. May involve creating a new Wix binding only when *no existing Wix site is supplied* and explicitly authorized.
-
-## Stages and transitions
-
-| Stage | State | Evidence required to exit |
+| Manifest `entryMode` | Starting point | Wix operational handling |
 |---|---|---|
-| 00 Intake | `HANDOFF_RECEIVED` | original prompt captured; ID/URL cross-check passes |
-| 01 Preflight | `PREFLIGHT_COMPLETE` | actual ZIP/repo inspected; `wix.config.json` site/client IDs matched; live site read-only inventory |
-| 02 Discovery | `BRIEF_APPROVED` | primary CTA, business facts, required solutions, languages and unknowns documented |
-| 03 Specification | `SPEC_APPROVED` | site map, design tokens, content plan, integration delta accepted |
-| 04 Implementation | `IMPLEMENTED` | code integrated without destroying binding; resource changes logged |
-| 05 Backend reconciliation | `BACKEND_SYNCED` | observed state and changes reconcile; relevant write operations confirmed |
-| 06 Quality | `BUILD_PASSED` | framework build succeeds; applicable checks pass; exceptions documented |
-| 07 Release decision | `RELEASE_APPROVED` | actual published-site change authorized; release candidate identified |
-| 08 Release | `RELEASED` | Wix CLI reports published origin and records source revision |
-| 09 Verify | `VERIFIED` | production URL works and permitted post-release checks pass |
+| `wix-handoff` | Original Wix-generated prompt and template download | Inspect provided project/binding; avoid duplicate provisioning |
+| `existing-repository` | Existing site repo and verified Wix identity | Use the applicable Wix **iterate** path; preserve binding |
+| `unbound-frontend` | Frontend without verified Wix binding | Assess Wix **connect/create** path and necessary authorisation |
 
-`BLOCKED` is a side-state when identity, authentication, missing files, absent required facts or critical QA prevents progress. The evidence for unblocking must be recorded. A state can't be advanced by narrative assertion alone.
+The current WHPS CLI **implements only offline `wix-handoff` intake**. Other modes are contract definitions and manual workflows pending further tooling.
 
-## Responsibilities and review gates
+## Website lifecycle and gates
 
-- **Agent:** generate read-only intake artifacts and proposed business/design specs; implement approved work; show explicit proof of checks.
-- **Operator:** approve factual claims and design direction; grant release approval for already-published sites; authorize destructive actions/costs.
-- **Wix:** business-record authority and actual deployment results.
+| Stage | Machine state (where applicable) | Evidence needed |
+|---|---|---|
+| Intake | `HANDOFF_RECEIVED` for Wix handoff | Original prompt stored and identifiers cross-checked |
+| Preflight | `PREFLIGHT_COMPLETE` | Source and binding inspected; authenticated Wix context where available |
+| Discovery | `BRIEF_APPROVED` | Client facts, actions, languages, content uncertainties approved |
+| Specification | `SPEC_APPROVED` | Sitemap, design, integration intent and scope accepted |
+| Implementation | `IMPLEMENTED` | Frontend and relevant backend wiring changed as approved |
+| Reconciliation | `BACKEND_SYNCED` | Actual resources reconciled, writes evidenced if permitted |
+| Quality | `BUILD_PASSED` | Applicable build and QA checks pass; gaps documented |
+| Release decision | `RELEASE_APPROVED` | Site-specific release approval and candidate identified |
+| Wix deployment | `RELEASED` | Real Wix release result and published URL recorded |
+| Verification | `VERIFIED` | Permitted post-release checks evidenced and outstanding failures recorded |
 
-Do not ask unnecessary questions when the source provides the answer. Ask only when a materially business-specific decision lacks a trustworthy source, particularly claims that would be published as fact.
+`BLOCKED` denotes an unresolved prerequisite or validation failure. **Do not** reuse website lifecycle values as statuses for WHPS PRs. For entry modes without a generated Wix handoff, do not fabricate a `HANDOFF_RECEIVED` event; record the real available evidence and the schema-compatible state appropriate to that situation.
 
-## Completion definition
+## Control and approval
 
-A website is complete only when its project checkout is reproducible, Wix integration is real (not a mocked façade), the configured build works, release is verified, and the operator gets the deployed URL plus the Wix dashboard URL. A local ZIP alone is **prepared**. A Wix form created in the backend alone is **partially integrated**.
+- **Site operator/client:** controls business facts, scope, production approval, destructive changes and purchases.
+- **Site implementation agent:** collects evidence, implements approved work, reports actual results.
+- **Wix:** authoritative for live resource state and platform outcomes, alongside its published technical contract.
+
+A provided Wix blank site is **not** permission to provision a second site. A passing offline manifest test is **not** proof that backend features, payments, authentication or live deployment work. Do not run live Wix operations from the WHPS toolkit repository.
+
+## Completion
+
+A website is verified only when its independently reproducible checkout, Wix integration, relevant build, authorised deployment and post-release checks are supported by site-local evidence. A generated archive or lone backend form is not a completed website.

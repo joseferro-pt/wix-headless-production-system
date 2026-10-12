@@ -1,65 +1,37 @@
-# AGENTS.md — Wix Headless Production Protocol
+# AGENTS.md — WHPS toolkit repository
 
-**This file governs the WHPS toolkit repository only.** For a website repository, use `blueprints/site/AGENTS.md` and its adopted system-version record. The toolkit provides reusable rules and tools; it never becomes a client's deployment workspace. This is an **overlay** on official Wix instructions, not a substitute for them.
+This is the **system** agent contract. It does not authorise editing, provisioning or releasing any particular website. A separate site's agent guidance starts from `blueprints/site/AGENTS.md`. Read [authority](docs/10-AUTHORITY-AND-DECISIONS.md), [terminology](docs/09-TERMINOLOGY.md) and the [system Control Room](docs/CONTROL-ROOM.md) before modifying this repository.
 
-## System-only invariant
+## Non-negotiable boundaries
 
-- This checkout is NEVER a Wix site deployment target. Do not log into a client's Wix account, run `wix release`, download private client assets, seed live Wix data or create project-specific records here.
-- Keep only **synthetic** example identifiers and fixtures. Never add a real client's `wix.config.json`, business brief, handoff, backend IDs, project decisions, evidence, screenshots, production URLs or release reports.
-- Site-generated output must be written **outside** this checkout, into an independent website repository or temporary sandbox; the toolkit may supply templates and CLI routines, but not a central clients directory.
-- Treat project adoption as versioned: record the toolkit version/tag in the website repository, and update deliberately. No automatic uncontrolled cross-project rollout.
-- System CI uses synthetic fixtures only and must never require real Wix authentication or deployment credentials.
+- Keep all real Wix IDs, original handoffs, site source, business documents, assets, integrations and release evidence **outside** WHPS. Only synthetic tests and examples belong here.
+- Never run Wix login, backend mutations or `wix release` from this toolkit checkout or its CI.
+- System scripts writing site-local output must reject destinations inside this repository, including symlink escapes.
+- Never store credentials, client data or Wix customer records in source control, CI logs or documentation.
+- A website explicitly adopts a toolkit commit or, after an actual published version becomes available, an approved release tag. No automatic cross-site rollout.
 
-## Read order and authority
+## Change procedure
 
-1. Direct user decisions and explicitly approved requirements for this engagement.
-2. Wix-generated original handoff and actual `wix.config.json` for project identity.
-3. **Current** Wix Headless skill (`https://wix.com/headless/skill.md`), the linked project-type guides, and current Wix API/CLI docs for implementation semantics.
-4. Project-specific accepted manifest, business brief, design specification and decision records.
-5. Existing site code, Wix observed state and tests.
-6. These reusable production templates.
+1. Inspect `main`, the current Control Room, relevant source/tests and the actual status of any PRs. Do not rely on an old proposal statement.
+2. Identify a **system-scoped** change and a measurable acceptance check. Use a system work packet, not a client website task.
+3. Respect the applicable Wix technical documentation for integration facts; this toolkit cannot override Wix API contracts. Do not introduce unverified business facts into examples.
+4. Use synthetic fixtures and offline tests. Keep new checks reproducible and fail closed on safety-critical validation errors.
+5. Open a PR against current `main`; verify required CI and the actual diff. Record what passed, what was not tested and any known risks. Do not treat a draft PR as merged.
+6. Merge or tag only when the review and release rules permit it. A new version string is not proof of a GitHub Release.
 
-Where a generic production rule conflicts with a **technical Wix API/CLI contract**, the verified current Wix technical contract wins; record the conflict and adjust our overlay. Where requirements are ambiguous, do not silently promote guesses into business facts.
+## Separate authority domains
 
-## Mode routing
+- **Technical Wix behaviour:** current official Wix skill and platform documentation, cross-checked against real CLI/API results in a website repository.
+- **Site identity and existing resources:** site's original Wix handoff, on-disk configuration and verified live Wix state, reconciled rather than assumed equivalent.
+- **Business truth:** approved client requirements and verified sources, not the generic Wix prompt.
+- **Toolkit contracts:** accepted system schemas, code, tests and recorded decisions in this repo. Proposed rules are not automatically adopted.
 
-- `handoff`: Wix has supplied Site ID, Client ID, skill URL and project download. **Import the supplied project**; do not provision another site.
-- `iterate`: existing repository and Wix configuration are present. **Reuse** project config; do not re-`init` or seed duplicates.
-- `bring-your-own-frontend`: connect an unbound frontend only after checking if a Wix binding already exists; a fresh Wix project may otherwise be required per current skill.
-
-## Always do
-
-- Preserve original Wix prompt verbatim and record its checksum in the project record.
-- Inspect downloaded project files before changing framework, package manager or deployment configuration.
-- Compare Wix handoff Site ID with `wix.config.json.siteId`; compare Client ID with `wix.config.json.appId` when available. Halt on mismatch.
-- Use an explicit business brief; distinguish `confirmed`, `proposed` and `unknown` values.
-- Audit existing Wix apps, forms, CMS collections, services, and other resources before mutating them.
-- Keep a Wix resource registry of observed IDs and intended operations. Existing Wix business data is authoritative; registry entries are references, not a shadow database.
-- Use idempotent read/plan/apply operations; avoid duplicate entities.
-- Keep Wix tokens/CLI session material out of chat, stdout logs, source control and generated artifacts.
-- Keep source, content, design tokens and Wix adapters separable; do not impose a framework over the supplied Wix template without a documented reason.
-- Run the supported build and contract checks; use one intentional final release, never release just to discover whether a build works.
-- Return observed outcomes and blockers, not assumed success.
-
-## Approval boundaries
-
-- A newly created Wix site is not authorized merely because a blank Wix project was supplied.
-- For an **already-published live site**, require an explicit production-release approval, unless the user's current request unambiguously authorizes publishing now.
-- Destructive Wix changes (delete, overwrite client data, replace collections/schema, remove apps) require explicit confirmation and a recovery plan.
-- Seed/sample data must be clearly distinguished from real business data; never fabricate testimonials, opening hours, addresses, pricing or certifications.
-- No paid service, domain purchase or paid generation without authorization. Respect the current Wix skill's cost controls for generated images.
+See [authority and decisions](docs/10-AUTHORITY-AND-DECISIONS.md) for conflict handling.
 
 ## Status language
 
-Use only states supported by evidence: `planned`, `prepared`, `implemented`, `build-passed`, `previewed`, `released`, `verified`, `blocked`. `Implemented` is not `released`. A generated ZIP is not a deployed website.
+Use only evidence-based labels: `proposed`, `implemented`, `CI-passed`, `merged`, `published-release`, `blocked` for **system** work. Site work has its own lifecycle (`HANDOFF_RECEIVED`, `PREFLIGHT_COMPLETE`, `RELEASED`, `VERIFIED`, etc.). Do not call system merges 'website releases'.
 
-## Release record
+## Quality
 
-A release report must identify: source commit/tag, site ID, build result, deployment command outcome, actual live URL, Wix dashboard link, backend resources changed, checks run (and not run), remaining blockers, and recovery procedure.
-
-## Implementation caveats
-
-- The official Wix-managed Headless flow distinguishes create/connect/iterate. Follow the exact current flow for the actual project.
-- If the supplied ZIP already contains `wix.config.json`, do not run `npm create @wix/new init` merely because the local working directory was empty.
-- Wix's official managed flow currently favors **release once at the end**. Preview is a distinct optional review artifact after a successful build, not a substitute for a final release. Do not add repeated release cycles.
-- For non-Astro frameworks, use the documented OAuth client path. For Wix-managed Astro integration, don't add a redundant manual OAuth client.
+Run the commands from [README](README.md) or inspect equivalent GitHub Actions evidence. The toolkit boundary scanner is an accidental-exposure guard, not complete secret or Git-history scanning. Do not claim a Wix site's runtime was tested by WHPS CI.

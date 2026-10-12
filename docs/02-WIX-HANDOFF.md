@@ -1,56 +1,33 @@
 # 02 — Wix-generated prompt as technical handoff
 
-## Expected Wix prompt
+The original Wix prompt, with Site ID, public Client ID, download URL, skill URL and dashboard reference, is **technical identity evidence** and must be preserved unchanged in the **website repository**. Its generic business description does not substantiate real offerings, address, opening hours, prices, credentials or testimonials. See [authority](10-AUTHORITY-AND-DECISIONS.md).
 
-The prompt may include a generic brief plus: `https://wix.com/headless/skill.md`, a Wix-managed Headless template download URL, public Client ID, Site ID and target dashboard URL. Use the official prompt **verbatim** as input.
+## Current offline tool scope
 
-## Repository isolation
-
-Always invoke the intake tool with an output directory **outside this repository**. The tool's generated handoff, manifests, real identifiers and Wix project source belong solely in the website repository. A system-level sample may use synthetic identifiers for tests.
-
-## Full validation and safe intake
-
-Install `python3 -m pip install -r requirements.txt` before running validation. The validator enforces Draft 2020-12 JSON Schema constraints, requires the preserved original prompt for `wix-handoff`, and validates mode-specific requirements for an `existing-repository` or an `unbound-frontend`.
-
-Intake builds its output in a temporary sibling directory and renames it only after both files are written. The destination must not exist or be within the WHPS toolkit checkout, including through a symlinked parent. No Wix API calls are made.
-
-## Automated intake
+From the WHPS checkout, install validation dependencies, then write to a **new outside directory**:
 
 ```sh
-node scripts/intake-wix-handoff.mjs ./incoming/original-wix-prompt.txt ../my-site-repository
-node scripts/validate-manifest.mjs ../my-site-repository/site.manifest.json
+python3 -m pip install -r requirements.txt
+node scripts/intake-wix-handoff.mjs /path/to/original-wix-prompt.txt ../new-site-workspace
+node scripts/validate-manifest.mjs ../new-site-workspace/site.manifest.json
 ```
 
-The intake parser:
+The script rejects an existing output directory or a path inside WHPS, including through symlinked parents. Its atomic staging preserves prompt text and SHA-256, extracts and cross-checks repeated identifiers and writes a site manifest marked as **unverified**. The validator checks its full JSON Schema and original file integrity. **The script does not download ZIP files, create a Git repository, call Wix APIs, set up an OAuth app, install Wix solutions, build or release.** For an existing site checkout, do not point this new-directory-only tool at its root.
 
-- Extracts and cross-checks the explicit site/client IDs and download/dashboard site IDs.
-- Writes `wix-handoff.original.txt` unchanged and records SHA-256 in the manifest.
-- Creates a `site.manifest.json` with `business.factsStatus: unknown`.
-- Emits *no* Wix API calls, backend mutations, login, build or deployment.
-- Refuses to overwrite an existing target manifest.
+## Wix preflight occurs in the website project
 
-## Do not confuse bootstrap and provisioning
+1. Acquire the **actual** Wix-provided archive through an authorised route, note the source and checksum, and inspect its project structure.
+2. Compare original prompt Site ID / Client ID with `wix.config.json.siteId` / `.appId` if available; stop on mismatch rather than recreating identity.
+3. Record framework, dependency manifests, output directory and platform constraints before editing code.
+4. Audit current Wix apps/resources with authorised read-only site access where available.
+5. Select the Wix **create/connect/iterate** path based on the actual source and current official skill, not on directory emptiness alone.
+6. Keep the actual site source, Wix identifiers, business documents and release evidence **inside that site's repository**, not WHPS.
 
-**Wix-generated original blank ZIP:** already represents a site created by Wix. Download and inspect it before doing anything else. If `wix.config.json` contains site/client IDs, reuse them; do not call `init` or create a new site. If missing/mismatched, stop and diagnose instead of silently issuing fresh IDs.
+The offline archive auditor can check structure, paths and identifier agreement, but a `wix-original` flag is **a claim**, not independently verified provenance. It also does not prove a Wix deployment.
 
-**Existing connected repo:** inspect Git history and `wix.config.json`, then follow the official `iterate` track. Never re-`init` an already-bound repository.
+## Related documentation
 
-**An unconnected custom frontend:** may require the official `connect`/`init` route, which can provision a new Wix Headless site. That route is **not** a valid substitute when the owner provided an already-created Wix site identity.
-
-## Preflight evidence to record
-
-1. Source download URL and acquisition status.
-2. ZIP SHA-256, file manifest, sizes, package files, framework and required package manager.
-3. `wix.config.json`: actual `siteId`, `appId`, `site.outputDirectory` if present.
-4. Handoff cross-check (URL IDs, config IDs; mismatches are a blocker).
-5. Read-only Wix site context: published flag, domain, region, apps, CMS collection inventory where accessible.
-6. Risks: already-live domain, authentication availability, environment prerequisites.
-7. Decision on entry route: `handoff` or `iterate`.
-
-## What the original Wix prompt does not establish
-
-True company category, real services, pricing, opening hours, location, voice, legally required policies, completed client assets, booking/payments requirements or whether live production may be replaced. Separate these from technical fields.
-
-## No secrets
-
-Client ID is public OAuth identity. Admin tokens, bearer credentials, session cookies and API keys are secrets. They must never be stored in the project manifest or in issue/PR text.
+- [Operating model](01-OPERATING-MODEL.md)
+- [Project adoption](07-PROJECT-ADOPTION.md)
+- [Wix resource governance](03-WIX-RESOURCE-GOVERNANCE.md)
+- [Verification/security](08-VERIFICATION-SECURITY.md)
