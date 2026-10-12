@@ -121,3 +121,40 @@ test('CLI fails closed on forbidden payload fields',async()=>{
   assert.match(run.stderr,/Schema rejected input|Planning blocked/);
  }finally{await rm(d,{recursive:true,force:true});}
 });
+
+test('same type/name under two different desired keys never proposes duplicate creations',()=>{
+ const b=copy(baseline);b.desired.resources=[
+   row('cms-collection','services-one','Services'),
+   row('cms-collection','services-two','Services'),
+ ];
+ const plan=planResources(b);
+ assert.equal(plan.summary.create,0);
+ assert.equal(plan.summary.blocked,2);
+ assert.ok(plan.decisions.every(x=>/Multiple desired logical keys/.test(x.reason)));
+});
+test('duplicate desired type/name blocks even with different pinned IDs',()=>{
+ const b=copy(baseline);b.desired.resources=[
+   row('form','first-form','Website enquiry',{wixId:syntheticId}),
+   row('form','second-form','Website enquiry',{wixId:'unused-other-id'}),
+ ];
+ b.registry.resources=[];
+ const plan=planResources(b);
+ assert.equal(plan.summary.blocked,2);
+ assert.equal(plan.summary.create,0);
+});
+test('same desired name for different resource types remains independent',()=>{
+ const b=copy(baseline);b.desired.resources=[
+   row('form','first-form','Services'),
+   row('cms-collection','services','Services')
+ ];
+ b.registry.resources=[];b.observed.resources=[];
+ const plan=planResources(b);assert.equal(plan.summary.create,2);
+});
+test('CLI verifies its own emitted output against the output schema',()=>{
+ const run=spawnSync(process.execPath,[join(root,'scripts/plan-wix-resources.mjs'),'--input',join(root,'examples/resource-plan.synthetic.json')],{encoding:'utf8'});
+ assert.equal(run.status,0,run.stderr);
+ const p=JSON.parse(run.stdout);
+ const validate=spawnSync('python3',[join(root,'scripts/validate-json-schema.py'),join(root,'schemas/resource-plan-output.schema.json')],{input:JSON.stringify(p),encoding:'utf8'});
+ assert.equal(validate.status,0,validate.stderr);
+ assert.equal(JSON.parse(validate.stdout).valid,true);
+});
