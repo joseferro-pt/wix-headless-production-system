@@ -9,10 +9,10 @@ This roadmap contains **only WHPS tooling and governance** work. Real websites h
 | WHPS-R01 | Correct schema validation, atomic intake and archive safeguards | **Merged**, CI passed | PR #2 |
 | WHPS-R02 | Strengthen negative tests and repo boundary scanning | **Merged**, CI passed | PR #3 |
 | WHPS-R03 | Consolidate authority, terminology and documentation | **Merged**, CI passed | PR #4 |
-| WHPS-R04 | Establish licence, security, contribution, runtime and release governance | **Proposed in development PR** | Review policies, CI-gated release preflight, owner licensing decision |
-| WHPS-R05 | Publish first verified toolkit foundation | **Queued** | Approved candidate, Git tag, release record, documented checks |
+| WHPS-R04 | Establish licence, security, contribution, runtime and release governance | **Merged**, CI passed | PR #5; owner selected Apache-2.0 for R05 |
+| WHPS-R05 | Publish first verified toolkit foundation | **Candidate under review** | `v0.1.0` release PR, successful exact-SHA CI, annotated tag, GitHub Release verification |
 
-No tagged WHPS release has been published yet. No `LICENSE` has been accepted; the repository is public but not yet affirmatively open-source licensed. `0.1.0` is the manifest **schema version**, not proof of a distribution release.
+Apache-2.0 is accepted for the toolkit. `v0.1.0` is the release candidate; confirm whether a release has actually been published via GitHub Releases. The manifest `0.1.0` schema version remains independent.
 
 ## Later system-development work packets
 
@@ -24,7 +24,7 @@ No tagged WHPS release has been published yet. No `LICENSE` has been accepted; t
 | WHPS-004 | Framework-specific reusable frontend building blocks | Planned |
 | WHPS-005 | Automated quality guidance and contract tests for adopters | Planned |
 | WHPS-006 | Versioned distribution and explicit adoption/migration process | Planned |
-| WHPS-007 | Sustainable maintenance, contributing, security and compatibility guidance | Governance baseline proposed in R04; deeper product work later |
+| WHPS-007 | Sustainable maintenance, contributing, security and compatibility guidance | Governance baseline merged in R04; further work later |
 
 WHPS-002 must support the separate-site architecture without invoking Wix backend writes or deploying real sites from the WHPS repository. The current Wix handoff CLI performs **offline manifest intake only** and does not yet create a complete Git repository or download a template.
 

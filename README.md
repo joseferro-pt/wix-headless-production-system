@@ -1,6 +1,6 @@
 # Wix Headless Website Production System (WHPS)
 
-**Status:** Development baseline, not yet published as a release.  
+**Status:** v0.1.0 first-release candidate; confirm actual publication through GitHub Releases.  
 **Manifest schema version:** `0.1.0`.  
 **Scope:** A reusable toolkit and operating framework for Wix Headless website delivery. **Not** a website repository or a multi-client workspace.
 
@@ -15,9 +15,9 @@ The Wix-generated handoff establishes technical identity, **not** verified busin
 - **R01:** foundation corrections merged: schema-aware validation, atomic intake, ZIP safeguards.
 - **R02:** verification improvements merged: synthetic negative tests and tracked-content security guard.
 - **R03:** documentation consolidation merged; policy and status terminology reconciled.
-- **R04:** release governance proposal under review (PR pending acceptance). **R05:** first verified toolkit release not started.
-- `0.1.0` is the manifest schema version, not a published toolkit version. **There is no GitHub Release or endorsed toolkit tag yet.** Until R05, development-only adoption uses an exact Git commit SHA.
-- **Licensing decision pending:** this public repository does not yet have an accepted `LICENSE`. Do not treat public source visibility as an open-source grant. See [licence decision](docs/13-LICENSING-DECISION.md).
+- **R04:** merged into `main`; release governance and policy checks in place. **R05:** v0.1.0 release candidate; GitHub publication is verified separately.
+- **Toolkit release candidate:** `v0.1.0`. The manifest schema remains separately versioned as `0.1.0`. Do not infer that a tag or GitHub Release exists until [the release page](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0) is confirmed.
+- **Licence:** [Apache-2.0](LICENSE), with repository copyright attribution in [NOTICE](NOTICE). This does not license Wix-owned code or independently managed websites.
 
 ## Quick start: offline Wix handoff intake
 
@@ -41,7 +41,7 @@ node --test tests/*.test.mjs
 python3 -m unittest discover -s tests -p 'test_*.py' -v
 ```
 
-The tests use synthetic inputs and do not access Wix. The `--policy` gate checks release-governance wiring; `--release --version vX.Y.Z` additionally checks accepted licensing and changelog prerequisites and **must fail** until those are approved. A passing system CI run **does not** verify an individual website or a deployment. See [verification and security](docs/08-VERIFICATION-SECURITY.md).
+The tests use synthetic inputs and do not access Wix. The `--policy` gate checks release-governance wiring; `--release --version v0.1.0` additionally checks accepted licensing and changelog prerequisites. Passing does not itself prove a GitHub Release. A passing system CI run **does not** verify an individual website or a deployment. See [verification and security](docs/08-VERIFICATION-SECURITY.md).
 
 ## Documentation
 
@@ -63,10 +63,10 @@ Start with the [documentation map](docs/00-DOCUMENTATION-MAP.md), then the [syst
 - [Security reporting and triage](SECURITY.md)
 - [Release governance](docs/11-RELEASE-GOVERNANCE.md)
 - [Supported environments](docs/12-SUPPORT-COMPATIBILITY.md)
-- [Licence decision proposal](docs/13-LICENSING-DECISION.md)
+- [Accepted Apache-2.0 licence decision](docs/13-LICENSING-DECISION.md)
 - [Branch and tag protection proposal](docs/14-REPOSITORY-PROTECTION.md)
 
-The licence and protection settings have **not** been accepted/applied by this documentation-only policy change. No Git tag or release is created under R04.
+Apache-2.0 is accepted. GitHub protection settings remain proposed, not applied. The [v0.1.0 release record](docs/releases/v0.1.0.md) describes the R05 candidate and publication prerequisites.
 
 ## Official Wix references
 

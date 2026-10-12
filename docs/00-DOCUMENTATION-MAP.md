@@ -32,4 +32,4 @@ WHPS has **one system repository** and any number of independently owned website
 
 ## Version notes
 
-The `0.1.0` number in the manifest schema is a **schema contract version**. It is **not** a published WHPS release. The repository currently has no accepted licence, so no external reuse grant should be inferred. Until a versioned release is actually published, sites may record a specific reviewed Git commit SHA for development-only adoption.
+The `0.1.0` number in the manifest schema is a **schema contract version**. It is **not** a published WHPS release. Apache-2.0 is accepted for the toolkit, and `v0.1.0` is the proposed first release. Adoption should use the published tag and full commit only after verifying the GitHub Release; until then use a reviewed commit SHA as a development reference.

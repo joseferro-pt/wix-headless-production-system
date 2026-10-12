@@ -2,7 +2,7 @@
 
 ## Purpose and scope
 
-This policy concerns versioned **WHPS toolkit distributions**, never Wix website deployments. The toolkit is currently an unpublished development baseline. A merged commit, manifest schema version, or green CI workflow alone **is not** a GitHub Release. R05 will publish the first release only after all approval gates are met.
+This policy concerns versioned **WHPS toolkit distributions**, never Wix website deployments. The toolkit has an approved initial `v0.1.0` release candidate. Confirm its actual publication through GitHub Releases. A merged commit, manifest schema version, or green CI workflow alone **is not** a GitHub Release. R05 will publish the first release only after all approval gates are met.
 
 ## Independent version numbers
 
@@ -11,7 +11,7 @@ This policy concerns versioned **WHPS toolkit distributions**, never Wix website
 - **Wix CLI/SDK/skill versions:** platform dependencies that must be revalidated in a website environment; the toolkit does not freeze Wix's external contracts.
 - **Website version:** entirely within that site's repository and release process. No toolkit release implies a website deploy.
 
-Use [Semantic Versioning](https://semver.org/) as the proposed baseline. Prior to 1.0, an incompatible public interface or schema migration should increment **MINOR** and include a migration note; compatible bug fixes normally increment **PATCH**. Any deliberate MAJOR upgrade should document breaking changes and the support timeline. This is a **proposed release policy**, pending accepted R04 decision; the repository has no tags/releases yet.
+Use [Semantic Versioning](https://semver.org/) as the proposed baseline. Prior to 1.0, an incompatible public interface or schema migration should increment **MINOR** and include a migration note; compatible bug fixes normally increment **PATCH**. Any deliberate MAJOR upgrade should document breaking changes and the support timeline. This policy was implemented in merged R04 and is applied to the v0.1.0 release candidate. The published tag and GitHub Release are verified separately.
 
 ## Release lifecycle and evidence
 
@@ -59,7 +59,7 @@ python3 -m unittest discover -s tests -p 'test_*.py' -v
 
 ## Deliberately pending decisions
 
-1. **Licence:** [decision record](13-LICENSING-DECISION.md) is proposed, not accepted. No `LICENSE` exists yet.
-2. **GitHub rulesets:** [protection proposal](14-REPOSITORY-PROTECTION.md) is documented but not applied.
-3. **First release version:** R05 must select and approve a toolkit tag independently from schema version `0.1.0`.
-4. **Maintenance window:** not promised until first release notes establish support expectations.
+1. **Licence:** [decision record](13-LICENSING-DECISION.md) accepted; Apache-2.0 terms committed in `LICENSE`.
+2. **GitHub rulesets:** [protection proposal](14-REPOSITORY-PROTECTION.md) remains documented but unimplemented. This open governance exception is disclosed; it does not authorise force pushes.
+3. **First release version:** the first candidate is `v0.1.0`, distinct from `schemaVersion: 0.1.0`. GitHub release existence requires verification.
+4. **Support commitment:** only CI-tested runtime versions and documented issues; no website-specific Wix runtime support guarantee.

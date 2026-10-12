@@ -5,7 +5,7 @@ WHPS is a **toolkit**, not the parent Git repository for websites. Each website 
 ## Today: development-only manual adoption
 
 1. Create or locate a **separate site repository**. Do not nest it within WHPS or add it as a submodule.
-2. Record the exact WHPS **Git commit SHA** used for any scripts/templates copied. There is **no published WHPS release tag yet**; R04 defines a proposed release policy, while R05 is the future publication gate. This repository also has **no accepted licence yet**; consult [the licence decision](13-LICENSING-DECISION.md) before copying/distributing WHPS source.
+2. Record the exact WHPS **Git commit SHA** used for any scripts/templates copied. Apache-2.0 is the accepted licence. `v0.1.0` is the initial toolkit release candidate. **Confirm the tag and GitHub Release exist** before pinning them; until publication, development-only adoption uses the exact reviewed commit.
 3. If Wix provided an original handoff, preserve it in that site workspace. The current offline CLI can create a manifest and copy the prompt into a **new, empty** outside directory. It does not create the Git repository or download the Wix template.
 4. Check the actual downloaded Wix project before altering framework or running `init`; do not duplicate an existing binding.
 5. Copy and adapt `blueprints/site/AGENTS.md` and `blueprints/site/docs/CONTROL-ROOM.md`; keep the site business brief, Wix resources and release evidence **in the site repo**.
@@ -14,7 +14,7 @@ WHPS is a **toolkit**, not the parent Git repository for websites. Each website 
 
 ## Future: versioned adoption
 
-After R05 and an accepted licence, a website may pin a reviewed WHPS release **tag plus commit**, with a recorded upgrade decision. Later tooling may generate a version lock and update proposal. No automatic change propagation to websites is permitted by the current governance policy.
+After R05 is published and verified, a website may pin a reviewed WHPS release **tag plus commit**, with a recorded upgrade decision. Later tooling may generate a version lock and update proposal. No automatic change propagation to websites is permitted by the current governance policy.
 
 ## Three entry modes
 

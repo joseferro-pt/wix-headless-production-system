@@ -4,12 +4,18 @@ This file records **toolkit development**, not website deployments. Entries unde
 
 ## Unreleased
 
-### WHPS-R04 · Release governance (proposed for review)
+- Post-v0.1.0 changes will be documented here.
+
+## v0.1.0 — 2026-10-12
+
+First toolkit release candidate: Apache-2.0 licensing and the R01–R04 tested offline production-system foundation. See [v0.1.0 release notes](docs/releases/v0.1.0.md). Git tag and GitHub Release must be verified separately.
+
+### WHPS-R04 · Release governance (merged, 2026-10-12)
 
 - Add contributor and security policies, a CI-tested runtime matrix, draft licence decision and repository-protection recommendations.
 - Define versioning, release approval gates and independently verifiable release evidence.
 - Add a read-only release-governance checker and synthetic tests, and integrate policy validation into CI.
-- Do not publish a licence, tag, GitHub Release, site or deploy operation as part of R04.
+- R04 did not itself publish a licence or release; licensing and release-candidate publication are handled by R05.
 
 ### WHPS-R03 · Documentation consolidation (merged, 2026-10-12)
 
