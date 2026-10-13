@@ -1,0 +1,18 @@
+---
+interface Props {
+  as?: 'section' | 'article' | 'div';
+  id?: string;
+  labelledby?: string;
+  class?: string;
+  contained?: boolean;
+}
+const { as = 'section', id, labelledby, class: className, contained = true } = Astro.props;
+const Tag = as;
+---
+<Tag id={id} aria-labelledby={labelledby} class:list={['whps-section', className]}>
+  {contained ? <div class="whps-container"><slot /></div> : <slot />}
+</Tag>
+<style>
+  .whps-section { padding-block: var(--whps-section-gap, clamp(3rem, 8vw, 7rem)); }
+  .whps-container { width:min(calc(100% - 2 * var(--whps-gutter, 1rem)), var(--whps-content-width, 78rem)); margin-inline:auto; }
+</style>

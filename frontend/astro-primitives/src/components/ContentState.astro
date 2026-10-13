@@ -1,0 +1,14 @@
+---
+interface Props { state: 'ready' | 'loading' | 'empty' | 'error'; message?: string; }
+const { state, message } = Astro.props;
+const defaults = { ready:'', loading:'Loading content…', empty:'There is no content to show yet.', error:'Content is temporarily unavailable.' };
+---
+{state === 'ready'
+  ? <slot />
+  : <p class="whps-content-state" role={state === 'error' ? 'alert' : 'status'} aria-busy={state === 'loading'}>
+      {message ?? defaults[state]}
+    </p>
+}
+<style>
+  .whps-content-state { padding:1rem; border-inline-start:3px solid currentColor; font:inherit; }
+</style>

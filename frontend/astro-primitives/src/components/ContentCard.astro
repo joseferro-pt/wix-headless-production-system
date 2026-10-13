@@ -1,0 +1,9 @@
+---
+interface Props { as?: 'article' | 'div' | 'li'; class?: string; labelledby?: string; }
+const { as = 'article', class: className, labelledby } = Astro.props;
+const Tag = as;
+---
+<Tag aria-labelledby={labelledby} class:list={['whps-card', className]}><slot /></Tag>
+<style>
+  .whps-card { min-width:0; border:1px solid var(--whps-card-border, currentColor); border-radius:var(--whps-card-radius, .8rem); padding:var(--whps-card-padding, clamp(1rem, 3vw, 2rem)); background:var(--whps-card-background, transparent); color:inherit; }
+</style>
