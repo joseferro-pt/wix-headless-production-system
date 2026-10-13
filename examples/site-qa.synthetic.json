@@ -1,0 +1,61 @@
+{
+  "reportVersion": 1,
+  "mode": "unbound-astro",
+  "stage": "preview",
+  "siteCommit": "1111111111111111111111111111111111111111",
+  "checks": [
+    {
+      "id": "source",
+      "status": "not-run"
+    },
+    {
+      "id": "build",
+      "status": "not-run"
+    },
+    {
+      "id": "wix-binding",
+      "status": "not-applicable",
+      "reason": "Synthetic unbound Astro reference has no Wix linkage or business flows."
+    },
+    {
+      "id": "wix-permissions",
+      "status": "not-applicable",
+      "reason": "Synthetic unbound Astro reference has no Wix linkage or business flows."
+    },
+    {
+      "id": "wix-app-flows",
+      "status": "not-applicable",
+      "reason": "Synthetic unbound Astro reference has no Wix linkage or business flows."
+    },
+    {
+      "id": "accessibility-automated",
+      "status": "not-run"
+    },
+    {
+      "id": "accessibility-manual",
+      "status": "not-run"
+    },
+    {
+      "id": "responsive",
+      "status": "not-run"
+    },
+    {
+      "id": "seo",
+      "status": "not-run"
+    },
+    {
+      "id": "performance",
+      "status": "not-run"
+    },
+    {
+      "id": "security",
+      "status": "not-run"
+    }
+  ],
+  "approval": {
+    "status": "pending"
+  },
+  "deployment": {
+    "status": "not-attempted"
+  }
+}
