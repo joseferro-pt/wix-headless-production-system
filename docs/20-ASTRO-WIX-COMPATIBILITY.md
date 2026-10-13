@@ -7,7 +7,7 @@
 | Layer | Default | Reason and boundary |
 |---|---|---|
 | Hosting, backend and auth | Wix-managed Headless with **Wix's Astro integration** | Maximum Wix-managed feature integration (visitor/member authentication, extensions, SEO, analytics, logs). Authentication is provided by the **actual Wix Astro integration**, not standalone Astro. |
-| Frontend framework | **Astro 5** | Wix link documentation explicitly supports Astro 5 and says **Astro 6 is not supported**. Keep the Wix-generated adapter, CLI and configuration intact. |
+| Frontend framework | **Astro 5** | Wix link documentation supports Astro 5 **and Astro 7** and says **Astro 6 is not supported**. WHPS v0.2.1 deliberately keeps Astro 5 as its compiled reference baseline; Astro 7 integration is not validated. Keep the Wix-generated adapter, CLI and configuration intact. |
 | Interactive components | **React islands, optional** | `@astrojs/react` supports React rendering/hydration in Astro. Prefer Astro/native HTML first; use `client:idle`, `client:visible` or `client:load` selectively. |
 | Styling | **Tailwind CSS 4, optional** | Supported by Astro with `@tailwindcss/vite`. Owner-defined tokens and styles provide creative freedom. Preserve Wix-generated Astro integration and other Vite plugins. |
 | Wix API access | Official Wix SDK **backend modules** in the Wix-managed Astro context | Call documented SDK methods under appropriate visitor/member/app authority; do not put secrets or elevated/admin capabilities in React island props. |
@@ -49,7 +49,7 @@ You can change layouts, visual hierarchy, responsive breakpoints, typography, an
 
 ## Validated vs unvalidated
 
-**WHPS-004 CI goal:** use synthetic data to build **Astro 5 + React + Tailwind 4** locally on GitHub-hosted Ubuntu. If CI succeeds it validates compile interoperability only. It does **not** exercise Wix-managed Astro runtime, Wix OAuth, production hosting, Wix SDK business apps, payments, member login or SEO.
+**WHPS-004 CI baseline:** use synthetic data to build **Astro 5 + React + Tailwind 4** locally on GitHub-hosted Ubuntu. If CI succeeds it validates compile interoperability only. It does **not** exercise Wix-managed Astro runtime, Wix OAuth, production hosting, Wix SDK business apps, payments, member login or SEO.
 
 **Wix production test must be done separately**, in a real site with explicit owner approval and a verified Wix-managed setup. Do not treat upstream documentation as proof of an integrated real app in a specific project.
 

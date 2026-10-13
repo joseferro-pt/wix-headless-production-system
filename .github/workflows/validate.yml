@@ -21,8 +21,10 @@ jobs:
         run: node scripts/check-repository-boundary.mjs
       - name: Check toolkit release-governance wiring (not publication)
         run: node scripts/check-release-readiness.mjs --policy
-      - name: Check v0.2.0 candidate release notes and policies (not publication)
+      - name: Check v0.2.0 published release notes and policies (not publication)
         run: node scripts/check-release-readiness.mjs --release --version v0.2.0
+      - name: Check v0.2.1 candidate release notes and policies (not publication)
+        run: node scripts/check-release-readiness.mjs --release --version v0.2.1
       - name: Test handoff parser and manifest contracts
         run: node --test tests/*.test.mjs
       - name: Python archive and Dependabot YAML contract tests
