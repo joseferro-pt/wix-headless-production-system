@@ -4,7 +4,12 @@ This file records **toolkit development**, not website deployments. Entries unde
 
 ## Unreleased
 
-No new development work is recorded after v0.2.1. WHPS-005 and WHPS-006 remain planned work packets.
+### WHPS-005 · Quality and verification (implementation in PR; unreleased)
+
+- Add a committed npm lockfile for the Astro 5/React 19/Tailwind 4 synthetic frontend with `npm ci`, `astro check`, browser Playwright/Chromium tests and axe-core automated accessibility scanning.
+- Introduce a read-only operator-reported site QA evidence report contract (JSON Schema, evaluator, negative tests and synthetic example); it cannot verify a real Wix site or authorise release.
+- Add Wix-aware site-local testing and evidence recipes, retaining app/SDK/auth/SEO/production testing inside independent website repositories.
+- This is **not** included in the already published v0.2.1 source. WHPS-006 remains planned.
 
 ## v0.2.1 — Published 2026-10-13
 

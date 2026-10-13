@@ -1,0 +1,209 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/whps/site-qa-report.schema.json",
+  "title": "WHPS-005 site QA operator-reported evidence v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "reportVersion",
+    "mode",
+    "stage",
+    "siteCommit",
+    "checks",
+    "approval",
+    "deployment"
+  ],
+  "properties": {
+    "reportVersion": {
+      "const": 1
+    },
+    "mode": {
+      "enum": [
+        "wix-managed-astro",
+        "unbound-astro",
+        "other-headless"
+      ]
+    },
+    "stage": {
+      "enum": [
+        "preview",
+        "production"
+      ]
+    },
+    "siteCommit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "checks": {
+      "type": "array",
+      "minItems": 11,
+      "maxItems": 11,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "enum": [
+              "source",
+              "build",
+              "wix-binding",
+              "wix-permissions",
+              "wix-app-flows",
+              "accessibility-automated",
+              "accessibility-manual",
+              "responsive",
+              "seo",
+              "performance",
+              "security"
+            ]
+          },
+          "status": {
+            "enum": [
+              "passed",
+              "failed",
+              "not-run",
+              "not-applicable"
+            ]
+          },
+          "evidence": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 1024,
+            "pattern": "\\S"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 1024,
+            "pattern": "\\S"
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "status": {
+                  "const": "passed"
+                }
+              },
+              "required": [
+                "status"
+              ]
+            },
+            "then": {
+              "required": [
+                "evidence"
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "status": {
+                  "const": "not-applicable"
+                }
+              },
+              "required": [
+                "status"
+              ]
+            },
+            "then": {
+              "required": [
+                "reason"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "approved",
+            "pending",
+            "rejected"
+          ]
+        },
+        "evidence": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 1024,
+          "pattern": "\\S"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "approved"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "evidence"
+            ]
+          }
+        }
+      ]
+    },
+    "deployment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "not-attempted",
+            "reported-published",
+            "reported-failed"
+          ]
+        },
+        "evidence": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 1024,
+          "pattern": "\\S"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "reported-published",
+                  "reported-failed"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "evidence"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

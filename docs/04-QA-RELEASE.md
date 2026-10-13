@@ -33,6 +33,10 @@ CI=1 npx @wix/cli@latest release
 
 Run it **only from the independently managed site checkout** after its applicable preflight and approval gates, not from WHPS. Re-check Wix's current platform contract rather than assuming the command never changes. Site release reports should use [the reusable template](../templates/RELEASE-REPORT.md) **within that site repo**.
 
+## WHPS-005 · Site evidence is reported, not authenticated
+
+For separately owned Wix-managed projects, record all applicable checks as a [site-local QA JSON report](24-SITE-LOCAL-VERIFICATION.md), using [the schema and offline evaluator](23-WHPS005-QUALITY-VERIFICATION.md). The evaluator checks completeness, evidence fields and contradictory approvals without contacting Wix, GitHub or the website. A structurally complete record **never grants deployment permission**. Keep the report in the website repository and independently verify the cited evidence and site owner authority before releasing.
+
 ## Toolkit validation limits
 
 - Full manifest validation requires the declared Python `jsonschema` dependency; missing tooling fails validation.

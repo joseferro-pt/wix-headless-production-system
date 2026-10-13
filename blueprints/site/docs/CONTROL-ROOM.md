@@ -18,7 +18,10 @@
 - Branch and commit:
 - Design/content approvals:
 - Resource change plan and observed IDs:
-- Applicable build and QA checks:
+- Applicable build and QA checks (actual site-local evidence, not WHPS synthetic tests):
+- Site-local QA report: [independent-site-path, schema v1, evidence reviewed by owner]
+- Manual accessibility/keyboard/assistive technology evidence:
+- Wix-managed backend/auth/app/SEO verification (if applicable):
 
 ## Release and verification
 

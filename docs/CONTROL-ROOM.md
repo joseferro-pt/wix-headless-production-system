@@ -63,6 +63,10 @@ Definitions and evidence rules: [authority/decisions](10-AUTHORITY-AND-DECISIONS
 
 **WHPS-004 complete and closed.** Verified publication of v0.2.1 and accepted the scoped synthetic Astro 5 reference through the evidence record. Next milestone: **WHPS-005 quality framework**; WHPS-006 site adoption/distribution follows separately. Astro 7 compatibility work and all actual Wix SDK/app, hosting, SEO, identity, payments and site deployments remain outside the accepted WHPS-004 scope. Preserve immutable prior tags. Repository protection, private vulnerability intake and historical retention remain owner-controlled follow-ups.
 
+## WHPS-005 · Current development review
+
+**Status:** Implementation in a separate feature branch; unpublished. The [quality work packet](23-WHPS005-QUALITY-VERIFICATION.md) defines gates for locked dependencies, Astro diagnostics/build, Chromium/axe browser checks, offline fail-closed site QA records and [site-local Wix verification](24-SITE-LOCAL-VERIFICATION.md). A successful synthetic browser run cannot verify Wix integrations, site identity or owner deployment approval. A merged PR is not an automatic toolkit release; the latest published version remains v0.2.1.
+
 ## Constraints and known limits
 
 - No real Wix identifiers, site archives, content or deployments in the toolkit.
