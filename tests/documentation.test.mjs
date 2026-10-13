@@ -55,7 +55,9 @@ test('entry documentation distinguishes the published release from unreleased ma
   assert.match(room, /WHPS-R04[^\n]*release governance/i);
   assert.match(adoption, /published[^\n]*v0\.1\.0/i);
   assert.ok(adoption.includes('802acf1b536b502fcacdffc1d6b7ce371aa2d3f7'));
-  assert.match(readme, /v0\.1\.0 published 12 October 2026/);
+  assert.match(readme, /v0\.2\.0 published 12 October 2026/);
+  assert.ok(room.includes('d17abe627f27808611218d0d2f01dd977030913a'));
+  assert.match(room, /WHPS-R06\.1[^\n]*Post-release provenance correction/);
   assert.match(room, /Published and verified/i);
   assert.match(room, /WHPS-R05\.2[^\n]*Post-release reconciliation/);
   assert.match(readme, /does \*\*not\*\* download Wix's ZIP/i);

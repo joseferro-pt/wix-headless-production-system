@@ -1,6 +1,6 @@
 # 17 — WHPS-003 · Read-only Wix resource reconciliation
 
-**Status:** WHPS-003 merged, validated and proposed for v0.2.0. Not in published v0.1.0.
+**Status:** WHPS-003 published in v0.2.0; it was not included in v0.1.0.
 
 The tool compares resource metadata supplied by an **independent website repository**. It does not query Wix, authenticate, install apps, modify CMS collections, alter forms, run Wix CLI or deploy.
 

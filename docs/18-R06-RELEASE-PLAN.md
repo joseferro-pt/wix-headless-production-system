@@ -1,6 +1,6 @@
 # 18 — WHPS-R06 · v0.2.0 hardening and publication plan
 
-**Status:** implementation proposed for PR review; `v0.2.0` is NOT published unless GitHub shows a verified annotated tag and GitHub Release. Existing `v0.1.0` is immutable.
+**Status:** R06 merged and **v0.2.0 published and verified** on 12 October 2026. [GitHub Release](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.0), annotated tag object `98db3fba737581a4726ae46876a499113ad784f9` resolving to `d17abe627f27808611218d0d2f01dd977030913a`, and [successful manual publisher](https://github.com/joseferro-pt/wix-headless-production-system/actions/runs/38277419984). R06.1 is a separate unreleased patch proposal.
 
 ## Candidate scope
 
@@ -45,6 +45,6 @@ The release workflow has read-only default token permissions and scoped `content
 
 ## Exit condition
 
-R06 implementation is complete when PR CI and CodeQL pass and a reviewer approves the exact candidate. **Release completion requires a later, separately authorised and verified v0.2.0 tag and GitHub Release.** Do not begin WHPS-004 assuming publication occurred merely because R06 merged.
+**R06 exit satisfied:** PR #14 merged; exact-source validation and CodeQL passed; approved v0.2.0 tag and GitHub Release were independently verified. The later R06.1 patch does not modify the published v0.2.0 source.
 
 See [release governance](11-RELEASE-GOVERNANCE.md), [roadmap](05-ROADMAP.md), [bootstrap](16-SITE-WORKSPACE-BOOTSTRAP.md), [planner](17-READ-ONLY-RESOURCE-PLANNER.md), [candidate notes](releases/v0.2.0.md), [Control Room](CONTROL-ROOM.md).

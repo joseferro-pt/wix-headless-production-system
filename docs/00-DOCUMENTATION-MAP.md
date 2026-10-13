@@ -13,7 +13,8 @@ WHPS has **one system repository** and any number of independently owned website
 7. [Release governance](11-RELEASE-GOVERNANCE.md): candidate gates, tags, documentation and release evidence.
 8. [Support and compatibility](12-SUPPORT-COMPATIBILITY.md), [licence decision](13-LICENSING-DECISION.md), [repository protection](14-REPOSITORY-PROTECTION.md): distribution prerequisites.
 9. [Publication recovery](15-PUBLICATION-RECOVERY.md): R05.1 manual release repair and independent verification.
-10. [R06 v0.2.0 release plan](18-R06-RELEASE-PLAN.md): owner approval gates, exact-checkout provenance and future publication.
+10. [R06 v0.2.0 release plan](18-R06-RELEASE-PLAN.md): completed publication and verification evidence.
+11. [R06.1 provenance and patch](19-R061-PROVENANCE-AND-RELEASE.md): checkout and origin safeguards, v0.2.1 candidate.
 
 ## Reference by task
 
@@ -26,7 +27,7 @@ WHPS has **one system repository** and any number of independently owned website
 | Validate a website release | [QA/release protocol](04-QA-RELEASE.md) | Site CI and site release report |
 | Draw system/site boundary | [System boundaries](06-SYSTEM-BOUNDARIES.md) | One independent repo per website |
 | Adopt toolkit in a site | [Project adoption](07-PROJECT-ADOPTION.md) | Site's pinned WHPS SHA/tag |
-| Bootstrap a **new** local site Git workspace (unreleased WHPS-002) | [Site bootstrap contract](16-SITE-WORKSPACE-BOOTSTRAP.md) | Generated files in new external website repo |
+| Bootstrap a **new** local site Git workspace (published WHPS-002) | [Site bootstrap contract](16-SITE-WORKSPACE-BOOTSTRAP.md) | Generated files in new external website repo |
 | Validate a new website's source-provenance lock | [Adoption-lock schema](../schemas/whps-adoption-lock.schema.json) and [R06 plan](18-R06-RELEASE-PLAN.md) | Site-local whps.lock.json |
 | Validate a resource plan output from WHPS-003 | [Read-only planner](17-READ-ONLY-RESOURCE-PLANNER.md) and [output schema](../schemas/resource-plan-output.schema.json) | Site-local reviewable proposal |
 | System validation and threat model | [Verification/security](08-VERIFICATION-SECURITY.md) and [security policy](../SECURITY.md) | Site-specific security checks |
@@ -38,4 +39,4 @@ WHPS has **one system repository** and any number of independently owned website
 
 ## Version notes
 
-The `0.1.0` number in the manifest schema is a **schema contract version**. It is **not** a published WHPS release. Apache-2.0 is accepted, and [`v0.1.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0) has been published, resolving to `802acf1b536b502fcacdffc1d6b7ce371aa2d3f7`. Site repositories should adopt the tag together with the full resolved SHA, never a floating `main`.
+The manifest schema remains independently versioned as `0.1.0`. Both WHPS [`v0.1.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0) and [`v0.2.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.0) are published; latest v0.2.0 resolves to `d17abe627f27808611218d0d2f01dd977030913a`. Adopt a specific tag and full SHA, not floating `main`; R06.1/v0.2.1 is a separate unpublished patch candidate.
