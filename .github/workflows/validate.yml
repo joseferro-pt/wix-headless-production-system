@@ -85,7 +85,12 @@ jobs:
           assert p['candidateSiteRecord']['approval']=='pending'
           PY
           python3 scripts/validate-json-schema.py schemas/toolkit-adoption-plan-input.schema.json < examples/toolkit-adoption.synthetic.json | python3 -c 'import json,sys; assert json.load(sys.stdin)["valid"]'
-          python3 scripts/validate-json-schema.py schemas/site-toolkit-adoption.schema.json < <(python3 -c 'import json; p=json.load(open("'$scratch'/plan.json")); print(json.dumps(p["candidateSiteRecord"]))') | python3 -c 'import json,sys; assert json.load(sys.stdin)["valid"]'
+          python3 - "$scratch/plan.json" > "$scratch/adoption.json" <<'PY'
+          import json,sys
+          p=json.load(open(sys.argv[1],encoding='utf8'))
+          print(json.dumps(p['candidateSiteRecord']))
+          PY
+          python3 scripts/validate-json-schema.py schemas/site-toolkit-adoption.schema.json < "$scratch/adoption.json" | python3 -c 'import json,sys; assert json.load(sys.stdin)["valid"]'
       - name: Install audited Astro reference dependency lock without updates
         run: npm --prefix frontend/astro-primitives ci --no-audit --no-fund
       - name: TypeScript and Astro diagnostics on synthetic reference

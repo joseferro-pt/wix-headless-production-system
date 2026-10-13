@@ -24,7 +24,7 @@ function validatePin(x,label){
     throw new TypeError(label+' requires an exact tag and full source SHA');
   const release=CATALOG.releases.find(r=>r.tag===x.tag&&r.commit===x.commit);
   if(!release)throw new TypeError(label+' does not match the pinned published release catalog');
-  if(!Array.isArray(x.components)||new Set(x.components).size!==x.components.length||
+  if(!Array.isArray(x.components)||x.components.length===0||new Set(x.components).size!==x.components.length||
      x.components.some(c=>typeof c!=='string'||!COMPONENTS.has(c)))
     throw new TypeError(label+' requires unique known components');
   return release;
