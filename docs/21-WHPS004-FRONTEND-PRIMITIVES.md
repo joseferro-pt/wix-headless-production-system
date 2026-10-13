@@ -1,6 +1,6 @@
 # 21 — WHPS-004 · Generic frontend blocks and validation
 
-**Status:** Merged through PR #16 on 13 October 2026; **not released or deployed**. Current published WHPS toolkit remains v0.2.0 (v0.2.1 is not yet published). Scope: generic code, patterns, synthetic tests and an offline Astro compile reference only.
+**Status:** **Accepted and closed** at the reusable toolkit-reference level. Implemented in [PR #16](https://github.com/joseferro-pt/wix-headless-production-system/pull/16), included in verified [WHPS v0.2.1](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.1) after [PR #18](https://github.com/joseferro-pt/wix-headless-production-system/pull/18), and documented by [post-release closure evidence](22-WHPS004-CLOSURE-AND-V021-PUBLICATION.md). **No real Wix site deployment or app compatibility certification** is claimed. Scope: generic code, patterns, synthetic tests and an offline Astro compile reference only.
 
 ## Objective
 
@@ -29,6 +29,12 @@ Do not create or connect a real Wix site, run `wix init`/`headless link`, instal
 5. App matrix reflects official business-solution templates and identifies widget-only app incompatibility. Stronger Wix-feature claims require verified site-local evidence.
 6. Docs distinguish compiled framework compatibility from Wix-managed hosting/auth/SEO/app compatibility; unresolved extensions, payments, custom domain and member journeys are site-local QA.
 7. PR CI and CodeQL succeed on exact final candidate, ready for **explicit owner review**, **not auto-merge**. Releasing WHPS code is an independent later approval.
+
+## Closure acceptance (13 October 2026)
+
+All seven acceptance gates above are **accepted within their deliberately limited reference-only scope**, with exact commit, test, merge and release evidence in [the WHPS-004 closure record](22-WHPS004-CLOSURE-AND-V021-PUBLICATION.md). The Wix-managed runtime, Wix SDK/app flows, production SEO and payments were **not tested** and remain site-local verification requirements. The Astro 7 path is supported in Wix linking documentation but **not in this WHPS tested reference**, which remains Astro 5. No real-site files or Wix configuration were added to WHPS.
+
+**Decision:** WHPS-004 complete and closed; next planned packet WHPS-005. This post-release document update does not modify the immutable v0.2.1 tag.
 
 ## Next WHPS milestones
 

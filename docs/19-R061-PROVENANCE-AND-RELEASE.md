@@ -1,6 +1,6 @@
 # 19 — WHPS-R06.1 · Post-release provenance and patch plan
 
-**Status:** Merged through PR #15; **v0.2.1 not published**. WHPS `v0.2.0` is published and immutable. A `v0.2.1` patch is proposed, not asserted. Its source candidate also includes merged WHPS-004 frontend reference components, which the release notes must disclose.
+**Status:** Merged through PR #15 and **published in v0.2.1 on 13 October 2026**; verified [Release](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.1), annotated tag `fac613c48a4e3dcbbe3081af8f05e8bf02939443` pointing to `877736282def3631a3fad5d368e3098aadac040f`, and [manual publication run](https://github.com/joseferro-pt/wix-headless-production-system/actions/runs/38425418129). WHPS v0.2.0 remains immutable. v0.2.1 also includes merged WHPS-004 frontend primitives; [closure evidence](22-WHPS004-CLOSURE-AND-V021-PUBLICATION.md) distinguishes reference acceptance from live Wix validation.
 
 ## Authority and scope
 
@@ -30,7 +30,7 @@ These checks run **before any website output is created**, protecting separate w
 
 ## Version and compatibility
 
-- Proposed patch `v0.2.1` retains `whps.lock.json` `lockVersion: 2`, `manifestSchemaVersion: 0.1.0` and the read-only planner's `planVersion: 1`.
+- Published patch `v0.2.1` retains `whps.lock.json` `lockVersion: 2`, `manifestSchemaVersion: 0.1.0` and the read-only planner's `planVersion: 1`.
 - The patch **tightens** bootstrap preconditions: dirty checkouts, checkout archives without an `origin`, and noncanonical origins are rejected, whereas published v0.2.0 accepted them. This restriction must be explicit in the patch release notes and adoption guidance.
 - Offline source distributions without full Git metadata cannot use the bootstrap CLI under the strict provenance requirement. Website operators should use a clean Git clone of the reviewed WHPS release.
 - Canonical remote matching relies on **local Git configuration only**; it is not cryptographic upstream attestation. Exact tag/source verification against the GitHub Release remains a separate site adoption step.
@@ -49,6 +49,6 @@ GitHub repository rulesets were unconfigured at the last inspection; classic bra
 
 ## Exit criteria
 
-**Implementation accepted** means reviewed PR plus successful tests. **R06.1 release complete** requires a separately authorised, independently verified `v0.2.1` tag and GitHub Release. Do not change `v0.1.0` or `v0.2.0`.
+**Implementation accepted** means reviewed PR plus successful tests. **R06.1 release complete** is satisfied by the verified annotated `v0.2.1` tag, approved source, successful owner-dispatched publication workflow and public GitHub Release. This record is a post-release update outside the immutable tagged source. Do not change earlier published tags.
 
-See [release governance](11-RELEASE-GOVERNANCE.md), [site adoption](07-PROJECT-ADOPTION.md), [bootstrap contract](16-SITE-WORKSPACE-BOOTSTRAP.md), [roadmap](05-ROADMAP.md), [Control Room](CONTROL-ROOM.md) and [candidate notes](releases/v0.2.1.md).
+See [release governance](11-RELEASE-GOVERNANCE.md), [site adoption](07-PROJECT-ADOPTION.md), [bootstrap contract](16-SITE-WORKSPACE-BOOTSTRAP.md), [roadmap](05-ROADMAP.md), [Control Room](CONTROL-ROOM.md) and [historic candidate notes](releases/v0.2.1.md). The candidate notes are preserved as issued; the independently checked publication and closure are recorded above.

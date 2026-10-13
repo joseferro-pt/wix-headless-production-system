@@ -4,19 +4,34 @@ This file records **toolkit development**, not website deployments. Entries unde
 
 ## Unreleased
 
-### WHPS-004 · Astro-first reusable frontend primitives (merged, unreleased)
+No new development work is recorded after v0.2.1. WHPS-005 and WHPS-006 remain planned work packets.
+
+## v0.2.1 — Published 2026-10-13
+
+- [Public release](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.1), annotated tag `fac613c48a4e3dcbbe3081af8f05e8bf02939443` resolving to source `877736282def3631a3fad5d368e3098aadac040f`; [successful manual publication](https://github.com/joseferro-pt/wix-headless-production-system/actions/runs/38425418129).
+- Includes WHPS-004's synthetic Astro 5/React 19/Tailwind 4 reference and WHPS-R06.1's provenance safeguards, with unchanged schema versions. Site-specific Wix compatibility remains unverified.
+- See [post-release WHPS-004 closure and independent publication evidence](docs/22-WHPS004-CLOSURE-AND-V021-PUBLICATION.md). Published tag and historic candidate notes remain unchanged.
+
+### WHPS-004 · Astro-first reusable frontend primitives (released and closed)
 
 - Add a generic Astro 5 reference with accessible semantic layout/section/card/status components, optional React 19 filter island, and Tailwind CSS 4 Vite integration.
 - Separate read-only server data contracts from serialisable browser components. All synthetic data only, no Wix auth, app installations, site IDs, Wix CLI release or real Wix SDK integration in WHPS.
 - Publish documentation-based compatibility rules for Wix-managed Astro, Wix business-solution APIs versus widget-only apps, Astro 5 reference baseline (the current Wix link flow also supports Astro 7 but not Astro 6), and maximal site-local design freedom.
-- Add isolated Astro compile check to CI and static boundary/accessibility tests. PR #16 merged on 13 October 2026; no toolkit release or live Wix integration is implied.
+- Add isolated Astro compile check to CI and static boundary/accessibility tests. PR #16 merged on 13 October 2026; included in published v0.2.1. No live Wix integration or app certification is implied.
 
-### WHPS-R06.1 · Post-release provenance safeguards (merged, v0.2.1 not published)
+### WHPS-R06.1 · Post-release provenance safeguards (released in v0.2.1)
 
 - Fail closed when the WHPS bootstrap generator runs from a Git checkout with staged, unstaged, untracked or submodule changes.
 - Require a local `origin` URL matching the canonical WHPS repository via approved HTTPS or SSH formats before attributing generator provenance. Local origin is **not independently attested remote ownership**.
 - Add negative regression tests for dirty checkouts, missing/spoofed origins and allowed canonical URL variants.
-- Reconcile published v0.2.0 documentation and prepare a separately approved v0.2.1 patch. No automatic publication and no website source changes.
+- Reconcile published v0.2.0 provenance and include the changes in owner-approved v0.2.1. Publication was manual, verified, and made no website source changes.
+
+## v0.2.0 — Published 2026-10-12
+
+- First prospective release of WHPS-002 independent local Git site bootstrap and WHPS-003 read-only resource planner.
+- Correct planner duplicate-creation ambiguity, validate plan output contract, and record exact source checkout provenance for generated site workspaces.
+- Introduce explicitly approved and verifiable generic GitHub release publication and documented compatibility scope.
+- No website deployments, live Wix API access, client data or migrations of existing website repositories.
 
 ### WHPS-R06 · v0.2.0 release hardening (merged and published, 2026-10-12)
 
@@ -50,19 +65,6 @@ This file records **toolkit development**, not website deployments. Entries unde
 - Replace the failed automatic publisher with an explicit, verified manual recovery procedure.
 - Successfully publish the v0.1.0 annotated tag and GitHub Release targeting `802acf1b536b502fcacdffc1d6b7ce371aa2d3f7`.
 - See [recovery workflow](https://github.com/joseferro-pt/wix-headless-production-system/actions/runs/38257202876) and [GitHub Release](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0). Recovery code is **unreleased** and not included in the original v0.1.0 snapshot.
-
-- Post-v0.1.0 changes will be documented here.
-
-## v0.2.1 — Candidate (not published)
-
-- Planned patch fixing bootstrap source provenance and recording v0.2.0 publication evidence. See [v0.2.1 candidate notes](docs/releases/v0.2.1.md).
-
-## v0.2.0 — Published 2026-10-12
-
-- First prospective release of WHPS-002 independent local Git site bootstrap and WHPS-003 read-only resource planner.
-- Correct planner duplicate-creation ambiguity, validate plan output contract, and record exact source checkout provenance for generated site workspaces.
-- Introduce explicitly approved and verifiable generic GitHub release publication and documented compatibility scope.
-- No website deployments, live Wix API access, client data or migrations of existing website repositories.
 
 ## v0.1.0 — 2026-10-12
 

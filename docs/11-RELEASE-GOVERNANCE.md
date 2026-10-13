@@ -2,7 +2,7 @@
 
 ## Purpose and scope
 
-This policy concerns versioned **WHPS toolkit distributions**, never Wix website deployments. The original [`v0.1.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0) and current [`v0.2.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.0) are published. The latter targets approved commit `d17abe627f27808611218d0d2f01dd977030913a`. A merged commit, manifest schema version or green CI workflow alone **is not** a GitHub Release; future publications still require all acceptance gates.
+This policy concerns versioned **WHPS toolkit distributions**, never Wix website deployments. The earlier [`v0.1.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0) and [`v0.2.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.0) releases remain immutable; current [`v0.2.1`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.1) was published and verified on 13 October 2026 against `877736282def3631a3fad5d368e3098aadac040f`. See [publication and WHPS-004 acceptance](22-WHPS004-CLOSURE-AND-V021-PUBLICATION.md). A merged commit, manifest schema version or green CI workflow alone **is not** a GitHub Release; future publications still require all acceptance gates.
 
 ## Independent version numbers
 
@@ -41,7 +41,7 @@ python3 -m unittest discover -s tests -p 'test_*.py' -v
 
 ## Version-agnostic manual publisher
 
-From R06 onward, the [manual release workflow](../.github/workflows/publish-release.yml) is the established publication mechanism, successfully exercised for v0.2.0. It accepts approved SemVer, full source SHA and exact typed `PUBLISH-vX.Y.Z` authorisation. It requires the candidate be the current `main` commit with successful exact-SHA validation and CodeQL push runs, checks version-specific release notes, reruns offline contracts and synthetic site bootstrap/planner smoke tests, and creates or verifies an immutable annotated tag and public GitHub Release. A skipped job, merged PR, or green CI run **is not publication**.
+From R06 onward, the [manual release workflow](../.github/workflows/publish-release.yml) is the established publication mechanism, successfully exercised for v0.2.0 and v0.2.1. It accepts approved SemVer, full source SHA and exact typed `PUBLISH-vX.Y.Z` authorisation. It requires the candidate be the current `main` commit with successful exact-SHA validation and CodeQL push runs, checks version-specific release notes, reruns offline contracts and synthetic site bootstrap/planner smoke tests, and creates or verifies an immutable annotated tag and public GitHub Release. A skipped job, merged PR, or green CI run **is not publication**.
 
 The historic [v0.1.0 recovery workflow](../.github/workflows/publish-v0.1.0.yml) must not be repurposed for future releases. Follow the [R06 acceptance plan](18-R06-RELEASE-PLAN.md). No tag or live Wix site is modified by this documentation.
 
@@ -67,5 +67,5 @@ The historic [v0.1.0 recovery workflow](../.github/workflows/publish-v0.1.0.yml)
 
 1. **Licence:** [decision record](13-LICENSING-DECISION.md) accepted; Apache-2.0 terms committed in `LICENSE`.
 2. **GitHub rulesets:** [protection proposal](14-REPOSITORY-PROTECTION.md) remains documented but unimplemented. This open governance exception is disclosed; it does not authorise force pushes.
-3. **First release version:** `v0.1.0` is published and distinct from `schemaVersion: 0.1.0`. Future tags require independent approval and verification.
+3. **First release version:** `v0.1.0` is published and distinct from `schemaVersion: 0.1.0`. Future tags require independent approval and verification. The post-publication documentation correction does not alter any published tag.
 4. **Support commitment:** only CI-tested runtime versions and documented issues; no website-specific Wix runtime support guarantee.
