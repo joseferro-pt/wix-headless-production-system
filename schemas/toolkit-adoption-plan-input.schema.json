@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/whps/toolkit-adoption-plan-input.schema.json",
+  "title": "WHPS-006 site operator-supplied adoption planning metadata v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "planVersion",
+    "site",
+    "current",
+    "target"
+  ],
+  "properties": {
+    "planVersion": {
+      "const": 1
+    },
+    "site": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "entryMode",
+        "siteCommit",
+        "wixConfigurationPresent"
+      ],
+      "properties": {
+        "entryMode": {
+          "enum": [
+            "wix-handoff",
+            "existing-repository",
+            "unbound-frontend"
+          ]
+        },
+        "siteCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "wixConfigurationPresent": {
+          "type": "boolean"
+        }
+      }
+    },
+    "current": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "tag",
+            "commit",
+            "components"
+          ],
+          "properties": {
+            "tag": {
+              "type": "string",
+              "pattern": "^v(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)$"
+            },
+            "commit": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{40}$"
+            },
+            "components": {
+              "type": "array",
+              "uniqueItems": true,
+              "minItems": 1,
+              "items": {
+                "enum": [
+                  "governance",
+                  "validation",
+                  "bootstrap-cli",
+                  "resource-planner",
+                  "astro-reference",
+                  "site-qa"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tag",
+        "commit",
+        "components"
+      ],
+      "properties": {
+        "tag": {
+          "type": "string",
+          "pattern": "^v(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)$"
+        },
+        "commit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "components": {
+          "type": "array",
+          "uniqueItems": true,
+          "minItems": 1,
+          "items": {
+            "enum": [
+              "governance",
+              "validation",
+              "bootstrap-cli",
+              "resource-planner",
+              "astro-reference",
+              "site-qa"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
