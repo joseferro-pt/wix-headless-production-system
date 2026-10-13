@@ -18,6 +18,8 @@ WHPS has **one system repository** and any number of independently owned website
 12. [Astro and Wix capability matrix](20-ASTRO-WIX-COMPATIBILITY.md): Wix-managed Astro, React, Tailwind and API-driven app compatibility.
 13. [WHPS-004 frontend primitives](21-WHPS004-FRONTEND-PRIMITIVES.md): closed synthetic reference scope, acceptance and site separation.
 14. [WHPS-004 closure and v0.2.1 publication](22-WHPS004-CLOSURE-AND-V021-PUBLICATION.md): immutable tag/release verification, acceptance evidence and unverified Wix boundaries.
+15. [WHPS-005 quality framework](23-WHPS005-QUALITY-VERIFICATION.md): type/build/browser checks, lockfile and operator-reported QA contract (in review).
+16. [Site-local Wix QA recipes](24-SITE-LOCAL-VERIFICATION.md): independent site evidence/checklist and explicit no-deployment boundary.
 
 ## Reference by task
 

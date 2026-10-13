@@ -26,7 +26,7 @@ Apache-2.0 is accepted and the first WHPS toolkit release [`v0.1.0`](https://git
 | WHPS-R06 | v0.2.0 planner/bootstrap hardening and reusable publication | **Published and verified** | PR #14, [v0.2.0 Release](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.0), source `d17abe627f27808611218d0d2f01dd977030913a` |
 | WHPS-R06.1 | v0.2.1 source-integrity and post-release status reconciliation | **Published in v0.2.1** | Clean Git checkout, canonical local origin checks, tests, accurate release records |
 | WHPS-004 | Astro 5-first generic components, optional React islands and Tailwind 4; Wix API/app support contract | **Closed and published in v0.2.1** | [Astro reference](../frontend/astro-primitives/README.md), [Wix compatibility](20-ASTRO-WIX-COMPATIBILITY.md), [acceptance](21-WHPS004-FRONTEND-PRIMITIVES.md) |
-| WHPS-005 | Automated quality guidance and contract tests for adopters | **Next; planned** |
+| WHPS-005 | Reproducible dependency installs, diagnostics, browser/a11y tests, site QA evidence contract and reusable verification recipes | **In implementation PR; not released** |
 | WHPS-006 | Versioned distribution and explicit adoption/migration process | Planned |
 | WHPS-007 | Sustainable maintenance, contributing, security and compatibility guidance | Governance baseline merged in R04; further work later |
 

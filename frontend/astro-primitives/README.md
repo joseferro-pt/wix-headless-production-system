@@ -10,16 +10,19 @@
 - **Wix-managed Astro** remains the authoritative site-local integration. Its generated `astro.config.mjs`, `wix.config.json`, SDK authentication, extensions, infrastructure and deploy pipeline belong only in each site's independent repository.
 - Current Wix linking documentation supports **Astro 5 or Astro 7** and does not support Astro 6 (checked 13 October 2026). This WHPS v0.2.1 reference deliberately targets **Astro 5**; Astro 7 integration needs separate framework/React/Tailwind validation.
 
-## Synthetic local compile
+## Synthetic local compile and WHPS-005 quality verification
 
 ```sh
 cd frontend/astro-primitives
-npm install
+npm ci
+npm run check
 npm run build
+npx playwright install chromium
+npm run test:browser
 npm run dev
 ```
 
-The local build demonstrates only **Astro + React + Tailwind** compile compatibility. No Wix SDK, Wix CLI, server integration, authenticated member journey, widget, checkout or live deployment has been tested.
+The local build and Chromium/axe browser suite demonstrate only **Astro + React + Tailwind** compilation, hydration, synthetic interaction and limited automated WCAG rule checks. See [WHPS-005 quality contract](../../docs/23-WHPS005-QUALITY-VERIFICATION.md). Automated accessibility scans never replace manual real-site audits. No Wix SDK, Wix CLI, server integration, authenticated member journey, widget, checkout or live deployment has been tested.
 
 ## Adoption in a separate Wix-managed Astro project
 
