@@ -4,8 +4,8 @@ import { defineConfig } from '@playwright/test';
 export default defineConfig({
   testDir: './tests/browser',
   fullyParallel: true,
-  retries: process.env.CI ? 1 : 0,
-  reporter: process.env.CI ? 'line' : 'list',
+  retries: 1,
+  reporter: 'line',
   use: {
     baseURL: 'http://127.0.0.1:4321',
     browserName: 'chromium',
