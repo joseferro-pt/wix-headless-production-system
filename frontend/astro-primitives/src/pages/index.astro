@@ -1,0 +1,38 @@
+---
+import SiteFrame from '../layouts/SiteFrame.astro';
+import Section from '../components/Section.astro';
+import ContentCard from '../components/ContentCard.astro';
+import ContentState from '../components/ContentState.astro';
+import FilterableList from '../islands/FilterableList';
+import { loadPublicItems } from '../server/reader';
+
+// Synthetic example only. No Wix identity, token, backend access or deployment.
+const result = await loadPublicItems({
+  read: async () => [
+    { id: 'editorial', label: 'Editorial pages', detail: 'Semantic Astro rendering.' },
+    { id: 'appointments', label: 'Appointments', detail: 'Use the Wix Bookings API in a real site.' },
+    { id: 'commerce', label: 'Commerce', detail: 'Use Wix eCommerce business APIs, not widget embedding.' },
+  ],
+});
+---
+<SiteFrame title="WHPS | Generic Astro reference" description="Synthetic frontend primitives, not a Wix-connected website.">
+  <Fragment slot="header">
+    <header class="border-b px-6 py-4"><span class="font-semibold">WHPS · Astro reference</span></header>
+  </Fragment>
+  <Section id="intro" labelledby="intro-heading">
+    <p class="text-sm uppercase tracking-widest">Astro 5 · React islands · Tailwind 4</p>
+    <h1 id="intro-heading" class="mt-3 max-w-4xl text-4xl font-semibold tracking-tight sm:text-6xl">A framework baseline, not a mandatory visual design.</h1>
+    <p class="mt-5 max-w-2xl text-lg">Synthetic content only. Every real site owns its Wix project, branding, components, integrations and release.</p>
+  </Section>
+  <Section id="examples" labelledby="examples-heading" class="border-t">
+    <h2 id="examples-heading" class="mb-6 text-2xl font-semibold">Accessible components</h2>
+    <ContentCard>
+      <ContentState state={result.status} message={result.status === 'error' ? result.message : undefined}>
+        {result.status === 'ready' && <FilterableList items={result.items} client:idle />}
+      </ContentState>
+    </ContentCard>
+  </Section>
+  <Fragment slot="footer">
+    <footer class="border-t px-6 py-5 text-sm">No live Wix resources were accessed.</footer>
+  </Fragment>
+</SiteFrame>
