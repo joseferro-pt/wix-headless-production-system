@@ -23,7 +23,7 @@ const contentPatterns = [
   { code: 'aws-access-key', re: /\b(?:AKIA|ASIA)[A-Z0-9]{16}\b/g },
   { code: 'wix-credential-assignment', re: /^\s*(?:(?:export|const|let|var)\s+)?(?:WIX_(?:CLIENT_SECRET|API_KEY|ACCESS_TOKEN|REFRESH_TOKEN)|GITHUB_TOKEN|AWS_SECRET_ACCESS_KEY)\s*[:=]\s*['"`]?([^\s'"`]+)/gm },
 ];
-const allowedExtensions = new Set(['.md','.json','.mjs','.js','.ts','.tsx','.jsx','.py','.txt','.yml','.yaml','.toml','.css','.html','.svg','.sh','.lock']);
+const allowedExtensions = new Set(['.md','.json','.mjs','.js','.ts','.tsx','.jsx','.py','.txt','.yml','.yaml','.toml','.css','.html','.astro','.svg','.sh','.lock']);
 const allowedNames = new Set(['.gitignore','.gitattributes','.editorconfig','LICENSE','LICENSE.md','NOTICE','NOTICE.md','Dockerfile','Makefile']);
 
 const report = (path, code, line=null) => ({path, code, ...(line===null?{}:{line})});

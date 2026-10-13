@@ -23,7 +23,7 @@ test('blocks site-specific files anywhere in the toolkit', () => {
 
 test('permits site-neutral sources and synthetic identities', () => {
   for (const path of ['.github/workflows/validate.yml','schemas/site-manifest.schema.json',
-    'blueprints/site/AGENTS.md','examples/wix.resources.example.json','scripts/check-repository-boundary.mjs'])
+    'blueprints/site/AGENTS.md','examples/wix.resources.example.json', 'frontend/astro-primitives/src/layouts/SiteFrame.astro','scripts/check-repository-boundary.mjs'])
     assert.deepEqual(scanPath(path), [], path);
   assert.deepEqual(scanText('examples/fixture.txt','11111111-1111-4111-8111-111111111111'),[]);
 });
