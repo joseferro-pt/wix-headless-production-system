@@ -38,7 +38,7 @@ test('no live Wix configuration or SDK tokens are embedded in reference sources'
 test('islands receive only public serialisable data and cannot import backend SDK', async () => {
   const island = await source('src/islands/FilterableList.tsx');
   assert.match(island, /PublicListItem/);
-  assert.match(island, /client/); // native React hooks and browser-local interaction only
+  assert.match(island, /useState/); // native React hooks and browser-local interaction only
   assert.doesNotMatch(island, /@wix\/|createClient|OAuthStrategy|ApiKeyStrategy|localStorage|sessionStorage|fetch\(/);
   assert.match(island, /safeHref/);
   assert.match(island, /role="status"/);
