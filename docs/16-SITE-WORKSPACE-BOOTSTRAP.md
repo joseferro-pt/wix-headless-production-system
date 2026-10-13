@@ -1,6 +1,6 @@
 # 16 — WHPS-002 · Independent website repository bootstrap
 
-**Status:** WHPS-002 published in v0.2.0, not v0.1.0. R06.1's provenance checks are unreleased patch-candidate changes.
+**Status:** WHPS-002 published in v0.2.0, not v0.1.0. R06.1's provenance checks were subsequently published in verified v0.2.1.
 **Scope:** Offline local directory and Git initialisation only. No Wix login, API calls, remote repository creation, network fetches, CMS writes, client site deployments or purchases.
 
 ## Purpose

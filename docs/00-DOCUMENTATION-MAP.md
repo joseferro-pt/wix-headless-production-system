@@ -14,9 +14,10 @@ WHPS has **one system repository** and any number of independently owned website
 8. [Support and compatibility](12-SUPPORT-COMPATIBILITY.md), [licence decision](13-LICENSING-DECISION.md), [repository protection](14-REPOSITORY-PROTECTION.md): distribution prerequisites.
 9. [Publication recovery](15-PUBLICATION-RECOVERY.md): R05.1 manual release repair and independent verification.
 10. [R06 v0.2.0 release plan](18-R06-RELEASE-PLAN.md): completed publication and verification evidence.
-11. [R06.1 provenance and patch](19-R061-PROVENANCE-AND-RELEASE.md): merged safeguards, v0.2.1 unreleased candidate.
+11. [R06.1 provenance and patch](19-R061-PROVENANCE-AND-RELEASE.md): merged safeguards, published and verified in v0.2.1.
 12. [Astro and Wix capability matrix](20-ASTRO-WIX-COMPATIBILITY.md): Wix-managed Astro, React, Tailwind and API-driven app compatibility.
-13. [WHPS-004 frontend primitives](21-WHPS004-FRONTEND-PRIMITIVES.md): synthetic reference scope, acceptance and site separation.
+13. [WHPS-004 frontend primitives](21-WHPS004-FRONTEND-PRIMITIVES.md): closed synthetic reference scope, acceptance and site separation.
+14. [WHPS-004 closure and v0.2.1 publication](22-WHPS004-CLOSURE-AND-V021-PUBLICATION.md): immutable tag/release verification, acceptance evidence and unverified Wix boundaries.
 
 ## Reference by task
 
@@ -43,4 +44,4 @@ WHPS has **one system repository** and any number of independently owned website
 
 ## Version notes
 
-The manifest schema remains independently versioned as `0.1.0`. Both WHPS [`v0.1.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0) and [`v0.2.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.0) are published; latest v0.2.0 resolves to `d17abe627f27808611218d0d2f01dd977030913a`. Adopt a specific tag and full SHA, not floating `main`; R06.1/v0.2.1 is a separate unpublished patch candidate.
+The manifest schema remains independently versioned as `0.1.0`. WHPS `v0.1.0`, `v0.2.0` and [`v0.2.1`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.1) have all been published; latest v0.2.1 resolves to `877736282def3631a3fad5d368e3098aadac040f`. Adopt a specific published tag and full SHA, not floating `main`. WHPS-004 is closed within its documented synthetic scope.

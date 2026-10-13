@@ -14,7 +14,7 @@ This roadmap contains **only WHPS tooling and governance** work. Real websites h
 | WHPS-R05.1 | Recover publication and reconcile repository readiness | **Merged and verified** | PR #8, [recovery run](https://github.com/joseferro-pt/wix-headless-production-system/actions/runs/38257202876), approved commit `802acf1b536b502fcacdffc1d6b7ce371aa2d3f7` |
 | WHPS-R05.2 | Reconcile post-release status and dependency-update configuration | **Merged** | PR #9, Dependabot YAML and CI checks |
 
-Apache-2.0 is accepted and the first WHPS toolkit release [`v0.1.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0) has been published and verified. The initial publication failure was resolved in [R05.1](15-PUBLICATION-RECOVERY.md). The manifest `0.1.0` schema version remains independent. WHPS v0.2.0 was subsequently published and verified; R06.1 merged, but the v0.2.1 patch is not yet published.
+Apache-2.0 is accepted and the first WHPS toolkit release [`v0.1.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0) has been published and verified. The initial publication failure was resolved in [R05.1](15-PUBLICATION-RECOVERY.md). The manifest `0.1.0` schema version remains independent. WHPS v0.2.0 and [v0.2.1](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.1) have both been published and verified. R06.1 and WHPS-004 are included in v0.2.1; the latter is accepted and closed for synthetic frontend primitives.
 
 ## Later system-development work packets
 
@@ -24,13 +24,15 @@ Apache-2.0 is accepted and the first WHPS toolkit release [`v0.1.0`](https://git
 | WHPS-002 | Generic offline website repository bootstrap outside WHPS | **Released in v0.2.0** |
 | WHPS-003 | Pure desired-vs-observed Wix resource reconciliation planner | **Released in v0.2.0** |
 | WHPS-R06 | v0.2.0 planner/bootstrap hardening and reusable publication | **Published and verified** | PR #14, [v0.2.0 Release](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.0), source `d17abe627f27808611218d0d2f01dd977030913a` |
-| WHPS-R06.1 | v0.2.1 source-integrity and post-release status reconciliation | **Merged, patch unpublished** | Clean Git checkout, canonical local origin checks, tests, accurate release records |
-| WHPS-004 | Astro 5-first generic components, optional React islands and Tailwind 4; Wix API/app support contract | **Merged via PR #16, not released** | [Astro reference](../frontend/astro-primitives/README.md), [Wix compatibility](20-ASTRO-WIX-COMPATIBILITY.md), [acceptance](21-WHPS004-FRONTEND-PRIMITIVES.md) |
-| WHPS-005 | Automated quality guidance and contract tests for adopters | Planned |
+| WHPS-R06.1 | v0.2.1 source-integrity and post-release status reconciliation | **Published in v0.2.1** | Clean Git checkout, canonical local origin checks, tests, accurate release records |
+| WHPS-004 | Astro 5-first generic components, optional React islands and Tailwind 4; Wix API/app support contract | **Closed and published in v0.2.1** | [Astro reference](../frontend/astro-primitives/README.md), [Wix compatibility](20-ASTRO-WIX-COMPATIBILITY.md), [acceptance](21-WHPS004-FRONTEND-PRIMITIVES.md) |
+| WHPS-005 | Automated quality guidance and contract tests for adopters | **Next; planned** |
 | WHPS-006 | Versioned distribution and explicit adoption/migration process | Planned |
 | WHPS-007 | Sustainable maintenance, contributing, security and compatibility guidance | Governance baseline merged in R04; further work later |
 
 WHPS-002 must support the separate-site architecture without invoking Wix backend writes or deploying real sites from the WHPS repository. See [the WHPS-002 offline bootstrap contract](16-SITE-WORKSPACE-BOOTSTRAP.md). The pre-existing Wix handoff CLI still performs **offline manifest intake only**. The separate WHPS-002 development CLI can initialise a new local Git repository and copy generic site blueprints, but does not download a Wix template, handle existing repository adoption or create a remote.
+
+[WHPS-004 closure and release evidence](22-WHPS004-CLOSURE-AND-V021-PUBLICATION.md) records exactly which synthetic frontend acceptance gates are complete; live Wix integration is not certified.
 
 WHPS-003 is intentionally an [offline, read-only planner](17-READ-ONLY-RESOURCE-PLANNER.md). It does not query Wix, claim snapshot provenance, infer unsafe deletions or implement resource-specific Wix operations. Real observations and plan approval belong to independent website repositories.
 

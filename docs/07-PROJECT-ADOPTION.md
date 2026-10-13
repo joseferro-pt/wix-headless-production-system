@@ -14,7 +14,7 @@ WHPS is a **toolkit**, not the parent Git repository for websites. Each website 
 
 ## WHPS-002 bootstrap and R06.1 provenance
 
-Published v0.2.0 includes `scripts/bootstrap-site-workspace.mjs`. The generator creates a new independent local Git checkout; it does not merge with or overwrite an existing one. R06.1 adds clean working-tree and canonical local `origin` checks for an unreleased v0.2.1 candidate; these checks are **not** part of v0.2.0. The v2 lock still requires independent GitHub Release verification. See the [bootstrap contract](16-SITE-WORKSPACE-BOOTSTRAP.md).
+Published v0.2.0 includes `scripts/bootstrap-site-workspace.mjs`. The generator creates a new independent local Git checkout; it does not merge with or overwrite an existing one. Published v0.2.1 adds clean working-tree and canonical local `origin` checks; these checks are **not** part of the earlier v0.2.0. The v2 lock still requires independent GitHub Release verification. See the [bootstrap contract](16-SITE-WORKSPACE-BOOTSTRAP.md).
 
 An existing repository must not be used as the output destination. Continue the manual protocol above to inspect and adopt tooling without overwriting source or Wix configuration.
 
