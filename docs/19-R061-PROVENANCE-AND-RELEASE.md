@@ -1,6 +1,6 @@
 # 19 — WHPS-R06.1 · Post-release provenance and patch plan
 
-**Status:** Implemented on a review branch, **not merged or published**. WHPS `v0.2.0` is published and immutable. A `v0.2.1` patch is proposed, not asserted.
+**Status:** Merged through PR #15; **v0.2.1 not published**. WHPS `v0.2.0` is published and immutable. A `v0.2.1` patch is proposed, not asserted. Its source candidate also includes merged WHPS-004 frontend reference components, which the release notes must disclose.
 
 ## Authority and scope
 

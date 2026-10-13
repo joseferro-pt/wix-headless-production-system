@@ -8,7 +8,7 @@
 - **React 19** with `@astrojs/react` is optional. Use small hydrated islands (`client:idle` and other explicit strategies), not a mandatory React SPA.
 - **Tailwind 4** uses `@tailwindcss/vite`. CSS custom properties and utilities are controlled by **each site**, never a WHPS brand design system.
 - **Wix-managed Astro** remains the authoritative site-local integration. Its generated `astro.config.mjs`, `wix.config.json`, SDK authentication, extensions, infrastructure and deploy pipeline belong only in each site's independent repository.
-- Current Wix documentation requires **Astro 5** when linking an existing Astro site; **Astro 6 is unsupported** by that link flow as of 13 October 2026.
+- Current Wix linking documentation supports **Astro 5 or Astro 7** and does not support Astro 6 (checked 13 October 2026). This WHPS v0.2.1 reference deliberately targets **Astro 5**; Astro 7 integration needs separate framework/React/Tailwind validation.
 
 ## Synthetic local compile
 

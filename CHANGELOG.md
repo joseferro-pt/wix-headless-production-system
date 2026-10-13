@@ -4,12 +4,12 @@ This file records **toolkit development**, not website deployments. Entries unde
 
 ## Unreleased
 
-### WHPS-004 · Astro-first reusable frontend primitives (in PR, unreleased)
+### WHPS-004 · Astro-first reusable frontend primitives (merged, unreleased)
 
 - Add a generic Astro 5 reference with accessible semantic layout/section/card/status components, optional React 19 filter island, and Tailwind CSS 4 Vite integration.
 - Separate read-only server data contracts from serialisable browser components. All synthetic data only, no Wix auth, app installations, site IDs, Wix CLI release or real Wix SDK integration in WHPS.
-- Publish documentation-based compatibility rules for Wix-managed Astro, Wix business-solution APIs versus widget-only apps, Astro 5 version constraint, and maximal site-local design freedom.
-- Add isolated Astro compile check to CI and static boundary/accessibility tests. No release or PR merge is implied.
+- Publish documentation-based compatibility rules for Wix-managed Astro, Wix business-solution APIs versus widget-only apps, Astro 5 reference baseline (the current Wix link flow also supports Astro 7 but not Astro 6), and maximal site-local design freedom.
+- Add isolated Astro compile check to CI and static boundary/accessibility tests. PR #16 merged on 13 October 2026; no toolkit release or live Wix integration is implied.
 
 ### WHPS-R06.1 · Post-release provenance safeguards (merged, v0.2.1 not published)
 

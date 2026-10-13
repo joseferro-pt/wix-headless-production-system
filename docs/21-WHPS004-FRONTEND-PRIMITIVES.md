@@ -1,6 +1,6 @@
 # 21 — WHPS-004 · Generic frontend blocks and validation
 
-**Status:** Proposed implementation in a PR; **not merged, released or deployed**. Current published WHPS toolkit remains v0.2.0 (v0.2.1 is not yet published). Scope: generic code, patterns, synthetic tests and an offline Astro compile reference only.
+**Status:** Merged through PR #16 on 13 October 2026; **not released or deployed**. Current published WHPS toolkit remains v0.2.0 (v0.2.1 is not yet published). Scope: generic code, patterns, synthetic tests and an offline Astro compile reference only.
 
 ## Objective
 
