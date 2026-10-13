@@ -69,7 +69,21 @@ jobs:
           node scripts/bootstrap-site-workspace.mjs --mode wix-handoff --output "$sandbox/wix-site" --handoff examples/wix-generated-prompt.example.txt
           node scripts/validate-manifest.mjs "$sandbox/wix-site/site.manifest.json"
           test "$(git -C "$sandbox/wix-site" branch --show-current)" = main
-      - name: Install Astro 5, React islands and Tailwind 4 reference dependencies
-        run: npm --prefix frontend/astro-primitives install --no-audit --no-fund --package-lock=false
+      - name: Install Astro 5 reference and QA development dependencies (lockfile bootstrapping)
+        run: npm --prefix frontend/astro-primitives install --no-audit --no-fund --package-lock=true
+      - name: Export npm lockfile in bounded log chunks for reviewed source control
+        shell: bash
+        run: |
+          node - <<'NODE'
+          const fs=require('node:fs');
+          const s=fs.readFileSync('frontend/astro-primitives/package-lock.json','utf8');
+          process.stdout.write('WHPS_LOCKFILE_BEGIN\\n');
+          for (let i=0;i<s.length;i+=6000) {
+            process.stdout.write('WHPS_LOCK_CHUNK '+String(i)+' '+Buffer.from(s.slice(i,i+6000)).toString('base64')+'\\n');
+          }
+          process.stdout.write('WHPS_LOCKFILE_END\\n');
+          NODE
+      - name: Astro TypeScript diagnostics
+        run: npm --prefix frontend/astro-primitives run check
       - name: Compile synthetic Astro/React/Tailwind reference (NO Wix SDK, deploy or project auth)
         run: npm --prefix frontend/astro-primitives run build
