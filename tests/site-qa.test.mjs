@@ -46,6 +46,12 @@ test('Wix-managed production cannot ignore its binding evidence',()=>{
   c.status='not-applicable';delete c.evidence;c.reason='Synthetic omitted Wix binding';
   assert.ok(evaluateSiteQa(r).blockers.includes('production-wix-binding-not-reported-passed'));
 });
+test('production does not accept not-applicable for core quality gates',()=>{
+  const r=completed();r.stage='production';
+  const c=r.checks.find(x=>x.id==='security');
+  c.status='not-applicable';delete c.evidence;c.reason='Synthetic site security not yet tested';
+  assert.ok(evaluateSiteQa(r).blockers.includes('production-required-gate-not-passed:security'));
+});
 test('duplicate, unknown, missing or extra fields fail closed',()=>{
   const r=completed();r.checks[1].id='source';
   assert.throws(()=>evaluateSiteQa(r),/duplicate gate/);
@@ -54,7 +60,7 @@ test('duplicate, unknown, missing or extra fields fail closed',()=>{
   r.checks.pop();
   assert.throws(()=>evaluateSiteQa(r),/all 11/);
   const x=completed();x.token='not-allowed';
-  assert.throws(()=>evaluateSiteQa(x),/unknown field/);
+  assert.throws(()=>evaluateSiteQa(x),/unexpected field/);
 });
 test('passed/NA gates and approval need evidence or reason',()=>{
   const r=completed();delete r.checks[0].evidence;

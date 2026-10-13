@@ -21,7 +21,7 @@ const own=(o,k)=>Object.prototype.hasOwnProperty.call(o,k);
 const isRecord=x=>x!==null&&typeof x==='object'&&!Array.isArray(x);
 function fields(x,keys,where) {
   if(!isRecord(x))throw new TypeError(where+': expected an object');
-  for(const k of Object.keys(x))if(!keys.includes(k))throw new TypeError(where+': unknown field '+k);
+  for(const k of Object.keys(x))if(!keys.includes(k))throw new TypeError(where+': unexpected field');
 }
 function ref(x) {return typeof x==='string'&&x.length<=1024&&x.trim().length>=3&&!/[\r\n]/.test(x);}
 
@@ -62,6 +62,10 @@ export function evaluateSiteQa(input) {
   const failed=GATES.filter(g=>seen.get(g)==='failed');
   const unrun=GATES.filter(g=>seen.get(g)==='not-run');
   const blockers=[...failed];
+  if(input.stage==='production') {
+    for(const gate of ['source','build','accessibility-automated','accessibility-manual','responsive','seo','security'])
+      if(seen.get(gate)!=='passed')blockers.push('production-required-gate-not-passed:'+gate);
+  }
   if(input.stage==='production'&&input.mode==='wix-managed-astro'&&seen.get('wix-binding')!=='passed')
     blockers.push('production-wix-binding-not-reported-passed');
   if(input.deployment.status==='reported-published'&&input.approval.status!=='approved')

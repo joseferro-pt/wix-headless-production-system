@@ -42,7 +42,7 @@ node scripts/evaluate-site-qa.mjs --input /path/to/site/docs/site-qa.json --json
 
 `source`, `build`, `wix-binding`, `wix-permissions`, `wix-app-flows`, `accessibility-automated`, `accessibility-manual`, `responsive`, `seo`, `performance`, `security`.
 
-Production Wix-managed Astro requires a `passed` Wix binding record, while unused app features may be `not-applicable` with a reason. A recorded publication without prior recorded owner approval is always blocked. Every report must identify a full lower-case 40-character site Git commit SHA, but the **reported SHA is not independently verified**.
+Production reports require `passed` evidence for source, build, automated/manual accessibility, responsive, SEO and security, plus a `passed` Wix binding record for Wix-managed Astro. Unused app features may be `not-applicable` with a reason. A recorded publication without prior recorded owner approval is always blocked. Every report must identify a full lower-case 40-character site Git commit SHA, but the **reported SHA is not independently verified**.
 
 Report states: `blocked`, `incomplete`, `awaiting-owner-approval`, `recorded-approval-for-review`. The strongest state is deliberately **not** named `deploy-ready`, `Wix-verified`, or `certified`.
 

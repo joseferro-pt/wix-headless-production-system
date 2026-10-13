@@ -32,7 +32,7 @@ This evaluator reports only *operator-stated* results, does not independently in
 | `approval` | Separate site-owner recorded go/no-go decision and evidence reference |
 | `deployment` | Actual site deployment attempt/outcome, logs and independently checked URL if authorised; never guessed |
 
-Use `not-applicable` only when the feature is truly absent and record a concrete reason. Untested features *present* in the site are `not-run`, not `not-applicable`.
+Production records require explicit `passed` evidence for source, build, automated/manual accessibility, responsive, SEO and security; Wix-managed production additionally requires a passing Wix binding. Use `not-applicable` only when the feature is truly absent and record a concrete reason. Untested features *present* in the site are `not-run`, not `not-applicable`.
 
 ## Wix-managed Astro verification workflow
 
