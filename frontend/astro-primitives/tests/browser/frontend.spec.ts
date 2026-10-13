@@ -7,6 +7,8 @@ test('actual React island hydrates and filters synthetic items',async({page})=>{
   await expect(page.getByRole('main')).toHaveCount(1);
   const filter=page.getByRole('searchbox',{name:'Filter items'});
   await expect(filter).toBeVisible();
+  // Astro client:idle renders SSR input before React listeners are attached.
+  await expect(page.locator('astro-island')).not.toHaveAttribute('ssr','');
   await expect(page.getByRole('status')).toContainText('3 results');
   await filter.fill('Appointments');
   await expect(page.getByRole('status')).toContainText('1 results');
@@ -30,6 +32,7 @@ test('skip navigation is keyboard-focusable and targets the main landmark',async
 test('automated WCAG A/AA scan includes hydrated content',async({page})=>{
   await page.goto('/');
   await expect(page.getByRole('searchbox',{name:'Filter items'})).toBeVisible();
+  await expect(page.locator('astro-island')).not.toHaveAttribute('ssr','');
   const accessibility=new AxeBuilder({page})
     .withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa','wcag22aa']);
   const scanned=await accessibility.analyze();
