@@ -25,10 +25,6 @@ jobs:
         run: node scripts/check-release-readiness.mjs --release --version v0.2.0
       - name: Test handoff parser and manifest contracts
         run: node --test tests/*.test.mjs
-      - name: Install Astro 5, React islands and Tailwind 4 reference dependencies
-        run: npm --prefix frontend/astro-primitives install --no-audit --no-fund --package-lock=false
-      - name: Compile synthetic Astro/React/Tailwind reference (NO Wix SDK, deploy or project auth)
-        run: npm --prefix frontend/astro-primitives run build
       - name: Python archive and Dependabot YAML contract tests
         run: python -m unittest discover -s tests -p 'test_*.py' -v
       - name: Sample intake and offline validation
@@ -71,3 +67,7 @@ jobs:
           node scripts/bootstrap-site-workspace.mjs --mode wix-handoff --output "$sandbox/wix-site" --handoff examples/wix-generated-prompt.example.txt
           node scripts/validate-manifest.mjs "$sandbox/wix-site/site.manifest.json"
           test "$(git -C "$sandbox/wix-site" branch --show-current)" = main
+      - name: Install Astro 5, React islands and Tailwind 4 reference dependencies
+        run: npm --prefix frontend/astro-primitives install --no-audit --no-fund --package-lock=false
+      - name: Compile synthetic Astro/React/Tailwind reference (NO Wix SDK, deploy or project auth)
+        run: npm --prefix frontend/astro-primitives run build
