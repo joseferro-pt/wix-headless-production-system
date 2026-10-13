@@ -4,7 +4,7 @@ This file records **toolkit development**, not website deployments. Entries unde
 
 ## Unreleased
 
-### WHPS-006 · Versioned distribution and per-site adoption (implementation in PR; unreleased)
+### WHPS-006 · Versioned distribution and per-site adoption (merged via PR #24; unreleased)
 
 - Add a pinned catalog of **actually published** toolkit releases, a read-only live GitHub tag/Release verifier, and a deterministic offline site-adoption/upgrade planner.
 - Add independent, schema-validated site adoption records without rewriting the WHPS-002 generating-source `whps.lock.json` v2; detect unsupported versions, component loss and downgrades.

@@ -61,6 +61,6 @@ Report states: `blocked`, `incomplete`, `awaiting-owner-approval`, `recorded-app
 - Official Wix linking documentation reviewed 13 October 2026 permits Astro 5 or 7 but not 6. WHPS-005 tests **Astro 5 only** with its current React/Tailwind dependency graph.
 - Automated axe rules do not fully establish WCAG compliance, visual quality, assistive technology support or user satisfaction.
 - The site-level report is a structured **claim**; the CLI cannot independently prove evidence links, site owner authority, Wix identity or deployment.
-- WHPS-006 remains responsible for distribution, per-site adoption, upgrades and precise dependency compatibility policies. A new release is not automatic on merging WHPS-005.
+- WHPS-006 implements read-only versioned distribution verification and offline per-site adoption planning on main (merged PR #24), but remains **unreleased**. It does not automatically upgrade a site, validate Wix-managed compatibility or make a release. A new release is not automatic on merging WHPS-005.
 
 Related: [WHPS-004 closure](22-WHPS004-CLOSURE-AND-V021-PUBLICATION.md), [site verification](24-SITE-LOCAL-VERIFICATION.md), [toolkit boundaries](06-SYSTEM-BOUNDARIES.md), [Wix matrix](20-ASTRO-WIX-COMPATIBILITY.md).

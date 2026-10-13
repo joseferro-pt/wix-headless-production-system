@@ -18,9 +18,9 @@ Published v0.2.0 includes `scripts/bootstrap-site-workspace.mjs`. The generator 
 
 An existing repository must not be used as the output destination. Continue the manual protocol above to inspect and adopt tooling without overwriting source or Wix configuration.
 
-## WHPS-006: source-pinned, non-mutating adoption planning (development)
+## WHPS-006: source-pinned, non-mutating adoption planning (merged; unreleased)
 
-[WHPS-006](25-WHPS006-DISTRIBUTION-ADOPTION.md) adds a historical catalog, **read-only** GitHub publication verifier, offline upgrade planner and separate website-owned `whps.adoption.json` v1. This is newer **unreleased code**, not available inside the published v0.2.1 checkout. The original `whps.lock.json` v2 permanently preserves producing-source provenance, even after site-local toolkit adaptations. Toolkit changes never fan out to sites or alter Wix-generated files automatically. Version or component drops require an explicitly reviewed migration. WHPS-002 was published in v0.2.0, not v0.1.0.
+[WHPS-006](25-WHPS006-DISTRIBUTION-ADOPTION.md) adds a historical catalog, **read-only** GitHub publication verifier, offline upgrade planner and separate website-owned `whps.adoption.json` v1. This is newer **merged but unreleased code** (PR #24), not available inside the published v0.2.1 checkout. The original `whps.lock.json` v2 permanently preserves producing-source provenance, even after site-local toolkit adaptations. Toolkit changes never fan out to sites or alter Wix-generated files automatically. Version or component drops require an explicitly reviewed migration. WHPS-002 was published in v0.2.0, not v0.1.0.
 
 ## Site-local resource reconciliation
 
