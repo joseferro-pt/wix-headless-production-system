@@ -2,8 +2,8 @@
 
 **Scope:** Reusable production toolkit only. No Wix client site or site delivery is managed here.  
 **Canonical repo:** https://github.com/joseferro-pt/wix-headless-production-system  
-**Schema contract:** `0.1.0`; **published toolkit release:** [`v0.1.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0).  
-**Source status:** R01–R05 merged; R05.1 recovery merged and publication verified. R05.2 post-release reconciliation has merged. WHPS-002 merged with green CI, but its CLI remains unreleased. WHPS-003 has merged with green CI and remains unreleased. R06 v0.2.0 hardening and reusable publication are proposed in a review PR; **v0.2.0 is not published**.
+**Schema contract:** `0.1.0`; **latest published toolkit:** [`v0.2.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.0); source `d17abe627f27808611218d0d2f01dd977030913a`.  
+**Source status:** R01–R05 merged; R05.1 recovery merged and publication verified. R05.2 post-release reconciliation has merged. WHPS-002, WHPS-003 and R06 are merged and included in published v0.2.0. R06.1 is proposed in PR for source-provenance hardening; **v0.2.1 is not published**.
 
 ## Evidence baseline (12 October 2026)
 
@@ -16,6 +16,7 @@
 | Initial toolkit release `v0.1.0` | **Published and verified** on 12 October 2026 | [Release](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0) and [recovery run](https://github.com/joseferro-pt/wix-headless-production-system/actions/runs/38257202876) |
 | Annotated tag | `d1bed61f5f5b731644cb1b0821129514a78c6a93` resolves to approved commit `802acf1b536b502fcacdffc1d6b7ce371aa2d3f7` | Verified GitHub tag object |
 | R05.1 recovery | PR #8 merged; explicit publication succeeded | [PR #8](https://github.com/joseferro-pt/wix-headless-production-system/pull/8), [recovery run](https://github.com/joseferro-pt/wix-headless-production-system/actions/runs/38257202876) |
+| v0.2.0 publication | **Verified** on 12 October 2026; annotated tag `98db3fba737581a4726ae46876a499113ad784f9` resolves to `d17abe627f27808611218d0d2f01dd977030913a` | [GitHub Release](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.0), [manual publication run](https://github.com/joseferro-pt/wix-headless-production-system/actions/runs/38277419984) |
 
 **Revalidation:** review the actual GitHub PR, commit and CI state before changing any of these labels. Merging does not imply a published toolkit release.
 
@@ -44,22 +45,23 @@ Definitions and evidence rules: [authority/decisions](10-AUTHORITY-AND-DECISIONS
 | WHPS-R05 · Verified foundation | **Published and verified** | PR #6, annotated tag and GitHub Release |
 | WHPS-R05.1 · Publication recovery | **Merged and verified** | PR #8 and recovery run `38257202876` |
 | WHPS-R05.2 · Post-release reconciliation | **Merged** | PR #9, merged validation and Dependabot checks |
-| WHPS-002 · Independent site bootstrap | **Merged, unreleased** | PR #12, validated site scaffold and [contract](16-SITE-WORKSPACE-BOOTSTRAP.md) |
-| WHPS-003 · Read-only reconciliation planner | **Merged, unreleased** | PR #13 and green CI; strict desired/observed contract and [governance](17-READ-ONLY-RESOURCE-PLANNER.md) |
-| WHPS-R06 · v0.2.0 hardening and release | **In PR; not published** | Planner duplicate-type/name guard, v2 source lock, output schema and [release plan](18-R06-RELEASE-PLAN.md); owner release approval pending |
+| WHPS-002 · Independent site bootstrap | **Released in v0.2.0** | PR #12, validated site scaffold and [contract](16-SITE-WORKSPACE-BOOTSTRAP.md) |
+| WHPS-003 · Read-only reconciliation planner | **Released in v0.2.0** | PR #13 and green CI; strict desired/observed contract and [governance](17-READ-ONLY-RESOURCE-PLANNER.md) |
+| WHPS-R06 · v0.2.0 hardening and release | **Published and verified** | PR #14, source `d17abe627f27808611218d0d2f01dd977030913a`, [publication run](https://github.com/joseferro-pt/wix-headless-production-system/actions/runs/38277419984) |
+| WHPS-R06.1 · Post-release provenance correction | **In PR; not published** | Fail-closed checkout/origin validation, synthetic regression checks, [patch plan](19-R061-PROVENANCE-AND-RELEASE.md) |
 
 ## Product-development backlog
 
-`WHPS-001`: initial foundation (merged work); `WHPS-002`: generic site-workspace bootstrap (merged, unreleased); `WHPS-003`: read-only resource planner (merged, unreleased); `WHPS-004`: frontend primitives; `WHPS-005`: quality framework; `WHPS-006`: distribution/compatibility; `WHPS-007`: maintainability. Details: [roadmap](05-ROADMAP.md).
+`WHPS-001`: initial foundation (merged work); `WHPS-002`: generic site-workspace bootstrap (released in v0.2.0); `WHPS-003`: read-only resource planner (released in v0.2.0); `WHPS-004`: frontend primitives; `WHPS-005`: quality framework; `WHPS-006`: distribution/compatibility; `WHPS-007`: maintainability. Details: [roadmap](05-ROADMAP.md).
 
 ## Current gate
 
-**Review WHPS-R06**, its synthetic regression tests, exact-commit adoption proof and release-workflow permissions. Approve and publish v0.2.0 only through a separate owner-triggered release action after merge and green main CI/CodeQL. The first release remains immutable: **do not rerun recovery or move the tag**. Repository protection and confidential vulnerability reporting remain owner-controlled follow-ups.
+**Review R06.1** and its negative provenance tests. After a PR merge and exact-commit CI/CodeQL verification, separately approve the full SHA for `v0.2.1` and run manual publication; a merge is not a release. Preserve both prior immutable tags. Repository protection, confidential vulnerability intake and historical retention remain owner-controlled follow-ups. Repository protection and confidential vulnerability reporting remain owner-controlled follow-ups.
 
 ## Constraints and known limits
 
 - No real Wix identifiers, site archives, content or deployments in the toolkit.
-- Apache-2.0 is accepted; v0.1.0 is published and later `main` changes are unreleased.
+- Apache-2.0 is accepted; v0.1.0 and v0.2.0 are published, while R06.1 changes on a branch remain unreleased.
 - No repository rulesets were observed; classic branch protection remains unverified due to connector restrictions.
 - The offline archive auditor does not independently attest original Wix provenance.
 - Automated scanning cannot guarantee discovery of every credential or historical secret.

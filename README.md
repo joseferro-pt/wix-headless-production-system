@@ -1,6 +1,6 @@
 # Wix Headless Website Production System (WHPS)
 
-**Status:** [v0.1.0 published 12 October 2026](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0); later changes on `main` are not part of that release.  
+**Status:** [v0.2.0 published 12 October 2026](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.0), approved source `d17abe627f27808611218d0d2f01dd977030913a`; R06.1 is an unreleased post-release correction.  
 **Manifest schema version:** `0.1.0`.  
 **Scope:** A reusable toolkit and operating framework for Wix Headless website delivery. **Not** a website repository or a multi-client workspace.
 
@@ -15,8 +15,8 @@ The Wix-generated handoff establishes technical identity, **not** verified busin
 - **R01:** foundation corrections merged: schema-aware validation, atomic intake, ZIP safeguards.
 - **R02:** verification improvements merged: synthetic negative tests and tracked-content security guard.
 - **R03:** documentation consolidation merged; policy and status terminology reconciled.
-- **R04:** governance merged. **R05:** release candidate merged. **R05.1:** recovery merged and v0.1.0 publication verified. **R05.2:** post-release reconciliation merged. **WHPS-002 and WHPS-003:** merged, validated and unreleased. **WHPS-R06:** preparing a reviewed v0.2.0 candidate, with immutable release gates; publication is separate.
-- **Published toolkit release:** [`v0.1.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0), annotated tag targeting `802acf1b536b502fcacdffc1d6b7ce371aa2d3f7`. The manifest schema is separately versioned as `0.1.0`.
+- **R04:** governance merged. **R05:** release candidate merged. **R05.1:** recovery merged and v0.1.0 publication verified. **R05.2:** post-release reconciliation merged. **WHPS-002, WHPS-003 and R06:** merged, validated and released as v0.2.0. **WHPS-R06.1:** correcting source provenance and preparing a reviewed v0.2.1 patch; no patch is published yet.
+- **Latest published toolkit release:** [`v0.2.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.0), annotated tag targeting `d17abe627f27808611218d0d2f01dd977030913a`. Previous [`v0.1.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0) remains immutable. The manifest schema remains separately versioned as `0.1.0`.
 - **Licence:** [Apache-2.0](LICENSE), with repository copyright attribution in [NOTICE](NOTICE). This does not license Wix-owned code or independently managed websites.
 
 ## Quick start: offline Wix handoff intake
@@ -42,21 +42,21 @@ node scripts/bootstrap-site-workspace.mjs --mode unbound-frontend --output ../ne
 node scripts/bootstrap-site-workspace.mjs --mode wix-handoff --output ../new-wix-website --handoff /path/to/original-wix-prompt.txt
 ```
 
-It supports `wix-handoff` and `unbound-frontend` only. For `existing-repository`, follow [manual adoption](docs/07-PROJECT-ADOPTION.md); the CLI will refuse to overwrite an existing site. Each new workspace now records the **exact current generator checkout SHA**, an optional locally observed Git release tag and an explicit unverified-release status. The original v0.1.0 foundation is retained separately as historical provenance. The published v0.1.0 source does **not** contain this CLI; the proposed v0.2.0 candidate includes it.
+It supports `wix-handoff` and `unbound-frontend` only. For `existing-repository`, follow [manual adoption](docs/07-PROJECT-ADOPTION.md); the CLI will refuse to overwrite an existing site. Each new workspace now records the **exact current generator checkout SHA**, an optional locally observed Git release tag and an explicit unverified-release status. The original v0.1.0 foundation is retained separately as historical provenance. The published v0.1.0 source does **not** contain this CLI; published v0.2.0 does. R06.1 development adds fail-closed checks for dirty local checkouts and incorrect local Git origin configuration.
 
 
 
 ## WHPS-003 · Read-only resource reconciliation (development)
 
-The [merged, unreleased offline planner](docs/17-READ-ONLY-RESOURCE-PLANNER.md) compares desired resource metadata with an explicitly supplied observed snapshot, and optionally a historical registry. It emits JSON proposals (`create`, `reuse`, `update`, `retire`, `blocked`, `untracked`) **without contacting Wix or executing any change**. Snapshot coverage, uniqueness and identity mismatches are checked; all proposed operations require site-local approval.
+The [published v0.2.0 offline planner](docs/17-READ-ONLY-RESOURCE-PLANNER.md) compares desired resource metadata with an explicitly supplied observed snapshot, and optionally a historical registry. It emits JSON proposals (`create`, `reuse`, `update`, `retire`, `blocked`, `untracked`) **without contacting Wix or executing any change**. Snapshot coverage, uniqueness and identity mismatches are checked; all proposed operations require site-local approval.
 
     node scripts/plan-wix-resources.mjs --input examples/resource-plan.synthetic.json
 
-WHPS-003 is not part of published v0.1.0; its proposed v0.2.0 version additionally rejects duplicate desired type/name requests and validates the output against [a JSON Schema](schemas/resource-plan-output.schema.json). Real snapshot inputs and plans belong in each independent website repository, never WHPS.
+WHPS-003 is not part of published v0.1.0; published v0.2.0 additionally rejects duplicate desired type/name requests and validates the output against [a JSON Schema](schemas/resource-plan-output.schema.json). Real snapshot inputs and plans belong in each independent website repository, never WHPS.
 
-## WHPS-R06 · Proposed v0.2.0 release
+## WHPS-R06 and R06.1 · Publication and provenance
 
-The [R06 release plan](docs/18-R06-RELEASE-PLAN.md) and [candidate notes](docs/releases/v0.2.0.md) describe release readiness. Publication is **not automatic on merge**: the owner must approve an exact source SHA and manually dispatch the [version-agnostic publisher](.github/workflows/publish-release.yml) after successful main-branch validation and CodeQL. Until the tag and GitHub Release are verified, `v0.1.0` remains the only published toolkit release.
+The [R06 release plan](docs/18-R06-RELEASE-PLAN.md) now records verified [v0.2.0 publication](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.0). [R06.1 provenance hardening](docs/19-R061-PROVENANCE-AND-RELEASE.md) prepares an unreleased `v0.2.1` patch. Publication remains a **separate owner action**: review the final merged SHA, verify main-branch CI and CodeQL, then manually run the [generic publisher](.github/workflows/publish-release.yml). Never re-point v0.2.0.
 
 ## Validate this toolkit
 

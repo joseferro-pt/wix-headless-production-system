@@ -4,7 +4,7 @@ This roadmap contains **only WHPS tooling and governance** work. Real websites h
 
 ## Foundation review sequence (R01–R05)
 
-| ID | Objective | Current status (2026-10-12) | Acceptance evidence |
+| ID | Objective | Current status (2026-10-13) | Acceptance evidence |
 |---|---|---|---|
 | WHPS-R01 | Correct schema validation, atomic intake and archive safeguards | **Merged**, CI passed | PR #2 |
 | WHPS-R02 | Strengthen negative tests and repo boundary scanning | **Merged**, CI passed | PR #3 |
@@ -14,16 +14,17 @@ This roadmap contains **only WHPS tooling and governance** work. Real websites h
 | WHPS-R05.1 | Recover publication and reconcile repository readiness | **Merged and verified** | PR #8, [recovery run](https://github.com/joseferro-pt/wix-headless-production-system/actions/runs/38257202876), approved commit `802acf1b536b502fcacdffc1d6b7ce371aa2d3f7` |
 | WHPS-R05.2 | Reconcile post-release status and dependency-update configuration | **Merged** | PR #9, Dependabot YAML and CI checks |
 
-Apache-2.0 is accepted and the first WHPS toolkit release [`v0.1.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0) has been published and verified. The initial publication failure was resolved in [R05.1](15-PUBLICATION-RECOVERY.md). The manifest `0.1.0` schema version remains independent; later work is unreleased.
+Apache-2.0 is accepted and the first WHPS toolkit release [`v0.1.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0) has been published and verified. The initial publication failure was resolved in [R05.1](15-PUBLICATION-RECOVERY.md). The manifest `0.1.0` schema version remains independent. WHPS v0.2.0 was subsequently published and verified; R06.1 is not yet released.
 
 ## Later system-development work packets
 
 | ID | Deliverable | Status |
 |---|---|---|
 | WHPS-001 | Original framework, docs and first safety tooling | Baseline present, subsequently corrected in R01/R02 |
-| WHPS-002 | Generic offline website repository bootstrap outside WHPS | **Merged**, CI passed; not in v0.1.0 |
-| WHPS-003 | Pure desired-vs-observed Wix resource reconciliation planner | **Merged**, CI passed; not in v0.1.0 |
-| WHPS-R06 | v0.2.0 planner/bootstrap hardening and reusable publication | **Candidate implementation in PR; no v0.2.0 release yet** | Duplicates fail closed, v2 exact generator lock, output schema, release notes, manual publication gates and tested adoption |
+| WHPS-002 | Generic offline website repository bootstrap outside WHPS | **Released in v0.2.0** |
+| WHPS-003 | Pure desired-vs-observed Wix resource reconciliation planner | **Released in v0.2.0** |
+| WHPS-R06 | v0.2.0 planner/bootstrap hardening and reusable publication | **Published and verified** | PR #14, [v0.2.0 Release](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.0), source `d17abe627f27808611218d0d2f01dd977030913a` |
+| WHPS-R06.1 | v0.2.1 source-integrity and post-release status reconciliation | **In PR; publication pending** | Clean Git checkout, canonical local origin checks, tests, accurate release records |
 | WHPS-004 | Framework-specific reusable frontend building blocks | Planned |
 | WHPS-005 | Automated quality guidance and contract tests for adopters | Planned |
 | WHPS-006 | Versioned distribution and explicit adoption/migration process | Planned |
