@@ -69,6 +69,28 @@ jobs:
           node scripts/bootstrap-site-workspace.mjs --mode wix-handoff --output "$sandbox/wix-site" --handoff examples/wix-generated-prompt.example.txt
           node scripts/validate-manifest.mjs "$sandbox/wix-site/site.manifest.json"
           test "$(git -C "$sandbox/wix-site" branch --show-current)" = main
+      - name: WHPS-006 deterministic distribution/adoption smoke test (NO live GitHub or Wix call)
+        shell: bash
+        run: |
+          set -euo pipefail
+          scratch="$(mktemp -d)"
+          trap 'rm -rf "$scratch"' EXIT
+          node scripts/plan-toolkit-adoption.mjs --input examples/toolkit-adoption.synthetic.json --json > "$scratch/plan.json"
+          python3 - "$scratch/plan.json" <<'PY'
+          import json,sys
+          p=json.load(open(sys.argv[1],encoding='utf8'))
+          assert p['execution']=='never' and p['siteAction']=='none'
+          assert p['status']=='review-required'
+          assert p['target']['tag']=='v0.2.1'
+          assert p['candidateSiteRecord']['approval']=='pending'
+          PY
+          python3 scripts/validate-json-schema.py schemas/toolkit-adoption-plan-input.schema.json < examples/toolkit-adoption.synthetic.json | python3 -c 'import json,sys; assert json.load(sys.stdin)["valid"]'
+          python3 - "$scratch/plan.json" > "$scratch/adoption.json" <<'PY'
+          import json,sys
+          p=json.load(open(sys.argv[1],encoding='utf8'))
+          print(json.dumps(p['candidateSiteRecord']))
+          PY
+          python3 scripts/validate-json-schema.py schemas/site-toolkit-adoption.schema.json < "$scratch/adoption.json" | python3 -c 'import json,sys; assert json.load(sys.stdin)["valid"]'
       - name: Install audited Astro reference dependency lock without updates
         run: npm --prefix frontend/astro-primitives ci --no-audit --no-fund
       - name: TypeScript and Astro diagnostics on synthetic reference

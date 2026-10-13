@@ -1,0 +1,25 @@
+{
+  "planVersion": 1,
+  "site": {
+    "entryMode": "existing-repository",
+    "siteCommit": "1111111111111111111111111111111111111111",
+    "wixConfigurationPresent": true
+  },
+  "current": {
+    "tag": "v0.2.0",
+    "commit": "d17abe627f27808611218d0d2f01dd977030913a",
+    "components": [
+      "governance",
+      "validation"
+    ]
+  },
+  "target": {
+    "tag": "v0.2.1",
+    "commit": "877736282def3631a3fad5d368e3098aadac040f",
+    "components": [
+      "governance",
+      "validation",
+      "astro-reference"
+    ]
+  }
+}

@@ -4,12 +4,19 @@ This file records **toolkit development**, not website deployments. Entries unde
 
 ## Unreleased
 
+### WHPS-006 · Versioned distribution and per-site adoption (implementation in PR; unreleased)
+
+- Add a pinned catalog of **actually published** toolkit releases, a read-only live GitHub tag/Release verifier, and a deterministic offline site-adoption/upgrade planner.
+- Add independent, schema-validated site adoption records without rewriting the WHPS-002 generating-source `whps.lock.json` v2; detect unsupported versions, component loss and downgrades.
+- Define a site-owner controlled migration, rollback, Wix integration and release-evidence protocol. No copying source to sites, Wix calls, site deployments, package registry or new toolkit publication is performed by this milestone.
+
+
 ### WHPS-005 · Quality and verification (merged via PR #20; unreleased)
 
 - Add a committed npm lockfile for the Astro 5/React 19/Tailwind 4 synthetic frontend with `npm ci`, `astro check`, browser Playwright/Chromium tests and axe-core automated accessibility scanning.
 - Introduce a read-only operator-reported site QA evidence report contract (JSON Schema, evaluator, negative tests and synthetic example); it cannot verify a real Wix site or authorise release.
 - Add Wix-aware site-local testing and evidence recipes, retaining app/SDK/auth/SEO/production testing inside independent website repositories.
-- This is **not** included in the already published v0.2.1 source. WHPS-006 remains planned.
+- This is **not** included in the already published v0.2.1 source. WHPS-006 is a separate newer development packet.
 
 ## v0.2.1 — Published 2026-10-13
 

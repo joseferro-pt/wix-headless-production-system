@@ -52,6 +52,10 @@ It supports `wix-handoff` and `unbound-frontend` only. For `existing-repository`
 
 
 
+## WHPS-006 · Versioned distribution and site adoption (in review; unreleased)
+
+The [versioned adoption contract](docs/25-WHPS006-DISTRIBUTION-ADOPTION.md) introduces a verified historical release catalog, a **read-only public GitHub tag/Release verifier**, a **non-mutating offline adoption planner**, and a separate **site-owned adoption record** (version 1). `whps.lock.json` version 2 remains the original bootstrap provenance, never overwritten by WHPS-006. Upgrades, component selection and every Wix change remain separately reviewed within each website's repository. This work is **not** in the published v0.2.1 tag.
+
 ## WHPS-003 · Read-only resource reconciliation (development)
 
 The [published v0.2.0 offline planner](docs/17-READ-ONLY-RESOURCE-PLANNER.md) compares desired resource metadata with an explicitly supplied observed snapshot, and optionally a historical registry. It emits JSON proposals (`create`, `reuse`, `update`, `retire`, `blocked`, `untracked`) **without contacting Wix or executing any change**. Snapshot coverage, uniqueness and identity mismatches are checked; all proposed operations require site-local approval.
