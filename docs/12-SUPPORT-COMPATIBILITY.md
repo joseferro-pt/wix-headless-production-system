@@ -12,7 +12,7 @@
 | Wix Headless platform | Current official Wix skill and Wix CLI/SDK instructions | External authority; **no live Wix integration tested by toolkit CI** |
 | Node.js 20 / 24, Python 3.13, Windows, macOS | Not in official CI matrix | **Not guaranteed**; supplementary local results are not published support commitments |
 
-The items above describe the **currently CI-tested development environment**, not every possible system/platform combination or live Wix deployment. The v0.2.0 candidate adds an explicit Git CLI requirement for WHPS-002 bootstrap, but does not expand operating-system support claims. When extending the matrix, first add the environment to CI and record the evidence.
+The items above describe the **currently CI-tested development environment**, not every possible system/platform combination or live Wix deployment. Published v0.2.0 adds an explicit Git CLI requirement for WHPS-002 bootstrap, but does not expand operating-system support claims. When extending the matrix, first add the environment to CI and record the evidence.
 
 ## Compatibility rules
 
@@ -25,4 +25,4 @@ The items above describe the **currently CI-tested development environment**, no
 
 ## Release policy for support
 
-The published `v0.1.0` is an **early developer toolkit** on the CI-tested runtimes above. The release notes define known limits; future fixes use reviewed patch releases. Do not claim support for Wix site deployments or untested platforms. Site repositories pin a toolkit commit/tag; WHPS does not guarantee that downstream sites automatically pick up changes.
+Published `v0.1.0` and `v0.2.0` are **early developer toolkits** on the CI-tested runtimes above. The release notes define known limits; future fixes use reviewed patch releases. Do not claim support for Wix site deployments or untested platforms. Site repositories pin a toolkit commit/tag; WHPS does not guarantee that downstream sites automatically pick up changes.
