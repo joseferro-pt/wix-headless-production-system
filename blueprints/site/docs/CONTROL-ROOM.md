@@ -3,7 +3,7 @@
 **Website:** [site project name]  
 **Repository:** [independent URL]  
 **Wix binding:** [verified in this site repository]  
-**WHPS adoption:** [exact published toolkit tag + full SHA after independent verification; keep bootstrap provenance unchanged]  
+**WHPS adoption:** [exact toolkit commit SHA; later release tag + SHA when available]  
 **Site lifecycle:** [state supported by recorded evidence]
 
 ## Site authorities
