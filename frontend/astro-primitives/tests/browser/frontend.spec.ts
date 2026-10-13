@@ -58,7 +58,7 @@ test('reduced motion has no forced smooth scrolling',async({page})=>{
 });
 
 test('synthetic reference requests no Wix-hosted resources',async({page})=>{
-  const external=[];
+  const external: string[]=[];
   page.on('request',request=>{
     const url=request.url();
     if(url.startsWith('http://')||url.startsWith('https://')){
