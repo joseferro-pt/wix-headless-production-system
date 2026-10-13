@@ -1,6 +1,6 @@
 # 25 — WHPS-006 · Versioned distribution, site adoption and migration
 
-**Status:** Implementation in PR; **not released** in a new toolkit tag. The latest independently verified public distribution is [v0.2.1](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.1). WHPS-005 and WHPS-006 exist only on newer source commits until a separately approved release is published.
+**Status:** Merged via [PR #24](https://github.com/joseferro-pt/wix-headless-production-system/pull/24), source `1c43f240b3d8efe3c114c30d0a77116a329256ae`; **not released** in a new toolkit tag. The latest independently verified public distribution is [v0.2.1](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.1). WHPS-005 and WHPS-006 exist only on newer source commits until a separately approved release is published.
 
 ## Decision: pin releases, do not publish a hidden package or rewrite websites
 

@@ -52,9 +52,9 @@ It supports `wix-handoff` and `unbound-frontend` only. For `existing-repository`
 
 
 
-## WHPS-006 · Versioned distribution and site adoption (in review; unreleased)
+## WHPS-006 · Versioned distribution and site adoption (merged via PR #24; unreleased)
 
-The [versioned adoption contract](docs/25-WHPS006-DISTRIBUTION-ADOPTION.md) introduces a verified historical release catalog, a **read-only public GitHub tag/Release verifier**, a **non-mutating offline adoption planner**, and a separate **site-owned adoption record** (version 1). `whps.lock.json` version 2 remains the original bootstrap provenance, never overwritten by WHPS-006. Upgrades, component selection and every Wix change remain separately reviewed within each website's repository. This work is **not** in the published v0.2.1 tag.
+The [versioned adoption contract](docs/25-WHPS006-DISTRIBUTION-ADOPTION.md) introduces a verified historical release catalog, a **read-only public GitHub tag/Release verifier**, a **non-mutating offline adoption planner**, and a separate **site-owned adoption record** (version 1). `whps.lock.json` version 2 remains the original bootstrap provenance, never overwritten by WHPS-006. Upgrades, component selection and every Wix change remain separately reviewed within each website's repository. The WHPS-006 implementation [merged via PR #24](https://github.com/joseferro-pt/wix-headless-production-system/pull/24) and is **not** in the published v0.2.1 tag. The latest published toolkit remains v0.2.1 until a separate approved release.
 
 ## WHPS-003 · Read-only resource reconciliation (development)
 
