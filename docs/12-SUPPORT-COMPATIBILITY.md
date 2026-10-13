@@ -9,10 +9,13 @@
 | OS | **Ubuntu Linux (GitHub-hosted `ubuntu-latest`)** | Automated CI checks; runner image changes over time |
 | Python package | `jsonschema>=4.23,<5` | Runtime dependency, installed and exercised by CI; not pinned to exact patch |
 | Maintainer YAML verification | `PyYAML>=6.0.2,<7` | Development-only `requirements-dev.txt` dependency used for Dependabot configuration tests in CI, **not included in the v0.1.0 release** |
+| WHPS-004 synthetic Astro reference | **Astro 5; @astrojs/react 4; React 19; Tailwind 4 / @tailwindcss/vite** | Local build in CI tests framework compilation only; Wix-managed runtime/auth/apps are unverified here |
 | Wix Headless platform | Current official Wix skill and Wix CLI/SDK instructions | External authority; **no live Wix integration tested by toolkit CI** |
 | Node.js 20 / 24, Python 3.13, Windows, macOS | Not in official CI matrix | **Not guaranteed**; supplementary local results are not published support commitments |
 
 The items above describe the **currently CI-tested development environment**, not every possible system/platform combination or live Wix deployment. Published v0.2.0 adds an explicit Git CLI requirement for WHPS-002 bootstrap, but does not expand operating-system support claims. When extending the matrix, first add the environment to CI and record the evidence.
+
+Official Wix-managed Headless documentation currently supports Astro **5** (not Astro 6) in its existing-Astro linking flow. Wix-managed hosting/auth/SEO and Wix business apps require the **site-local Wix Astro integration**. The standalone WHPS Astro reference does not include it and is not proof of Wix runtime compatibility. See [Wix Astro compatibility](20-ASTRO-WIX-COMPATIBILITY.md) and [WHPS-004](21-WHPS004-FRONTEND-PRIMITIVES.md).
 
 ## Compatibility rules
 

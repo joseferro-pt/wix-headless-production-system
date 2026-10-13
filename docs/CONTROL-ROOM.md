@@ -3,7 +3,7 @@
 **Scope:** Reusable production toolkit only. No Wix client site or site delivery is managed here.  
 **Canonical repo:** https://github.com/joseferro-pt/wix-headless-production-system  
 **Schema contract:** `0.1.0`; **latest published toolkit:** [`v0.2.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.0); source `d17abe627f27808611218d0d2f01dd977030913a`.  
-**Source status:** R01–R05 merged; R05.1 recovery merged and publication verified. R05.2 post-release reconciliation has merged. WHPS-002, WHPS-003 and R06 are merged and included in published v0.2.0. R06.1 is proposed in PR for source-provenance hardening; **v0.2.1 is not published**.
+**Source status:** R01–R05 merged; R05.1 recovery merged and publication verified. R05.2 post-release reconciliation has merged. WHPS-002, WHPS-003 and R06 are merged and included in published v0.2.0. R06.1 merged through PR #15 with green main CI, but **v0.2.1 is not published**. WHPS-004 Astro-first generic primitives are proposed in a review PR, also unpublished.
 
 ## Evidence baseline (12 October 2026)
 
@@ -48,7 +48,9 @@ Definitions and evidence rules: [authority/decisions](10-AUTHORITY-AND-DECISIONS
 | WHPS-002 · Independent site bootstrap | **Released in v0.2.0** | PR #12, validated site scaffold and [contract](16-SITE-WORKSPACE-BOOTSTRAP.md) |
 | WHPS-003 · Read-only reconciliation planner | **Released in v0.2.0** | PR #13 and green CI; strict desired/observed contract and [governance](17-READ-ONLY-RESOURCE-PLANNER.md) |
 | WHPS-R06 · v0.2.0 hardening and release | **Published and verified** | PR #14, source `d17abe627f27808611218d0d2f01dd977030913a`, [publication run](https://github.com/joseferro-pt/wix-headless-production-system/actions/runs/38277419984) |
-| WHPS-R06.1 · Post-release provenance correction | **In PR; not published** | Fail-closed checkout/origin validation, synthetic regression checks, [patch plan](19-R061-PROVENANCE-AND-RELEASE.md) |
+| WHPS-R06.1 · Post-release provenance correction | **Merged; patch unpublished** | Fail-closed checkout/origin validation, synthetic regression checks, [patch plan](19-R061-PROVENANCE-AND-RELEASE.md) |
+
+| WHPS-004 · Astro-first frontend primitives | **In PR; unreleased** | [Wix compatibility matrix](20-ASTRO-WIX-COMPATIBILITY.md), [frontend reference](../frontend/astro-primitives/README.md) and [acceptance plan](21-WHPS004-FRONTEND-PRIMITIVES.md) |
 
 ## Product-development backlog
 
@@ -56,7 +58,7 @@ Definitions and evidence rules: [authority/decisions](10-AUTHORITY-AND-DECISIONS
 
 ## Current gate
 
-**Review R06.1** and its negative provenance tests. After a PR merge and exact-commit CI/CodeQL verification, separately approve the full SHA for `v0.2.1` and run manual publication; a merge is not a release. Preserve both prior immutable tags. Repository protection, confidential vulnerability intake and historical retention remain owner-controlled follow-ups. Repository protection and confidential vulnerability reporting remain owner-controlled follow-ups.
+**Review WHPS-004** for Astro 5/Wix framework constraints, optional React/Tailwind integration, tests and strictly generic site boundaries. The merged R06.1 fix is not a published v0.2.1 release; a separate explicit owner publication is still required. Preserve earlier immutable tags. Repository protection, private vulnerability intake and historical retention remain owner-controlled follow-ups.
 
 ## Constraints and known limits
 
