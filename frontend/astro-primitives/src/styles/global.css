@@ -1,0 +1,15 @@
+@import "tailwindcss";
+/* Site owners replace every design token; WHPS imposes no client branding. */
+:root {
+  --whps-font: ui-sans-serif, system-ui, sans-serif;
+  --whps-surface: Canvas;
+  --whps-ink: CanvasText;
+  --whps-content-width: 78rem;
+  --whps-gutter: clamp(1rem, 4vw, 4rem);
+  --whps-section-gap: clamp(3rem, 8vw, 7rem);
+  --whps-card-border: color-mix(in srgb, currentColor 18%, transparent);
+}
+body { margin: 0; font-family: var(--whps-font); color: var(--whps-ink); background: var(--whps-surface); }
+*, *::before, *::after { box-sizing: border-box; }
+:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
