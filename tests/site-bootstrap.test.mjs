@@ -43,19 +43,57 @@ test('lock captures the exact generator Git revision, separately from the histor
   assert.equal(lock.toolkitSource.releaseVerification, 'not-performed');
   assert.equal(lock.manifestSchemaVersion, '0.1.0');
 });
-test('tag at exact checkout is recorded without claiming release verification', () => {
+// All tests use only synthetic Git outputs: no real website or Wix identity.
+function fakeToolkitGit({
+  sha='a'.repeat(40),
+  status='',
+  origin='https://github.com/joseferro-pt/wix-headless-production-system',
+  tags='',
+}={}) {
+  return args => {
+    if (args[0]==='rev-parse' && args[1]==='HEAD') return sha+'\n';
+    if (args[0]==='status' && args.includes('--untracked-files=all')) return status;
+    if (args[0]==='remote' && args[1]==='get-url' && args[2]==='origin') return origin+'\n';
+    if (args[0]==='tag' && args[1]==='--points-at') return tags+'\n';
+    throw new Error('Unexpected Git command: '+args.join(' '));
+  };
+}
+test('tag at clean canonical checkout is recorded without claiming remote release verification', () => {
   const sha='a'.repeat(40);
-  const identity=detectToolkitSource(args => args[0]==='rev-parse' ? sha+'\n' : 'v0.2.0\n');
-  const lock=createAdoptionLock(identity);
+  const lock=createAdoptionLock(detectToolkitSource(fakeToolkitGit({sha,tags:'v0.2.0'})));
   assert.equal(lock.toolkitSource.commit,sha);
   assert.equal(lock.toolkitSource.tag,'v0.2.0');
   assert.equal(lock.toolkitSource.state,'tagged-checkout-unverified');
   assert.equal(lock.toolkitSource.releaseVerification,'not-performed');
 });
-test('bootstrap source identification rejects ambiguous exact revision tags', () => {
-  const sha='b'.repeat(40);
-  assert.throws(() => detectToolkitSource(args => args[0]==='rev-parse' ? sha : 'v0.2.0\nv0.3.0'), /Multiple release/);
-  assert.throws(() => detectToolkitSource(() => 'not-a-commit'), /valid generating/);
+test('bootstrap rejects unstaged, staged, untracked and submodule changes before claiming provenance', () => {
+  for (const status of [' M scripts/bootstrap-site-workspace.mjs','M  scripts/bootstrap-site-workspace.mjs','?? new-file.txt',' m vendor/submodule']) {
+    assert.throws(()=>detectToolkitSource(fakeToolkitGit({status})),/checkout is dirty/);
+  }
+});
+test('bootstrap rejects missing and spoofed local remote origins', () => {
+  for (const origin of ['', 'https://github.com/another/repository', 'https://github.com/joseferro-pt/wix-headless-production-system.evil.example',
+    'https://github.com@bad.example/joseferro-pt/wix-headless-production-system',
+    'https://github.com/joseferro-pt/wix-headless-production-system-fork',
+  ]) {
+    assert.throws(()=>detectToolkitSource(fakeToolkitGit({origin})),/origin is missing or not the canonical/);
+  }
+});
+test('bootstrap accepts exact canonical https and ssh origin spellings without verifying publication', () => {
+  for (const origin of [
+    'https://github.com/joseferro-pt/wix-headless-production-system',
+    'https://github.com/joseferro-pt/wix-headless-production-system.git',
+    'git@github.com:joseferro-pt/wix-headless-production-system.git',
+    'ssh://git@github.com/joseferro-pt/wix-headless-production-system.git',
+  ]) {
+    const source=detectToolkitSource(fakeToolkitGit({origin}));
+    assert.equal(source.repository,FOUNDATION.repository);
+    assert.equal(source.releaseVerification,'not-performed');
+  }
+});
+test('bootstrap source identification rejects ambiguous revision tags and malformed SHA', () => {
+  assert.throws(() => detectToolkitSource(fakeToolkitGit({tags:'v0.2.0\nv0.3.0'})), /Multiple release/);
+  assert.throws(() => detectToolkitSource(fakeToolkitGit({sha:'not-a-commit'})), /valid generating/);
 });
 
 test('new unbound workspace is local Git repository with valid blocked manifest', async () => {
