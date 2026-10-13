@@ -56,10 +56,10 @@ test('entry documentation distinguishes the published release from unreleased ma
   assert.match(adoption, /published[^\n]*v0\.2\.0/i);
   assert.ok(adoption.includes('d17abe627f27808611218d0d2f01dd977030913a'));
   assert.match(adoption, /foundation/i);
-  assert.match(readme, /v0\\.2\\.1 published and verified 13 October 2026/);
+  assert.match(readme, /v0\.2\.1 published and verified 13 October 2026/);
   assert.ok(room.includes('d17abe627f27808611218d0d2f01dd977030913a')); // immutable v0.2.0 evidence
   assert.ok(room.includes('877736282def3631a3fad5d368e3098aadac040f')); // verified v0.2.1 source
-  assert.match(room, /WHPS-004[^\\n]*Closed; published in v0\\.2\\.1/);
+  assert.match(room, /WHPS-004[^\n]*Closed; published in v0\.2\.1/);
   assert.match(readme, /not as a live Wix integration/);
   assert.match(room, /WHPS-R06\.1[^\n]*Post-release provenance correction/);
   assert.match(room, /Published and verified/i);
