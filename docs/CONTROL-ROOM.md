@@ -65,7 +65,11 @@ Definitions and evidence rules: [authority/decisions](10-AUTHORITY-AND-DECISIONS
 
 ## WHPS-005 · Current development review
 
-**Status:** Implementation in a separate feature branch; unpublished. The [quality work packet](23-WHPS005-QUALITY-VERIFICATION.md) defines gates for locked dependencies, Astro diagnostics/build, Chromium/axe browser checks, offline fail-closed site QA records and [site-local Wix verification](24-SITE-LOCAL-VERIFICATION.md). A successful synthetic browser run cannot verify Wix integrations, site identity or owner deployment approval. A merged PR is not an automatic toolkit release; the latest published version remains v0.2.1.
+**Status:** Merged via [PR #20](https://github.com/joseferro-pt/wix-headless-production-system/pull/20), main merge commit `5b1989a4579a115d36a4301ff0f9f0c3313b3e22`; **unreleased**. The [quality work packet](23-WHPS005-QUALITY-VERIFICATION.md) defines gates for locked dependencies, Astro diagnostics/build, Chromium/axe browser checks, offline fail-closed site QA records and [site-local Wix verification](24-SITE-LOCAL-VERIFICATION.md). A successful synthetic browser run cannot verify Wix integrations, site identity or owner deployment approval. A merged PR is not an automatic toolkit release; the latest published version remains v0.2.1.
+
+## Current next gate
+
+**WHPS-005 implementation merged, release not approved or published.** The next planned development packet is WHPS-006 versioned distribution and explicit per-site adoption/migration. A prospective toolkit v0.3.0 or other release version requires a separate owner decision, source SHA, exact-main CI/CodeQL, release notes and manual publication. Do not label v0.2.1 as including WHPS-005.
 
 ## Constraints and known limits
 

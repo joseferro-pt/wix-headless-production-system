@@ -64,9 +64,9 @@ WHPS-003 is not part of published v0.1.0; published v0.2.0 additionally rejects 
 
 The [R06 release plan](docs/18-R06-RELEASE-PLAN.md) now records verified [v0.2.0 publication](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.0). [R06.1 provenance hardening](docs/19-R061-PROVENANCE-AND-RELEASE.md) shipped in the verified [`v0.2.1` release](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.1), together with WHPS-004. Publication remains a **separate owner action**: review the final merged SHA, verify main-branch CI and CodeQL, then manually run the [generic publisher](.github/workflows/publish-release.yml). Never re-point v0.2.0.
 
-## WHPS-005 · Quality and verification (in review, not released)
+## WHPS-005 · Quality and verification (merged via PR #20; not released)
 
-The [WHPS-005 quality contract](docs/23-WHPS005-QUALITY-VERIFICATION.md) adds a committed npm lockfile and `npm ci`, Astro TypeScript diagnostics, synthetic Chromium/Playwright UI and axe-core accessibility tests, plus an offline `scripts/evaluate-site-qa.mjs` operator-evidence validator. The [site-local verification recipes](docs/24-SITE-LOCAL-VERIFICATION.md) help independent website maintainers record actual Wix SDK/app, accessibility, responsive, SEO and approval checks. **Tooling checks do not prove any live Wix site works or grant deployment authority.** These are development changes newer than the immutable published v0.2.1 tag.
+The [WHPS-005 quality contract](docs/23-WHPS005-QUALITY-VERIFICATION.md) adds a committed npm lockfile and `npm ci`, Astro TypeScript diagnostics, synthetic Chromium/Playwright UI and axe-core accessibility tests, plus an offline `scripts/evaluate-site-qa.mjs` operator-evidence validator. The [site-local verification recipes](docs/24-SITE-LOCAL-VERIFICATION.md) help independent website maintainers record actual Wix SDK/app, accessibility, responsive, SEO and approval checks. **Tooling checks do not prove any live Wix site works or grant deployment authority.** These changes [merged through PR #20](https://github.com/joseferro-pt/wix-headless-production-system/pull/20) into main commit `5b1989a4579a115d36a4301ff0f9f0c3313b3e22` and are **not** part of the immutable published v0.2.1 tag.
 
 ## Validate this toolkit
 

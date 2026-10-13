@@ -4,7 +4,7 @@ This file records **toolkit development**, not website deployments. Entries unde
 
 ## Unreleased
 
-### WHPS-005 · Quality and verification (implementation in PR; unreleased)
+### WHPS-005 · Quality and verification (merged via PR #20; unreleased)
 
 - Add a committed npm lockfile for the Astro 5/React 19/Tailwind 4 synthetic frontend with `npm ci`, `astro check`, browser Playwright/Chromium tests and axe-core automated accessibility scanning.
 - Introduce a read-only operator-reported site QA evidence report contract (JSON Schema, evaluator, negative tests and synthetic example); it cannot verify a real Wix site or authorise release.

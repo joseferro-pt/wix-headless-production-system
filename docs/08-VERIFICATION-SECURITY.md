@@ -10,7 +10,7 @@ This repository tests the **generic toolkit only**. It has no Wix credentials or
 - `node scripts/intake-wix-handoff.mjs examples/wix-generated-prompt.example.txt /tmp/whps-example` followed by manifest validation checks end-to-end offline intake.
 - All these commands run in GitHub Actions on pushes and pull requests. The CI job is read-only and requires no Wix authentication.
 
-## WHPS-005 quality additions (under review)
+## WHPS-005 quality additions (merged, unreleased)
 
 The generic Astro reference adds `npm ci` against a reviewed lockfile, `astro check`, Chromium browser interaction tests and axe-core automated WCAG rules. These inspect a **synthetic local reference**, never Wix-managed hosting, customer data, SDK sessions or a deployed website. An offline QA report evaluator handles *self-reported* site evidence and deliberately cannot attest it. See [quality scope](23-WHPS005-QUALITY-VERIFICATION.md) and [site-local recipes](24-SITE-LOCAL-VERIFICATION.md).
 
