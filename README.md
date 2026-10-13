@@ -1,6 +1,6 @@
 # Wix Headless Website Production System (WHPS)
 
-**Status:** [v0.2.0 published 12 October 2026](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.0), approved source `d17abe627f27808611218d0d2f01dd977030913a`; R06.1 is an unreleased post-release correction.  
+**Status:** [v0.2.0 published 12 October 2026](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.0), approved source `d17abe627f27808611218d0d2f01dd977030913a`; R06.1 has merged but the proposed v0.2.1 patch remains unpublished; WHPS-004 Astro frontend primitives are under PR review.  
 **Manifest schema version:** `0.1.0`.  
 **Scope:** A reusable toolkit and operating framework for Wix Headless website delivery. **Not** a website repository or a multi-client workspace.
 
@@ -15,9 +15,15 @@ The Wix-generated handoff establishes technical identity, **not** verified busin
 - **R01:** foundation corrections merged: schema-aware validation, atomic intake, ZIP safeguards.
 - **R02:** verification improvements merged: synthetic negative tests and tracked-content security guard.
 - **R03:** documentation consolidation merged; policy and status terminology reconciled.
-- **R04:** governance merged. **R05:** release candidate merged. **R05.1:** recovery merged and v0.1.0 publication verified. **R05.2:** post-release reconciliation merged. **WHPS-002, WHPS-003 and R06:** merged, validated and released as v0.2.0. **WHPS-R06.1:** correcting source provenance and preparing a reviewed v0.2.1 patch; no patch is published yet.
+- **R04:** governance merged. **R05:** release candidate merged. **R05.1:** recovery merged and v0.1.0 publication verified. **R05.2:** post-release reconciliation merged. **WHPS-002, WHPS-003 and R06:** merged, validated and released as v0.2.0. **WHPS-R06.1:** merged with green main CI; v0.2.1 not published. **WHPS-004:** Astro-first frontend reference in PR, unreleased.
 - **Latest published toolkit release:** [`v0.2.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.0), annotated tag targeting `d17abe627f27808611218d0d2f01dd977030913a`. Previous [`v0.1.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0) remains immutable. The manifest schema remains separately versioned as `0.1.0`.
 - **Licence:** [Apache-2.0](LICENSE), with repository copyright attribution in [NOTICE](NOTICE). This does not license Wix-owned code or independently managed websites.
+
+## Astro-first frontend architecture (WHPS-004, in review)
+
+The [Astro 5 generic component reference](frontend/astro-primitives/README.md) demonstrates **Astro pages/layouts**, optional **React 19 islands**, and **Tailwind CSS 4**. The [Wix Headless app and feature matrix](docs/20-ASTRO-WIX-COMPATIBILITY.md) distinguishes Wix business APIs and verified integration paths from site-widget-only apps, which do not automatically work in Headless. See [WHPS-004 acceptance](docs/21-WHPS004-FRONTEND-PRIMITIVES.md).
+
+The reference is synthetic and unbound. **It is not Wix-managed hosting, does not contain `@wix/astro` or a `wix.config.json` and cannot prove live Wix app compatibility.** Each real website creates/preserves its own Wix-managed Astro 5 project with the official CLI, SDK authentication, SEO, extensions, app installations, design and deployment. Do not replace Wix-generated config with the standalone reference. Only copy/adapt chosen primitives into a separately owned site repo.
 
 ## Quick start: offline Wix handoff intake
 

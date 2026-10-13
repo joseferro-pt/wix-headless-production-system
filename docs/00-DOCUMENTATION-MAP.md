@@ -14,7 +14,9 @@ WHPS has **one system repository** and any number of independently owned website
 8. [Support and compatibility](12-SUPPORT-COMPATIBILITY.md), [licence decision](13-LICENSING-DECISION.md), [repository protection](14-REPOSITORY-PROTECTION.md): distribution prerequisites.
 9. [Publication recovery](15-PUBLICATION-RECOVERY.md): R05.1 manual release repair and independent verification.
 10. [R06 v0.2.0 release plan](18-R06-RELEASE-PLAN.md): completed publication and verification evidence.
-11. [R06.1 provenance and patch](19-R061-PROVENANCE-AND-RELEASE.md): checkout and origin safeguards, v0.2.1 candidate.
+11. [R06.1 provenance and patch](19-R061-PROVENANCE-AND-RELEASE.md): merged safeguards, v0.2.1 unreleased candidate.
+12. [Astro and Wix capability matrix](20-ASTRO-WIX-COMPATIBILITY.md): Wix-managed Astro, React, Tailwind and API-driven app compatibility.
+13. [WHPS-004 frontend primitives](21-WHPS004-FRONTEND-PRIMITIVES.md): synthetic reference scope, acceptance and site separation.
 
 ## Reference by task
 
@@ -24,6 +26,8 @@ WHPS has **one system repository** and any number of independently owned website
 | Interpret Wix handoff | [Wix handoff](02-WIX-HANDOFF.md) | Original prompt and ZIP in site repo |
 | Reconcile Wix backend | [Resource governance](03-WIX-RESOURCE-GOVERNANCE.md) | Site resource registry and Wix backend |
 | Compare desired vs supplied observed resource snapshot (WHPS-003) | [Read-only reconciliation planner](17-READ-ONLY-RESOURCE-PLANNER.md) | Site-local snapshot, prior registry and review plan |
+| Reuse accessible Astro frontend primitives | [WHPS-004 implementation](21-WHPS004-FRONTEND-PRIMITIVES.md) and [synthetic Astro reference](../frontend/astro-primitives/README.md) | Site-specific frontend, Wix Astro config, SDK integrations and design |
+| Check Wix apps and widgets for Headless | [Wix Astro app compatibility](20-ASTRO-WIX-COMPATIBILITY.md) | Site-local app installation and feature verification |
 | Validate a website release | [QA/release protocol](04-QA-RELEASE.md) | Site CI and site release report |
 | Draw system/site boundary | [System boundaries](06-SYSTEM-BOUNDARIES.md) | One independent repo per website |
 | Adopt toolkit in a site | [Project adoption](07-PROJECT-ADOPTION.md) | Site's pinned WHPS SHA/tag |

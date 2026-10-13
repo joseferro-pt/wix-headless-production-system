@@ -14,7 +14,7 @@ This roadmap contains **only WHPS tooling and governance** work. Real websites h
 | WHPS-R05.1 | Recover publication and reconcile repository readiness | **Merged and verified** | PR #8, [recovery run](https://github.com/joseferro-pt/wix-headless-production-system/actions/runs/38257202876), approved commit `802acf1b536b502fcacdffc1d6b7ce371aa2d3f7` |
 | WHPS-R05.2 | Reconcile post-release status and dependency-update configuration | **Merged** | PR #9, Dependabot YAML and CI checks |
 
-Apache-2.0 is accepted and the first WHPS toolkit release [`v0.1.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0) has been published and verified. The initial publication failure was resolved in [R05.1](15-PUBLICATION-RECOVERY.md). The manifest `0.1.0` schema version remains independent. WHPS v0.2.0 was subsequently published and verified; R06.1 is not yet released.
+Apache-2.0 is accepted and the first WHPS toolkit release [`v0.1.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0) has been published and verified. The initial publication failure was resolved in [R05.1](15-PUBLICATION-RECOVERY.md). The manifest `0.1.0` schema version remains independent. WHPS v0.2.0 was subsequently published and verified; R06.1 merged, but the v0.2.1 patch is not yet published.
 
 ## Later system-development work packets
 
@@ -24,8 +24,8 @@ Apache-2.0 is accepted and the first WHPS toolkit release [`v0.1.0`](https://git
 | WHPS-002 | Generic offline website repository bootstrap outside WHPS | **Released in v0.2.0** |
 | WHPS-003 | Pure desired-vs-observed Wix resource reconciliation planner | **Released in v0.2.0** |
 | WHPS-R06 | v0.2.0 planner/bootstrap hardening and reusable publication | **Published and verified** | PR #14, [v0.2.0 Release](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.0), source `d17abe627f27808611218d0d2f01dd977030913a` |
-| WHPS-R06.1 | v0.2.1 source-integrity and post-release status reconciliation | **In PR; publication pending** | Clean Git checkout, canonical local origin checks, tests, accurate release records |
-| WHPS-004 | Framework-specific reusable frontend building blocks | Planned |
+| WHPS-R06.1 | v0.2.1 source-integrity and post-release status reconciliation | **Merged, patch unpublished** | Clean Git checkout, canonical local origin checks, tests, accurate release records |
+| WHPS-004 | Astro 5-first generic components, optional React islands and Tailwind 4; Wix API/app support contract | **In PR, not released** | [Astro reference](../frontend/astro-primitives/README.md), [Wix compatibility](20-ASTRO-WIX-COMPATIBILITY.md), [acceptance](21-WHPS004-FRONTEND-PRIMITIVES.md) |
 | WHPS-005 | Automated quality guidance and contract tests for adopters | Planned |
 | WHPS-006 | Versioned distribution and explicit adoption/migration process | Planned |
 | WHPS-007 | Sustainable maintenance, contributing, security and compatibility guidance | Governance baseline merged in R04; further work later |
