@@ -2,34 +2,34 @@
 
 WHPS is a **toolkit**, not the parent Git repository for websites. Each website checkout is independently owned and deployable. See [system boundaries](06-SYSTEM-BOUNDARIES.md) and [the operating model](01-OPERATING-MODEL.md).
 
-## Today: manual adoption of the published v0.1.0 toolkit
+## Current manual adoption: published toolkit v0.2.0
 
 1. Create or locate a **separate site repository**. Do not nest it within WHPS or add it as a submodule.
-2. Pin the published [`v0.1.0` toolkit release](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0) and record its full source commit `802acf1b536b502fcacdffc1d6b7ce371aa2d3f7` in the site's own adoption record. In a separate WHPS checkout, check `git rev-parse 'v0.1.0^{commit}'` matches that SHA. Never depend on a floating `main` revision. Apache-2.0 governs WHPS, not a site's own code or content.
-3. If Wix provided an original handoff, preserve it in that site workspace. The current offline CLI can create a manifest and copy the prompt into a **new, empty** outside directory. It does not create the Git repository or download the Wix template.
+2. Pin the published [`v0.2.0` toolkit release](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.0) and its exact source commit `d17abe627f27808611218d0d2f01dd977030913a`; verify `git rev-parse 'v0.2.0^{commit}'` resolves to that SHA. The historical `v0.1.0` release remains immutable. Never depend on a floating `main` branch. Apache-2.0 applies to WHPS, not the site's own content.
+3. Preserve the original Wix handoff inside the website repository if provided. From published v0.2.0, `scripts/bootstrap-site-workspace.mjs` can initialise a **new local Git repository** outside WHPS, preserve a handoff and create a manifest. It does not download an existing Wix project or create a GitHub remote.
 4. Check the actual downloaded Wix project before altering framework or running `init`; do not duplicate an existing binding.
 5. Copy and adapt `blueprints/site/AGENTS.md` and `blueprints/site/docs/CONTROL-ROOM.md`; keep the site business brief, Wix resources and release evidence **in the site repo**.
 6. Re-read the current official Wix skill and relevant framework references. Do not treat WHPS as an alternative Wix provisioning specification.
 7. Run website-local tests and record the actual release result, permissions and approval using a site-local report. WHPS CI never tests or deploys that live site.
 
-## WHPS-002 development bootstrap (not released in v0.1.0)
+## WHPS-002 bootstrap and R06.1 provenance
 
-For a **brand-new** site workspace, a newer WHPS development checkout offers `scripts/bootstrap-site-workspace.mjs`, which initialises local Git and copies site-specific generic templates. This executable does **not** belong to the published v0.1.0 tag. It records a v0.1.0 foundation pin with an explicit unreleased-generator designation. See [the bootstrap contract](16-SITE-WORKSPACE-BOOTSTRAP.md) before using it.
+Published v0.2.0 includes `scripts/bootstrap-site-workspace.mjs`. The generator creates a new independent local Git checkout; it does not merge with or overwrite an existing one. R06.1 adds clean working-tree and canonical local `origin` checks for an unreleased v0.2.1 candidate; these checks are **not** part of v0.2.0. The v2 lock still requires independent GitHub Release verification. See the [bootstrap contract](16-SITE-WORKSPACE-BOOTSTRAP.md).
 
 An existing repository must not be used as the output destination. Continue the manual protocol above to inspect and adopt tooling without overwriting source or Wix configuration.
 
 ## Future: automated adoption
 
 
-WHPS-002 is merged and proposed for the next v0.2.0 release. It is **not in published v0.1.0**. R06 introduces a v2 lock recording the actual generating Git SHA and optional exact local tag; independent verification of publication remains the adopting website's responsibility. Later upgrades still require a decision in each independent website repository. No automatic change propagation is permitted.
+WHPS-002 was published in v0.2.0, not in v0.1.0. The v2 lock records the generating Git SHA and optional local tag, not authenticated publication proof. Future site-level upgrades require separate approval; no automatic cross-site propagation.
 
 ## Site-local resource reconciliation
 
-The unreleased [WHPS-003 resource planner](17-READ-ONLY-RESOURCE-PLANNER.md) accepts a strict desired/observed metadata bundle from an independent website repository. Its offline JSON proposal does not authorise creating, updating or retiring Wix resources. Snapshot collection, approval and any backend changes remain website-local.
+The published v0.2.0 [WHPS-003 resource planner](17-READ-ONLY-RESOURCE-PLANNER.md) accepts a strict desired/observed metadata bundle from an independent website repository. Its offline JSON proposal does not authorise creating, updating or retiring Wix resources. Snapshot collection, approval and any backend changes remain website-local.
 
 ## Release provenance in new site bootstrap locks
 
-R06 introduces whps.lock.json `lockVersion: 2`. The `toolkitSource` and `generator` point to the **actual producing checkout commit**, not the original v0.1.0 foundation. `foundationBaseline` retains that historic v0.1.0 pin for provenance only. A `tagged-checkout-unverified` value records a local tag, **not an independently confirmed GitHub Release**. Verify the tag/commit relationship against the official published Release before marking a site as having adopted a released WHPS generator. Do not automatically overwrite old v1 locks.
+R06 introduced whps.lock.json `lockVersion: 2`. The `toolkitSource` and `generator` point to the **actual producing checkout commit**, not the original v0.1.0 foundation. `foundationBaseline` retains that historic v0.1.0 pin for provenance only. A `tagged-checkout-unverified` value records a local tag, **not an independently confirmed GitHub Release**. Verify the tag/commit relationship against the official published Release before marking a site as having adopted a released WHPS generator. Do not automatically overwrite old v1 locks.
 
 ## Three entry modes
 

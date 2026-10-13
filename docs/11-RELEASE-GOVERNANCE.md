@@ -2,7 +2,7 @@
 
 ## Purpose and scope
 
-This policy concerns versioned **WHPS toolkit distributions**, never Wix website deployments. The first toolkit release [`v0.1.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0) was published on 12 October 2026, targeting approved commit `802acf1b536b502fcacdffc1d6b7ce371aa2d3f7`. A merged commit, manifest schema version or green CI workflow alone **is not** a GitHub Release; future publications still require all acceptance gates.
+This policy concerns versioned **WHPS toolkit distributions**, never Wix website deployments. The original [`v0.1.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0) and current [`v0.2.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.0) are published. The latter targets approved commit `d17abe627f27808611218d0d2f01dd977030913a`. A merged commit, manifest schema version or green CI workflow alone **is not** a GitHub Release; future publications still require all acceptance gates.
 
 ## Independent version numbers
 
@@ -41,7 +41,7 @@ python3 -m unittest discover -s tests -p 'test_*.py' -v
 
 ## Version-agnostic manual publisher
 
-From R06 onward, the [manual release workflow](../.github/workflows/publish-release.yml) is the proposed publication mechanism. It accepts approved SemVer, full source SHA and exact typed `PUBLISH-vX.Y.Z` authorisation. It requires the candidate be the current `main` commit with successful exact-SHA validation and CodeQL push runs, checks version-specific release notes, reruns offline contracts and synthetic site bootstrap/planner smoke tests, and creates or verifies an immutable annotated tag and public GitHub Release. A skipped job, merged PR, or green CI run **is not publication**.
+From R06 onward, the [manual release workflow](../.github/workflows/publish-release.yml) is the established publication mechanism, successfully exercised for v0.2.0. It accepts approved SemVer, full source SHA and exact typed `PUBLISH-vX.Y.Z` authorisation. It requires the candidate be the current `main` commit with successful exact-SHA validation and CodeQL push runs, checks version-specific release notes, reruns offline contracts and synthetic site bootstrap/planner smoke tests, and creates or verifies an immutable annotated tag and public GitHub Release. A skipped job, merged PR, or green CI run **is not publication**.
 
 The historic [v0.1.0 recovery workflow](../.github/workflows/publish-v0.1.0.yml) must not be repurposed for future releases. Follow the [R06 acceptance plan](18-R06-RELEASE-PLAN.md). No tag or live Wix site is modified by this documentation.
 

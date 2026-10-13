@@ -4,21 +4,28 @@ This file records **toolkit development**, not website deployments. Entries unde
 
 ## Unreleased
 
-### WHPS-R06 · v0.2.0 release hardening (candidate, in PR)
+### WHPS-R06.1 · Post-release provenance safeguards (v0.2.1 candidate; in PR)
+
+- Fail closed when the WHPS bootstrap generator runs from a Git checkout with staged, unstaged, untracked or submodule changes.
+- Require a local `origin` URL matching the canonical WHPS repository via approved HTTPS or SSH formats before attributing generator provenance. Local origin is **not independently attested remote ownership**.
+- Add negative regression tests for dirty checkouts, missing/spoofed origins and allowed canonical URL variants.
+- Reconcile published v0.2.0 documentation and prepare a separately approved v0.2.1 patch. No automatic publication and no website source changes.
+
+### WHPS-R06 · v0.2.0 release hardening (merged and published, 2026-10-12)
 
 - Block duplicate desired type/name resource creations and add machine-readable output schema validation for the offline WHPS-003 planner.
 - Record the **exact generating Git checkout** and optional unverified exact tag in a v2 website adoption lock; keep v0.1.0 only as historical foundation evidence.
 - Add a reusable, manual-only source-SHA-bound release publisher with no tag rewrites, exact-commit CI/CodeQL checks and independent release verification.
 - Add release-focused regression tests, integration smoke checks and candidate release notes. No live Wix site work and no automatic publication.
 
-### WHPS-003 · Offline read-only Wix resource planner (in PR, not released)
+### WHPS-003 · Offline read-only Wix resource planner (published in v0.2.0)
 
 - Add metadata-only desired/observed reconciliation with a strict standalone JSON Schema, optional historical registry and synthetic example.
 - Prefer stable ID and unique exact type/name; block missing, ambiguous and cross-site identities; require type coverage for absence claims.
 - Propose create/reuse/update/retire/blocked/untracked actions without API calls or backend mutations. Explicit retirement intent and human approval are required.
 - Add negative regression tests, documentation and offline CI smoke check.
 
-### WHPS-002 · Independent website workspace bootstrap (merged, not yet published)
+### WHPS-002 · Independent website workspace bootstrap (published in v0.2.0)
 
 - Add a strictly offline new-directory CLI supporting `wix-handoff` and `unbound-frontend`; initialise an independent local Git repository and copy generic site guidance.
 - Lock the **published v0.1.0 foundation tag and full SHA** while explicitly identifying the WHPS-002 generator as unreleased development tooling.
@@ -39,7 +46,11 @@ This file records **toolkit development**, not website deployments. Entries unde
 
 - Post-v0.1.0 changes will be documented here.
 
-## v0.2.0 — Candidate (not yet published)
+## v0.2.1 — Candidate (not published)
+
+- Planned patch fixing bootstrap source provenance and recording v0.2.0 publication evidence. See [v0.2.1 candidate notes](docs/releases/v0.2.1.md).
+
+## v0.2.0 — Published 2026-10-12
 
 - First prospective release of WHPS-002 independent local Git site bootstrap and WHPS-003 read-only resource planner.
 - Correct planner duplicate-creation ambiguity, validate plan output contract, and record exact source checkout provenance for generated site workspaces.

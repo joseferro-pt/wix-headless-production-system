@@ -1,6 +1,6 @@
 # 16 — WHPS-002 · Independent website repository bootstrap
 
-**Status:** WHPS-002 merged, tested and proposed for a future v0.2.0 release; **not included in published v0.1.0**.
+**Status:** WHPS-002 published in v0.2.0, not v0.1.0. R06.1's provenance checks are unreleased patch-candidate changes.
 **Scope:** Offline local directory and Git initialisation only. No Wix login, API calls, remote repository creation, network fetches, CMS writes, client site deployments or purchases.
 
 ## Purpose
@@ -38,6 +38,8 @@ node scripts/bootstrap-site-workspace.mjs \
 
 The destination **must not exist** and its lowercase kebab-case directory name must equal `--project-key` if explicitly supplied. It must resolve **outside WHPS** even through a symlink. Each scaffold uses a temporary sibling directory, initialises Git locally on `main`, then renames it to the requested destination. The bootstrap leaves the initial commit, remote repository, author identity and GitHub permissions to the owner.
 
+**R06.1 candidate guard:** Before generation, reject a WHPS checkout containing staged, unstaged, untracked or submodule changes. The configured local `origin` must be an accepted exact WHPS HTTPS/SSH remote spelling; other or missing remotes block. This checks **local Git configuration**, not authenticated remote ownership, and is **not included in v0.2.0**.
+
 An existing site checkout must **never** be a destination. For an existing source repository, first inspect its binding, files, history and local ownership; then copy/adapt generic policies and explicitly record release adoption. No existing source is automatically merged or overwritten.
 
 ## Files created in the new website checkout
@@ -64,6 +66,6 @@ No `wix.config.json`, frontend, CMS collections, backend resources, authenticate
 
 ## Release discipline
 
-The published toolkit `v0.1.0` does **not** contain this bootstrap generator. The v0.2.0 candidate may include it **only after an independently verified release**. New website locks pin the actual generating checkout, but the release status remains unverified until the website operator checks the GitHub tag and release against that SHA; never imply this generator shipped in v0.1.0. Future version-lock upgrades and existing-repository adoption require a reviewed compatibility plan (WHPS-006).
+The published v0.1.0 toolkit does **not** include the bootstrap; the verified [`v0.2.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.0) does. The later R06.1 provenance fix requires a new, separately verified patch release. New website locks pin the actual generating checkout, but the release status remains unverified until the website operator checks the GitHub tag and release against that SHA; never imply this generator shipped in v0.1.0. Future version-lock upgrades and existing-repository adoption require a reviewed compatibility plan (WHPS-006).
 
 See [system boundaries](06-SYSTEM-BOUNDARIES.md), [site adoption](07-PROJECT-ADOPTION.md), [roadmap](05-ROADMAP.md) and [Control Room](CONTROL-ROOM.md).

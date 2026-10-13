@@ -25,10 +25,33 @@ export const FOUNDATION = Object.freeze({
 const commitPattern=/^[0-9a-f]{40}$/;
 const semverPattern=/^v(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)$/;
 
-/** Git revision of the actual code doing the bootstrap, never a hardcoded old tag. */
+/**
+ * These are the accepted exact canonical remote spellings. This validates
+ * local Git configuration, NOT authenticated remote ownership or publication.
+ * Fail closed rather than write the canonical WHPS URL into a lock for a fork.
+ */
+const canonicalRemotes = new Set([
+  FOUNDATION.repository,
+  FOUNDATION.repository + '.git',
+  'git@github.com:joseferro-pt/wix-headless-production-system',
+  'git@github.com:joseferro-pt/wix-headless-production-system.git',
+  'ssh://git@github.com/joseferro-pt/wix-headless-production-system',
+  'ssh://git@github.com/joseferro-pt/wix-headless-production-system.git',
+]);
+
+/**
+ * Identify the *actual checked-out source* of the generator. No Wix/network
+ * call. Git status includes staged, unstaged, untracked and submodule edits.
+ * The checkout's origin is a local declaration, not a remote attestation.
+ */
 export function detectToolkitSource(exec = args => execFileSync('git', ['-C', toolRoot, ...args], { encoding: 'utf8' })) {
   const commit = exec(['rev-parse', 'HEAD']).trim();
   if (!commitPattern.test(commit)) throw new Error('Cannot determine valid generating WHPS source commit');
+  const dirty = exec(['status', '--porcelain=v1', '--untracked-files=all', '--ignore-submodules=none']);
+  if (dirty.trim()) throw new Error('Generating WHPS checkout is dirty (staged, unstaged or untracked changes); commit or clean it first');
+  const origin = exec(['remote', 'get-url', 'origin']).trim();
+  if (!canonicalRemotes.has(origin))
+    throw new Error('Generating WHPS origin is missing or not the canonical toolkit repository; cannot attribute source');
   const tags = exec(['tag', '--points-at', 'HEAD']).trim().split('\n').filter(tag => semverPattern.test(tag));
   if (tags.length > 1) throw new Error('Multiple release-version tags on source; cannot identify toolkit version');
   const tag = tags[0] ?? null;
