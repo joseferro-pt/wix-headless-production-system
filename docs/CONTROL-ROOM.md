@@ -57,7 +57,7 @@ Definitions and evidence rules: [authority/decisions](10-AUTHORITY-AND-DECISIONS
 
 ## Product-development backlog
 
-`WHPS-001`: initial foundation (merged work); `WHPS-002`: generic site-workspace bootstrap (released in v0.2.0); `WHPS-003`: read-only resource planner (released in v0.2.0); `WHPS-004`: frontend primitives (closed, published v0.2.1); `WHPS-005`: quality framework; `WHPS-006`: distribution/compatibility; `WHPS-007`: maintainability. Details: [roadmap](05-ROADMAP.md).
+`WHPS-001`: initial foundation (merged work); `WHPS-002`: generic site-workspace bootstrap (released in v0.2.0); `WHPS-003`: read-only resource planner (released in v0.2.0); `WHPS-004`: frontend primitives (closed, published v0.2.1); `WHPS-005`: quality framework (merged, unreleased); `WHPS-006`: versioned distribution/adoption (in review); `WHPS-007`: maintainability. Details: [roadmap](05-ROADMAP.md).
 
 ## Current gate
 
@@ -70,6 +70,10 @@ Definitions and evidence rules: [authority/decisions](10-AUTHORITY-AND-DECISIONS
 ## Current next gate
 
 **WHPS-005 implementation merged, release not approved or published.** The next planned development packet is WHPS-006 versioned distribution and explicit per-site adoption/migration. A prospective toolkit v0.3.0 or other release version requires a separate owner decision, source SHA, exact-main CI/CodeQL, release notes and manual publication. Do not label v0.2.1 as including WHPS-005.
+
+## WHPS-006 · Versioned distribution and adoption (development)
+
+**Status:** Implementation in review; **unreleased**. See [distribution and adoption contract](25-WHPS006-DISTRIBUTION-ADOPTION.md). The historical public-release catalog, online read-only GitHub provenance verifier, offline adoption/upgrade planner and website-owned `whps.adoption.json` are intended to prevent floating `main` adoption and accidental overwriting of original site-generation locks. Nothing performs site Git/Wix operations or automatically applies a migration; any toolkit v0.3.0 release needs separate approval, notes, exact-main CI and public publication verification. Next maintenance packet after acceptance: WHPS-007.
 
 ## Constraints and known limits
 

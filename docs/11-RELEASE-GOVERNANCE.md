@@ -13,6 +13,10 @@ This policy concerns versioned **WHPS toolkit distributions**, never Wix website
 
 Use [Semantic Versioning](https://semver.org/) as the proposed baseline. Prior to 1.0, an incompatible public interface or schema migration should increment **MINOR** and include a migration note; compatible bug fixes normally increment **PATCH**. Any deliberate MAJOR upgrade should document breaking changes and the support timeline. This policy was implemented in R04 and applied to published v0.1.0. The annotated tag and GitHub Release were independently verified.
 
+## Site adoption is separate from toolkit distribution
+
+From WHPS-006 onward, the [distribution/adoption contract](25-WHPS006-DISTRIBUTION-ADOPTION.md) records exact annotated tag, source SHA and public Release evidence, then leaves adaptation and approval to an **independent** website repository. Catalogued historical releases do not prove current tag integrity: perform a fresh GitHub verification. The site maintains its own `whps.adoption.json` **alongside**, not in place of, the initial v2 `whps.lock.json`. WHPS-006 is unreleased until a new toolkit release is approved and published; its planner does not authorise Wix work or site deployment.
+
 ## Release lifecycle and evidence
 
 | Gate | Required evidence | Owner |

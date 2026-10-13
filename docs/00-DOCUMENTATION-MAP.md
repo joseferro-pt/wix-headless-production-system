@@ -20,6 +20,7 @@ WHPS has **one system repository** and any number of independently owned website
 14. [WHPS-004 closure and v0.2.1 publication](22-WHPS004-CLOSURE-AND-V021-PUBLICATION.md): immutable tag/release verification, acceptance evidence and unverified Wix boundaries.
 15. [WHPS-005 quality framework](23-WHPS005-QUALITY-VERIFICATION.md): type/build/browser checks, lockfile and operator-reported QA contract (merged, unreleased).
 16. [Site-local Wix QA recipes](24-SITE-LOCAL-VERIFICATION.md): independent site evidence/checklist and explicit no-deployment boundary.
+17. [WHPS-006 distribution/adoption](25-WHPS006-DISTRIBUTION-ADOPTION.md): published release identity, offline upgrade plan, site-owned lock/rollback protocol (in review).
 
 ## Reference by task
 
@@ -33,7 +34,7 @@ WHPS has **one system repository** and any number of independently owned website
 | Check Wix apps and widgets for Headless | [Wix Astro app compatibility](20-ASTRO-WIX-COMPATIBILITY.md) | Site-local app installation and feature verification |
 | Validate a website release | [QA/release protocol](04-QA-RELEASE.md) | Site CI and site release report |
 | Draw system/site boundary | [System boundaries](06-SYSTEM-BOUNDARIES.md) | One independent repo per website |
-| Adopt toolkit in a site | [Project adoption](07-PROJECT-ADOPTION.md) | Site's pinned WHPS SHA/tag |
+| Adopt toolkit in a site | [Project adoption](07-PROJECT-ADOPTION.md) and [WHPS-006 distribution](25-WHPS006-DISTRIBUTION-ADOPTION.md) | Site's reviewed pinned release and `whps.adoption.json` |
 | Bootstrap a **new** local site Git workspace (published WHPS-002) | [Site bootstrap contract](16-SITE-WORKSPACE-BOOTSTRAP.md) | Generated files in new external website repo |
 | Validate a new website's source-provenance lock | [Adoption-lock schema](../schemas/whps-adoption-lock.schema.json) and [R06 plan](18-R06-RELEASE-PLAN.md) | Site-local whps.lock.json |
 | Validate a resource plan output from WHPS-003 | [Read-only planner](17-READ-ONLY-RESOURCE-PLANNER.md) and [output schema](../schemas/resource-plan-output.schema.json) | Site-local reviewable proposal |

@@ -27,7 +27,7 @@ Apache-2.0 is accepted and the first WHPS toolkit release [`v0.1.0`](https://git
 | WHPS-R06.1 | v0.2.1 source-integrity and post-release status reconciliation | **Published in v0.2.1** | Clean Git checkout, canonical local origin checks, tests, accurate release records |
 | WHPS-004 | Astro 5-first generic components, optional React islands and Tailwind 4; Wix API/app support contract | **Closed and published in v0.2.1** | [Astro reference](../frontend/astro-primitives/README.md), [Wix compatibility](20-ASTRO-WIX-COMPATIBILITY.md), [acceptance](21-WHPS004-FRONTEND-PRIMITIVES.md) |
 | WHPS-005 | Reproducible dependency installs, diagnostics, browser/a11y tests, site QA evidence contract and reusable verification recipes | **Merged via PR #20; not released** |
-| WHPS-006 | Versioned distribution and explicit adoption/migration process | **Next; planned** |
+| WHPS-006 | Pinned release catalog, public read-only verification, fail-closed adoption planner and independent site adoption record | **In implementation PR; unreleased** |
 | WHPS-007 | Sustainable maintenance, contributing, security and compatibility guidance | Governance baseline merged in R04; further work later |
 
 WHPS-002 must support the separate-site architecture without invoking Wix backend writes or deploying real sites from the WHPS repository. See [the WHPS-002 offline bootstrap contract](16-SITE-WORKSPACE-BOOTSTRAP.md). The pre-existing Wix handoff CLI still performs **offline manifest intake only**. The separate WHPS-002 development CLI can initialise a new local Git repository and copy generic site blueprints, but does not download a Wix template, handle existing repository adoption or create a remote.

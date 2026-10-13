@@ -3,7 +3,7 @@
 **Website:** [site project name]  
 **Repository:** [independent URL]  
 **Wix binding:** [verified in this site repository]  
-**WHPS adoption:** [exact toolkit commit SHA; later release tag + SHA when available]  
+**WHPS adoption:** [exact published toolkit tag + full SHA after independent verification; keep bootstrap provenance unchanged]  
 **Site lifecycle:** [state supported by recorded evidence]
 
 ## Site authorities
@@ -18,6 +18,8 @@
 - Branch and commit:
 - Design/content approvals:
 - Resource change plan and observed IDs:
+- Source adoption record `whps.adoption.json` (reviewed tag/SHA, owner approval and site commit, separate from `whps.lock.json`):
+- Toolkit release verification evidence (annotated tag + public Release at exact SHA):
 - Applicable build and QA checks (actual site-local evidence, not WHPS synthetic tests):
 - Site-local QA report: [independent-site-path, schema v1, evidence reviewed by owner]
 - Manual accessibility/keyboard/assistive technology evidence:
