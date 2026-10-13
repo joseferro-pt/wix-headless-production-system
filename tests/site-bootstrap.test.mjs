@@ -96,6 +96,34 @@ test('bootstrap source identification rejects ambiguous revision tags and malfor
   assert.throws(() => detectToolkitSource(fakeToolkitGit({sha:'not-a-commit'})), /valid generating/);
 });
 
+test('real disposable Git checkout transitions from clean to untracked, staged and unstaged', async () => {
+  await temporary(async (parent) => {
+    const gitDir=join(parent,'synthetic-toolkit');
+    const cmd=(...args)=>execFileSync('git',['-C',gitDir,...args],{encoding:'utf8'});
+    execFileSync('git',['init','-b','main',gitDir],{encoding:'utf8'});
+    cmd('config','user.name','WHPS Synthetic Test');
+    cmd('config','user.email','whps-test@example.invalid');
+    cmd('remote','add','origin',FOUNDATION.repository);
+    await writeFile(join(gitDir,'generator.txt'),'original\n');
+    cmd('add','generator.txt');
+    cmd('commit','-m','Synthetic source');
+    const identity=()=>detectToolkitSource(args=>cmd(...args));
+    assert.equal(identity().repository,FOUNDATION.repository);
+    const extra=join(gitDir,'not-tracked.txt');
+    await writeFile(extra,'untracked');
+    assert.throws(identity,/checkout is dirty/);
+    cmd('add','not-tracked.txt');
+    assert.throws(identity,/checkout is dirty/);
+    cmd('commit','-m','Record extra');
+    assert.equal(identity().releaseVerification,'not-performed');
+    await writeFile(extra,'modified');
+    assert.throws(identity,/checkout is dirty/);
+    cmd('checkout','--','not-tracked.txt');
+    cmd('remote','set-url','origin','https://github.com/someone/other-project.git');
+    assert.throws(identity,/origin is missing or not the canonical/);
+  });
+});
+
 test('new unbound workspace is local Git repository with valid blocked manifest', async () => {
   await temporary(async (parent) => {
     const outputDirectory = join(parent, 'unbound-site');
