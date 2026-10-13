@@ -12,8 +12,8 @@ test('actual React island hydrates and filters synthetic items',async({page})=>{
   await expect(page.getByRole('status')).toContainText('3 results');
   await filter.fill('Appointments');
   await expect(page.getByRole('status')).toContainText('1 results');
-  await expect(page.getByText('Editorial pages')).toHaveCount(0);
-  await expect(page.getByText('Appointments',{exact:true})).toBeVisible();
+  await expect(page.locator('astro-island ul > li')).toHaveCount(1);
+  await expect(page.locator('astro-island ul > li')).toContainText(['Appointments']);
   await filter.fill('missing synthetic term');
   await expect(page.getByText('No matching items.')).toBeVisible();
   await expect(page.getByRole('status').first()).toContainText('0 results');
