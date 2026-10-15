@@ -4,7 +4,7 @@ This file records **toolkit development**, not website deployments. Entries unde
 
 ## Unreleased
 
-### WHPS-COMPAT-008 · Wix-managed Astro 7 test-site validation readiness (unreleased)
+### WHPS-COMPAT-008 · Wix-managed Astro 7 test-site validation readiness (merged via PR #34; unreleased)
 
 - Add an owner-gated two-phase site-local Wix Astro 7 validation plan spanning auth, SDK permissions, CMS, API-backed business apps, React, Tailwind, reserved routes and accessibility, followed by published-site SEO and extension/release checks.
 - Add fail-closed v1 evidence schema, synthetic fixture, read-only evaluator and Node/Python regression tests; do **not** connect to Wix or provision, preview or publish a real website.
