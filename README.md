@@ -79,7 +79,7 @@ WHPS v0.3.0 includes WHPS-005 and WHPS-006 with the tested Astro 5 baseline and 
 
 ## Wix-managed Astro 7 test-site validation (protocol, not yet executed)
 
-[WHPS-COMPAT-008](docs/30-WIX-ASTRO7-SITE-VALIDATION.md) defines a 13-gate owner-authorised Wix-managed preflight and three additional **separately approved published-test-site gates** for main/item SEO and site release. A v1 site-owned evidence schema and **offline read-only** evaluator require exact Astro 7/React 7/React 19/Tailwind 4/Node 22 provenance and report missing evidence without reading Wix or publishing anything. **No separate test site has been provisioned and no live Wix integration has been certified.** Published v0.3.0 and stable Astro 5 remain unchanged.
+[WHPS-COMPAT-008](docs/30-WIX-ASTRO7-SITE-VALIDATION.md) (merged via [PR #34](https://github.com/joseferro-pt/wix-headless-production-system/pull/34), unreleased) defines a 13-gate owner-authorised Wix-managed preflight and three additional **separately approved published-test-site gates** for main/item SEO and site release. A v1 site-owned evidence schema and **offline read-only** evaluator require exact Astro 7/React 7/React 19/Tailwind 4/Node 22 provenance and report missing evidence without reading Wix or publishing anything. **No separate test site has been provisioned and no live Wix integration has been certified.** Published v0.3.0 and stable Astro 5 remain unchanged.
 
 ## Experimental Astro 7 compatibility research
 

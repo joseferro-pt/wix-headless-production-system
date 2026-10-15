@@ -1,6 +1,6 @@
 # 30 — WHPS-COMPAT-008 · Wix-managed Astro 7 Integration Validation
 
-**Decision state:** **Validation protocol prepared; live Wix integration NOT YET TESTED.** The latest WHPS release is still **v0.3.0**; WHPS reference remains **Astro 5**. Previous [PR #33 synthetic trial](29-ASTRO7-COMPATIBILITY-REVIEW.md) passed Astro 7 / @astrojs/react 7 / React 19 / Tailwind 4 build and browser tests, but ran with **no Wix integration**.
+**Decision state:** **Validation protocol merged via [PR #34](https://github.com/joseferro-pt/wix-headless-production-system/pull/34); live Wix integration NOT YET TESTED.** The latest WHPS release is still **v0.3.0**; WHPS reference remains **Astro 5**. Previous [PR #33 synthetic trial](29-ASTRO7-COMPATIBILITY-REVIEW.md) passed Astro 7 / @astrojs/react 7 / React 19 / Tailwind 4 build and browser tests, but ran with **no Wix integration**.
 
 ## Operating boundary
 
