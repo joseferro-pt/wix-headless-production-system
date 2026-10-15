@@ -54,7 +54,7 @@ test('entry documentation distinguishes the published release from unreleased ma
   assert.match(readme, /R02[^\n]*merged/i);
   assert.match(room, /WHPS-R04[^\n]*release governance/i);
   assert.match(adoption, /published[^\n]*v0\.2\.0/i);
-  assert.ok(adoption.includes('877736282def3631a3fad5d368e3098aadac040f')); // current v0.2.1 adoption guidance
+  assert.ok(adoption.includes('bb4d0adcd9021b5cd671e13fed46d5498fac4399')); // current v0.3.0 adoption guidance
   assert.match(adoption, /foundation/i);
   assert.match(readme, /v0\.3\.0 published and verified 15 October 2026/);
   assert.ok(room.includes('bb4d0adcd9021b5cd671e13fed46d5498fac4399')); // exact v0.3.0 source
