@@ -1,7 +1,7 @@
 # Wix Headless Website Production System (WHPS)
 
-**Status:** [v0.2.1 published and verified 13 October 2026](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.1), approved release source `877736282def3631a3fad5d368e3098aadac040f`; WHPS-R06.1 and WHPS-004 are released. WHPS-004 is closed at the **synthetic toolkit-reference** level, not as a live Wix integration.  
-**v0.3.0:** WHPS-005 and WHPS-006 release candidate prepared for an **independent owner publication decision**, not yet published. See [release notes](docs/releases/v0.3.0.md) and [separate approval gates](docs/26-V030-RELEASE-PLAN.md). The immutable v0.2.1 release remains the latest public version.  
+**Status:** [v0.3.0 published and verified 15 October 2026](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.3.0), approved source `bb4d0adcd9021b5cd671e13fed46d5498fac4399` (annotated tag `7f6712db3d484e42e48a888047018be7dc1da1b6`, [successful manual publication](https://github.com/joseferro-pt/wix-headless-production-system/actions/runs/38733962956)). WHPS-005 and WHPS-006 are released.  
+**Release record:** [v0.3.0 post-publication evidence](docs/27-V030-PUBLICATION-AND-CATALOG.md). Earlier releases, including v0.2.1, remain immutable. **No live Wix integration is certified by WHPS.**  
 **Manifest schema version:** `0.1.0`.  
 **Scope:** A reusable toolkit and operating framework for Wix Headless website delivery. **Not** a website repository or a multi-client workspace.
 
@@ -17,7 +17,7 @@ The Wix-generated handoff establishes technical identity, **not** verified busin
 - **R02:** verification improvements merged: synthetic negative tests and tracked-content security guard.
 - **R03:** documentation consolidation merged; policy and status terminology reconciled.
 - **R04:** governance merged. **R05:** release candidate merged. **R05.1:** recovery merged and v0.1.0 publication verified. **R05.2:** post-release reconciliation merged. **WHPS-002, WHPS-003 and R06:** merged, validated and released as v0.2.0. **WHPS-R06.1:** published in v0.2.1 with exact-source provenance checks. **WHPS-004:** published in v0.2.1 and accepted/closed as a synthetic Astro-first reference; live Wix integration remains site-local.
-- **Latest published toolkit release:** [`v0.2.1`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.1), annotated tag targeting `877736282def3631a3fad5d368e3098aadac040f`; verified [publication run](https://github.com/joseferro-pt/wix-headless-production-system/actions/runs/38425418129). Previous `v0.2.0` and `v0.1.0` tags remain immutable. The manifest schema remains separately versioned as `0.1.0`. See [publication and WHPS-004 closure](docs/22-WHPS004-CLOSURE-AND-V021-PUBLICATION.md).
+- **Latest published toolkit release:** [`v0.3.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.3.0), annotated tag `7f6712db3d484e42e48a888047018be7dc1da1b6` targeting `bb4d0adcd9021b5cd671e13fed46d5498fac4399`; verified [publication workflow](https://github.com/joseferro-pt/wix-headless-production-system/actions/runs/38733962956). Earlier `v0.2.1`, `v0.2.0` and `v0.1.0` tags remain immutable. Manifest schema `0.1.0` is independently versioned; see [publication record](docs/27-V030-PUBLICATION-AND-CATALOG.md).
 - **Licence:** [Apache-2.0](LICENSE), with repository copyright attribution in [NOTICE](NOTICE). This does not license Wix-owned code or independently managed websites.
 
 ## Astro-first frontend architecture (WHPS-004, released v0.2.1; closed)
@@ -53,9 +53,9 @@ It supports `wix-handoff` and `unbound-frontend` only. For `existing-repository`
 
 
 
-## WHPS-006 · Versioned distribution and site adoption (merged; proposed for v0.3.0)
+## WHPS-006 · Versioned distribution and site adoption (published v0.3.0)
 
-The [versioned adoption contract](docs/25-WHPS006-DISTRIBUTION-ADOPTION.md) introduces a verified historical release catalog, a **read-only public GitHub tag/Release verifier**, a **non-mutating offline adoption planner**, and a separate **site-owned adoption record** (version 1). `whps.lock.json` version 2 remains the original bootstrap provenance, never overwritten by WHPS-006. Upgrades, component selection and every Wix change remain separately reviewed within each website's repository. The WHPS-006 implementation [merged via PR #24](https://github.com/joseferro-pt/wix-headless-production-system/pull/24) and is **not** in the published v0.2.1 tag. The latest published toolkit remains v0.2.1 until a separate approved release.
+The [versioned adoption contract](docs/25-WHPS006-DISTRIBUTION-ADOPTION.md) introduces a verified historical release catalog, a **read-only public GitHub tag/Release verifier**, a **non-mutating offline adoption planner**, and a separate **site-owned adoption record** (version 1). `whps.lock.json` version 2 remains the original bootstrap provenance, never overwritten by WHPS-006. Upgrades, component selection and every Wix change remain separately reviewed within each website's repository. The WHPS-006 implementation [merged via PR #24](https://github.com/joseferro-pt/wix-headless-production-system/pull/24) and is **published in v0.3.0**. The independently verified release catalog is updated on post-release main; the immutable tagged v0.3.0 tree retains its original v0.2.1-only historical catalog.
 
 ## WHPS-003 · Read-only resource reconciliation (development)
 
@@ -69,13 +69,13 @@ WHPS-003 is not part of published v0.1.0; published v0.2.0 additionally rejects 
 
 The [R06 release plan](docs/18-R06-RELEASE-PLAN.md) now records verified [v0.2.0 publication](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.0). [R06.1 provenance hardening](docs/19-R061-PROVENANCE-AND-RELEASE.md) shipped in the verified [`v0.2.1` release](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.1), together with WHPS-004. Publication remains a **separate owner action**: review the final merged SHA, verify main-branch CI and CodeQL, then manually run the [generic publisher](.github/workflows/publish-release.yml). Never re-point v0.2.0.
 
-## WHPS-005 · Quality and verification (merged; proposed for v0.3.0)
+## WHPS-005 · Quality and verification (published v0.3.0)
 
-The [WHPS-005 quality contract](docs/23-WHPS005-QUALITY-VERIFICATION.md) adds a committed npm lockfile and `npm ci`, Astro TypeScript diagnostics, synthetic Chromium/Playwright UI and axe-core accessibility tests, plus an offline `scripts/evaluate-site-qa.mjs` operator-evidence validator. The [site-local verification recipes](docs/24-SITE-LOCAL-VERIFICATION.md) help independent website maintainers record actual Wix SDK/app, accessibility, responsive, SEO and approval checks. **Tooling checks do not prove any live Wix site works or grant deployment authority.** These changes [merged through PR #20](https://github.com/joseferro-pt/wix-headless-production-system/pull/20) into main commit `5b1989a4579a115d36a4301ff0f9f0c3313b3e22` and are **not** part of the immutable published v0.2.1 tag.
+The [WHPS-005 quality contract](docs/23-WHPS005-QUALITY-VERIFICATION.md) adds a committed npm lockfile and `npm ci`, Astro TypeScript diagnostics, synthetic Chromium/Playwright UI and axe-core accessibility tests, plus an offline `scripts/evaluate-site-qa.mjs` operator-evidence validator. The [site-local verification recipes](docs/24-SITE-LOCAL-VERIFICATION.md) help independent website maintainers record actual Wix SDK/app, accessibility, responsive, SEO and approval checks. **Tooling checks do not prove any live Wix site works or grant deployment authority.** These changes [merged through PR #20](https://github.com/joseferro-pt/wix-headless-production-system/pull/20) and were **published in v0.3.0**; the earlier v0.2.1 tag remains unchanged.
 
-## Candidate release review
+## Published release scope
 
-WHPS v0.3.0 includes WHPS-005 and WHPS-006 with the tested Astro 5 baseline and **excludes** the unvalidated Astro 7 [Dependabot PR #23](https://github.com/joseferro-pt/wix-headless-production-system/pull/23). The [release preparation plan](docs/26-V030-RELEASE-PLAN.md) documents CI, migration boundaries, the historical release-catalog freshness caveat, and the separate owner go/no-go gate. Preparing the candidate is **not permission to publish it**.
+WHPS v0.3.0 includes WHPS-005 and WHPS-006 with the tested Astro 5 baseline and **excludes** the unvalidated Astro 7 [Dependabot PR #23](https://github.com/joseferro-pt/wix-headless-production-system/pull/23). See the [post-release verification record](docs/27-V030-PUBLICATION-AND-CATALOG.md). This reconciliation does not alter the immutable published tag or any Wix-managed website.
 
 ## Validate this toolkit
 

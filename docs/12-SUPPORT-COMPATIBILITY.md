@@ -15,11 +15,11 @@
 
 The items above describe the **currently CI-tested development environment**, not every possible system/platform combination or live Wix deployment. Published v0.2.0 adds an explicit Git CLI requirement for WHPS-002 bootstrap, but does not expand operating-system support claims. When extending the matrix, first add the environment to CI and record the evidence.
 
-Official Wix-managed Headless documentation currently supports Astro **5 or 7** (not Astro 6) in its existing-Astro linking flow. WHPS v0.2.1 retains a deliberately tested **Astro 5** reference, not a verified Astro 7 integration. Wix-managed hosting/auth/SEO and Wix business apps require the **site-local Wix Astro integration**. The standalone WHPS Astro reference does not include it and is not proof of Wix runtime compatibility. See [Wix Astro compatibility](20-ASTRO-WIX-COMPATIBILITY.md) and [WHPS-004](21-WHPS004-FRONTEND-PRIMITIVES.md).
+Official Wix-managed Headless documentation currently supports Astro **5 or 7** (not Astro 6) in its existing-Astro linking flow. WHPS v0.3.0 retains a deliberately tested **Astro 5** reference, not a verified Astro 7 integration. Wix-managed hosting/auth/SEO and Wix business apps require the **site-local Wix Astro integration**. The standalone WHPS Astro reference does not include it and is not proof of Wix runtime compatibility. See [Wix Astro compatibility](20-ASTRO-WIX-COMPATIBILITY.md) and [WHPS-004](21-WHPS004-FRONTEND-PRIMITIVES.md).
 
-## v0.3.0 candidate compatibility boundary
+## Published v0.3.0 compatibility boundary
 
-Candidate v0.3.0 retains the locked **Astro 5** reference (resolved Astro 5.18.2), optional React islands and Tailwind 4. The separate Astro 7 major-upgrade Dependabot PR #23 is *not* included. WHPS-005 adds automated Chromium/axe tests only for the standalone synthetic reference, while WHPS-006 adds a historical version catalog and read-only tools, not live Wix project SDK/app verification. Node 22, Python 3.12 and GitHub-hosted Ubuntu are the only validated toolkit runtimes; independent websites must separately test their Wix-managed integration, performance, accessibility and deployments. See [v0.3.0 candidate notes](releases/v0.3.0.md).
+Published v0.3.0 retains the locked **Astro 5** reference (resolved Astro 5.18.2), optional React islands and Tailwind 4. The separate Astro 7 major-upgrade Dependabot PR #23 is *not* included. WHPS-005 adds automated Chromium/axe tests only for the standalone synthetic reference, while WHPS-006 adds a historical version catalog and read-only tools, not live Wix project SDK/app verification. Node 22, Python 3.12 and GitHub-hosted Ubuntu are the only validated toolkit runtimes; independent websites must separately test their Wix-managed integration, performance, accessibility and deployments. See [v0.3.0 candidate notes](releases/v0.3.0.md).
 
 ## Compatibility rules
 

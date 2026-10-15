@@ -2,7 +2,7 @@
   "catalogVersion": 1,
   "repository": "https://github.com/joseferro-pt/wix-headless-production-system",
   "source": "verified-github-public-release-snapshot",
-  "verifiedDate": "2026-10-13",
+  "verifiedDate": "2026-10-15",
   "releases": [
     {
       "tag": "v0.1.0",
@@ -37,6 +37,20 @@
         "bootstrap-cli",
         "resource-planner",
         "astro-reference"
+      ]
+    },
+    {
+      "tag": "v0.3.0",
+      "commit": "bb4d0adcd9021b5cd671e13fed46d5498fac4399",
+      "annotatedTagObject": "7f6712db3d484e42e48a888047018be7dc1da1b6",
+      "publishedAt": "2026-10-15T12:21:25Z",
+      "components": [
+        "governance",
+        "validation",
+        "bootstrap-cli",
+        "resource-planner",
+        "astro-reference",
+        "site-qa"
       ]
     }
   ]

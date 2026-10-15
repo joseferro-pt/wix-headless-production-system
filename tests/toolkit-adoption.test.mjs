@@ -23,7 +23,7 @@ test('offline proposal pins exact published source but never performs site chang
   assert.deepEqual(out.changes.addComponents,['astro-reference']);
 });
 test('rejects unlisted or invented future releases, and floating main',()=>{
-  for(const tag of ['main','v0.3.0','v0.2.2']){
+  for(const tag of ['main','v0.3.1','v0.2.2']){
     const p=copy(baseline);p.target.tag=tag;
     assert.throws(()=>planToolkitAdoption(p),/published release catalog/);
   }
@@ -37,6 +37,24 @@ test('rejects components not shipped by exact tag',()=>{
   p.target.commit='d17abe627f27808611218d0d2f01dd977030913a';
   assert.throws(()=>planToolkitAdoption(p),/does not distribute/);
 });
+test('verified published v0.3.0 supports a reviewed v0.2.1 upgrade with optional site QA',()=>{
+  const p=copy(baseline);
+  p.current={tag:'v0.2.1',commit:'877736282def3631a3fad5d368e3098aadac040f',components:['governance','validation','astro-reference']};
+  p.target={tag:'v0.3.0',commit:'bb4d0adcd9021b5cd671e13fed46d5498fac4399',components:['governance','validation','astro-reference','site-qa']};
+  const result=planToolkitAdoption(p);
+  assert.equal(result.status,'review-required');
+  assert.equal(result.target.annotatedTagObject,'7f6712db3d484e42e48a888047018be7dc1da1b6');
+  assert.deepEqual(result.changes.addComponents,['site-qa']);
+  assert.equal(result.execution,'never');
+  assert.equal(result.candidateSiteRecord.status,'candidate-unverified');
+  assert.equal(result.candidateSiteRecord.approval,'pending');
+  assert.match(result.evidence,/fresh-GitHub/);
+  p.current=copy(p.target);p.target={tag:'v0.2.1',commit:'877736282def3631a3fad5d368e3098aadac040f',components:['governance','validation','astro-reference']};
+  const rollback=planToolkitAdoption(p);
+  assert.ok(rollback.blockers.includes('downgrade-requires-separate-migration-protocol'));
+  assert.ok(rollback.blockers.includes('implicit-component-removal-forbidden'));
+});
+
 test('downgrade blocks, no implicit removal, unchanged is no-change',()=>{
   const p=copy(baseline);
   p.current={...p.target,components:['governance','validation','astro-reference']};
@@ -74,6 +92,18 @@ test('CLI is strictly offline and emits JSON plan from explicit synthetic fixtur
   assert.equal(parsed.status,'review-required');
   assert.equal(parsed.execution,'never');
 });
+test('v0.3.0 synthetic CLI upgrade fixture remains non-mutating and schema-compatible',()=>{
+  const script=fileURLToPath(new URL('../scripts/plan-toolkit-adoption.mjs',import.meta.url));
+  const file=fileURLToPath(new URL('../examples/toolkit-adoption-v030.synthetic.json',import.meta.url));
+  const result=spawnSync(process.execPath,[script,'--input',file,'--json'],{encoding:'utf8'});
+  assert.equal(result.status,0,result.stderr);
+  const plan=JSON.parse(result.stdout);
+  assert.equal(plan.target.tag,'v0.3.0');
+  assert.deepEqual(plan.changes.addComponents,['site-qa']);
+  assert.equal(plan.execution,'never');
+  assert.equal(plan.candidateSiteRecord.approval,'pending');
+});
+
 test('CLI rejects invalid and oversized input without writing',async()=>{
   const script=fileURLToPath(new URL('../scripts/plan-toolkit-adoption.mjs',import.meta.url));
   const path=await mkdtemp(join(tmpdir(),'whps-adoption-test-'));
