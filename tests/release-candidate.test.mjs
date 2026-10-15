@@ -40,7 +40,7 @@ test('v0.3.0 preparation uses independent owner-approval publication gates',asyn
   assert.equal(parsed.packages['node_modules/astro'].version.split('.')[0],'5');
   assert.match(notes,/WHPS-005/); assert.match(notes,/WHPS-006/);
   assert.match(notes,/catalog.*v0\.2\.1/i);
-  assert.match(notes,/not.*site.*deployment/i);
+  assert.match(notes,/no automatic upgrade.*deployment/i);
   assert.match(plan,/HOLD: no publication authorisation/);
   assert.match(plan,/G4/); assert.match(plan,/G5/); assert.match(plan,/G6/);
   assert.match(workflow,/PUBLISH-\$RELEASE_TAG/);
