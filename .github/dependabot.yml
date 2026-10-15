@@ -1,4 +1,4 @@
-# Only WHPS system dependencies. No website repositories are monitored.
+# WHPS-only Dependabot version updates. Never scans client websites.
 version: 2
 updates:
   - package-ecosystem: "pip"
@@ -19,3 +19,16 @@ updates:
       workflow-actions:
         patterns:
           - "*"
+  - package-ecosystem: "npm"
+    directory: "/frontend/astro-primitives"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    groups:
+      frontend-non-major:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+# Major version proposals are separate and require explicit compatibility review.
