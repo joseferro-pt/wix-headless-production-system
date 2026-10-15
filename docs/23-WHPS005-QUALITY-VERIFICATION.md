@@ -1,6 +1,6 @@
 # 23 — WHPS-005 · Quality assurance and verification
 
-**Status:** Implementation merged via [PR #20](https://github.com/joseferro-pt/wix-headless-production-system/pull/20), source `5b1989a4579a115d36a4301ff0f9f0c3313b3e22` on main; **not published in a toolkit release**. WHPS v0.2.1 remains the latest immutable published version. **Scope:** Generic, offline system-toolkit checks and guidance, plus synthetic Astro browser QA. No real Wix site access, account verification, SDK invocation or deployment.
+**Status:** Implementation merged via [PR #20](https://github.com/joseferro-pt/wix-headless-production-system/pull/20), source `5b1989a4579a115d36a4301ff0f9f0c3313b3e22` on main; **included in the proposed v0.3.0 candidate, not yet published**. WHPS v0.2.1 remains the latest immutable published version. **Scope:** Generic, offline system-toolkit checks and guidance, plus synthetic Astro browser QA. No real Wix site access, account verification, SDK invocation or deployment.
 
 ## Purpose
 

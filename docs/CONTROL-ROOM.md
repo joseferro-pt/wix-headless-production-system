@@ -69,11 +69,15 @@ Definitions and evidence rules: [authority/decisions](10-AUTHORITY-AND-DECISIONS
 
 ## Current next gate
 
-**WHPS-005 and WHPS-006 implementations merged, but neither has been published.** The next planned development packet is WHPS-007 sustainable maintenance and compatibility. A toolkit v0.3.0 or any other release still requires a separate owner decision, approved scope, notes, exact-main CI/CodeQL and manual publication. Do not label v0.2.1 as including WHPS-005 or WHPS-006.
+**Prepare v0.3.0 as a distinct candidate, with publication on hold.** WHPS-005 (PR #20) and WHPS-006 (PR #24) are merged and proposed as the exact new release scope; [v0.3.0 notes](releases/v0.3.0.md) and [separate owner-approval plan](26-V030-RELEASE-PLAN.md) cover the tested Astro 5 runtime, quality gates, site migration and release catalog limitations. **No G4 owner go/no-go to publish is recorded.** After the release-preparation PR merges, validate *push* CI and CodeQL on the new exact main SHA, then seek a separate explicit publication decision. v0.2.1 remains the latest published version. WHPS-007 stays queued.
 
 ## WHPS-006 · Versioned distribution and adoption (development)
 
 **Status:** Merged via [PR #24](https://github.com/joseferro-pt/wix-headless-production-system/pull/24), merge commit `1c43f240b3d8efe3c114c30d0a77116a329256ae`; **unreleased**. See [distribution and adoption contract](25-WHPS006-DISTRIBUTION-ADOPTION.md). The historical public-release catalog, online read-only GitHub provenance verifier, offline adoption/upgrade planner and website-owned `whps.adoption.json` are intended to prevent floating `main` adoption and accidental overwriting of original site-generation locks. Nothing performs site Git/Wix operations or automatically applies a migration; any toolkit v0.3.0 release needs separate approval, notes, exact-main CI and public publication verification. Next maintenance packet after acceptance: WHPS-007.
+
+## WHPS-R07 · v0.3.0 release candidate preparation
+
+**Stage:** Candidate scoped to **WHPS-005 + WHPS-006**; release/tag **not published**. [Release notes](releases/v0.3.0.md) identify additive schemas and CI coverage, explicitly exclude Dependabot PR #23's Astro 7 upgrade and live Wix validation, and disclose that the historical distribution catalog needs a post-publication update before the offline planner can target v0.3.0. [G0–G6 approvals](26-V030-RELEASE-PLAN.md): G4 publication owner approval, G5 publication and G6 independent verification remain **not performed**. Preserve all immutable historical tags.
 
 ## Constraints and known limits
 

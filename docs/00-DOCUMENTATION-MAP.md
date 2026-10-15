@@ -20,7 +20,8 @@ WHPS has **one system repository** and any number of independently owned website
 14. [WHPS-004 closure and v0.2.1 publication](22-WHPS004-CLOSURE-AND-V021-PUBLICATION.md): immutable tag/release verification, acceptance evidence and unverified Wix boundaries.
 15. [WHPS-005 quality framework](23-WHPS005-QUALITY-VERIFICATION.md): type/build/browser checks, lockfile and operator-reported QA contract (merged, unreleased).
 16. [Site-local Wix QA recipes](24-SITE-LOCAL-VERIFICATION.md): independent site evidence/checklist and explicit no-deployment boundary.
-17. [WHPS-006 distribution/adoption](25-WHPS006-DISTRIBUTION-ADOPTION.md): published release identity, offline upgrade plan, site-owned lock/rollback protocol (merged, unreleased).
+17. [WHPS-006 distribution/adoption](25-WHPS006-DISTRIBUTION-ADOPTION.md): published release identity, offline upgrade plan, site-owned lock/rollback protocol (merged, candidate v0.3.0).
+18. [WHPS v0.3.0 release candidate](26-V030-RELEASE-PLAN.md): scope, G0–G6 approval gates, release catalog limitation and publication runbook (not yet published).
 
 ## Reference by task
 
@@ -46,5 +47,8 @@ WHPS has **one system repository** and any number of independently owned website
 `templates/` and `blueprints/site/` are **empty generic starting points**; they contain no real website records. `schemas/` defines contract shapes. `examples/` and `tests/` use synthetic identities. `scripts/` implement offline safety checks. The Wix Headless skill is a live **external technical authority**, not copied into this repository.
 
 ## Version notes
+
+Candidate [v0.3.0 release notes](releases/v0.3.0.md) propose WHPS-005 + WHPS-006, but no tag or public Release is claimed until separately approved, executed and verified.
+
 
 The manifest schema remains independently versioned as `0.1.0`. WHPS `v0.1.0`, `v0.2.0` and [`v0.2.1`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.1) have all been published; latest v0.2.1 resolves to `877736282def3631a3fad5d368e3098aadac040f`. Adopt a specific published tag and full SHA, not floating `main`. WHPS-004 is closed within its documented synthetic scope.
