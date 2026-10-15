@@ -2,7 +2,11 @@
 
 ## Current evidence
 
-During the R05.1 inspection, GitHub still reported **zero repository rulesets**. The connector cannot confirm classic branch-protection settings through its current permissions; treat those as **unverified**, not disabled. This document proposes settings but does not apply them.
+During the latest WHPS-007 inspection (15 October 2026), the repository API still reported **zero repository rulesets**. The connector cannot confirm classic branch-protection settings through its current permissions; treat those as **unverified**, not disabled. This document proposes settings but does not apply them.
+
+## Owner-only security settings pending confirmation
+
+Verify private vulnerability reporting, security advisories, dependency graph/alerts, security-update PRs, and GitHub Actions default token permissions through the repository UI before claiming they are enabled. A public GitHub API fetch or merged source PR does not authorise or configure these settings. Classic branch protection remains **unverified** by the current connection, even though the public ruleset list is empty.
 
 ## Recommended `main` rules
 

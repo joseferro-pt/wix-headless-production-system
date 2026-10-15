@@ -17,11 +17,18 @@ The initial CI-tested environment is **Node.js 22, Python 3.12, Ubuntu Linux**. 
 python3 -m pip install -r requirements.txt -r requirements-dev.txt
 node scripts/check-repository-boundary.mjs
 node scripts/check-release-readiness.mjs --policy
+node scripts/check-maintenance-policy.mjs --json
 node --test tests/*.test.mjs
 python3 -m unittest discover -s tests -p 'test_*.py' -v
 ```
 
 The toolkit CI must remain **offline with respect to client Wix sites**. Do not add Wix deployment credentials or execute Wix mutations in WHPS GitHub Actions.
+
+## Dependency changes and compatibility evidence
+
+Maintain the independent Astro 5 + React 19 + Tailwind 4 synthetic reference. WHPS-007 configures weekly npm Dependabot updates for its manifest; it never authorises automatic merging. Non-major changes still need the exact package-lock change reviewed and tests/CodeQL passing. An Astro, React, Tailwind, Node or Wix runtime **major** upgrade must have its own work packet and an explicitly reviewed update to maintenance/compatibility-baseline.json. A passing toolkit browser test alone does not prove compatibility with Wix-managed hosting, authentication or installed business apps. See [maintenance rules](docs/28-WHPS007-MAINTENANCE-SECURITY-COMPATIBILITY.md).
+
+To review an advisory, record affected toolkit tag(s), advisory and observed test evidence; report actionable private vulnerability details through an owner-enabled confidential channel, never a public issue. Site owners separately determine downstream impact.
 
 ## Pull requests
 

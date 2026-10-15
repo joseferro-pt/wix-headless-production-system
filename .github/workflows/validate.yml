@@ -93,6 +93,8 @@ jobs:
           print(json.dumps(p['candidateSiteRecord']))
           PY
           python3 scripts/validate-json-schema.py schemas/site-toolkit-adoption.schema.json < "$scratch/adoption.json" | python3 -c 'import json,sys; assert json.load(sys.stdin)["valid"]'
+      - name: Enforce WHPS-007 offline framework-major and npm lock provenance contract
+        run: node scripts/check-maintenance-policy.mjs --json
       - name: Install audited Astro reference dependency lock without updates
         run: npm --prefix frontend/astro-primitives ci --no-audit --no-fund
       - name: TypeScript and Astro diagnostics on synthetic reference

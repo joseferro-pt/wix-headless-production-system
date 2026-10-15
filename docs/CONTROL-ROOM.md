@@ -82,6 +82,10 @@ WHPS-004 remains **accepted and closed** at the synthetic Astro 5 toolkit-refere
 
 **Stage:** **Published and independently verified** on 15 October 2026, scoped to WHPS-005 + WHPS-006. [Release notes](releases/v0.3.0.md) identify additive schemas and CI coverage, explicitly exclude Dependabot PR #23's Astro 7 upgrade and live Wix validation, and disclose that the historical distribution catalog needs a post-publication update before the offline planner can target v0.3.0. The manual owner-authorised [publication workflow](https://github.com/joseferro-pt/wix-headless-production-system/actions/runs/38733962956) succeeded and the annotated tag and GitHub Release match the approved SHA; [historical approval plan](26-V030-RELEASE-PLAN.md) is preserved as a candidate-stage record, with [post-publication verification](27-V030-PUBLICATION-AND-CATALOG.md). Preserve all immutable historical tags.
 
+## WHPS-007 · Maintenance and compatibility (development)
+
+**Stage:** Implementation branch under review, **not part of published v0.3.0**. The [WHPS-007 operating guide](28-WHPS007-MAINTENANCE-SECURITY-COMPATIBILITY.md) adds weekly npm Dependabot coverage, an offline reviewed Astro/React/Tailwind-major and npm lock provenance guard, dependency/security review cadence and major-upgrade discipline. The existing [Astro 7 PR #23](https://github.com/joseferro-pt/wix-headless-production-system/pull/23) is excluded from the accepted Astro 5 reference until independently verified. The GitHub API currently reports **no rulesets**; classic branch protection and private vulnerability reporting remain owner-unverified. No real Wix integration was tested, and no release publication is authorised by merging this work.
+
 ## Constraints and known limits
 
 - No real Wix identifiers, site archives, content or deployments in the toolkit.

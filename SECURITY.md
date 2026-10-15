@@ -20,10 +20,12 @@ Include a minimal synthetic reproduction, the affected source revision, conditio
 4. Release an approved fix with notes and, where appropriate, a coordinated advisory.
 5. Review downstream site repositories independently when the issue impacts adopted toolkit versions. WHPS must not silently deploy changes to websites.
 
-## Supported versions
+## Supported versions and security triage
 
-The Apache-2.0 [`v0.1.0` release](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0) was published on 12 October 2026 from commit `802acf1b536b502fcacdffc1d6b7ce371aa2d3f7`. It is an early developer-tooling baseline, **not** a promise of long-term support or Wix runtime compatibility. Future support claims require separate release evidence.
+The latest published version is [v0.3.0](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.3.0), published 15 October 2026 at source `bb4d0adcd9021b5cd671e13fed46d5498fac4399`. Previous v0.2.1, v0.2.0 and v0.1.0 remain available and immutable but are **not promised ongoing backports or a fixed security-support window**. Confirm whether any advisory affects a particular **tag and exact source commit** before claiming it is vulnerable or fixed.
+
+Prioritise active credential exposure, exploitable input boundaries and dependency advisories according to verified impact. Triage privately, add synthetic regression tests and only publish a fix through separately approved release governance. WHPS cannot contact or auto-upgrade an adopting Wix website. The [WHPS-007 maintenance guide](docs/28-WHPS007-MAINTENANCE-SECURITY-COMPATIBILITY.md) defines review cadence, owner-only controls, scope and non-promised SLAs.
 
 ## Detection limitations
 
-CI includes a high-confidence Git-tracked-content boundary check; it is not comprehensive credential detection, historical scanning, dependency vulnerability assessment or proof that the downloaded Wix project is authentic. See [verification/security](docs/08-VERIFICATION-SECURITY.md), [governance](docs/11-RELEASE-GOVERNANCE.md) and the [branch security plan](docs/14-REPOSITORY-PROTECTION.md).
+CI includes a high-confidence Git-tracked-content boundary check and an **offline npm provenance/major-version policy**; neither is comprehensive credential detection, whole-history scanning, dependency vulnerability assessment or proof that a downloaded Wix project is authentic. See [verification/security](docs/08-VERIFICATION-SECURITY.md), [governance](docs/11-RELEASE-GOVERNANCE.md) and the [branch security plan](docs/14-REPOSITORY-PROTECTION.md).
