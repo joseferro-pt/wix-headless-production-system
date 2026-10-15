@@ -1,6 +1,6 @@
 # 28 — WHPS-007 · Sustainable Maintenance, Security and Compatibility
 
-**Status:** Development work packet under review, newer than published v0.3.0. **Scope:** WHPS generic toolkit only. No live Wix site monitoring, client-repo updates, auto deployment or public release.
+**Status:** Implementation merged via [PR #28](https://github.com/joseferro-pt/wix-headless-production-system/pull/28), source `82381d92871476fd62a06cb288b76c7b98ec66f2`; **unreleased and newer than published v0.3.0**. **Scope:** WHPS generic toolkit only. No live Wix site monitoring, client-repo updates, auto deployment or public release.
 
 ## Maintenance operating procedure
 
@@ -46,4 +46,4 @@ Real Wix-managed sites retain their own repos, project identity, SDK/app authori
 4. Contributing, security, compatibility, support and owner settings have explicit scope, decision authority and review cadence.
 5. All PR and merged-main tests/CodeQL pass; a merge does not publish a release.
 
-The release catalog and immutable v0.3.0 source remain unchanged. WHPS-007 can be considered **merged, not released** after successful PR merge and main validation.
+The release catalog and immutable v0.3.0 source remain unchanged. WHPS-007 implementation was **merged via PR #28** after all PR-head validation/CodeQL checks passed; a further **main** validation is required for completion. It remains **unreleased**. No automatic release or Wix site operation follows.
