@@ -21,6 +21,10 @@ Official Wix-managed Headless documentation currently supports Astro **5 or 7** 
 
 Published v0.3.0 retains the locked **Astro 5** reference (resolved Astro 5.18.2), optional React islands and Tailwind 4. The separate Astro 7 major-upgrade Dependabot PR #23 is *not* included. WHPS-005 adds automated Chromium/axe tests only for the standalone synthetic reference, while WHPS-006 adds a historical version catalog and read-only tools, not live Wix project SDK/app verification. Node 22, Python 3.12 and GitHub-hosted Ubuntu are the only validated toolkit runtimes; independent websites must separately test their Wix-managed integration, performance, accessibility and deployments. See [v0.3.0 candidate notes](releases/v0.3.0.md).
 
+## WHPS-007 reviewed compatibility baseline (development)
+
+The [reviewed major-version baseline](../maintenance/compatibility-baseline.json) pins **synthetic** Astro 5, @astrojs/react 4, React 19, Tailwind 4, @tailwindcss/vite 4 and Node 22. [Offline maintenance preflight](../scripts/check-maintenance-policy.mjs) verifies declared/locked majors and npm registry integrity fields. It cannot detect vulnerable package versions, audit Git history or certify a Wix-managed application. Dependency-review proposals do not auto-merge. Major changes need a separate PR with reviewed baseline changes and CI evidence; real Wix SDK/apps/hosting remain independently site-tested. See [WHPS-007](28-WHPS007-MAINTENANCE-SECURITY-COMPATIBILITY.md).
+
 ## Compatibility rules
 
 - Run tests with the supported Node and Python versions; record the versions in release notes.
