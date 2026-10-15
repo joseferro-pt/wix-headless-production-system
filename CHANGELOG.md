@@ -4,6 +4,13 @@ This file records **toolkit development**, not website deployments. Entries unde
 
 ## Unreleased
 
+### WHPS-COMPAT-008 · Wix-managed Astro 7 test-site validation readiness (unreleased)
+
+- Add an owner-gated two-phase site-local Wix Astro 7 validation plan spanning auth, SDK permissions, CMS, API-backed business apps, React, Tailwind, reserved routes and accessibility, followed by published-site SEO and extension/release checks.
+- Add fail-closed v1 evidence schema, synthetic fixture, read-only evaluator and Node/Python regression tests; do **not** connect to Wix or provision, preview or publish a real website.
+- Explicitly separate owner approval for Wix preview and later publication from the **unverified operator reports** inspected by the CLI. Existing Astro 5 WHPS baseline, v0.3.0 tag and major Dependabot PRs remain unchanged.
+
+
 ### Astro 7 / React 7 compatibility probe (research only; unreleased)
 
 - Add a disposable, GitHub Actions-backed synthetic trial for Astro 7.3.8 + @astrojs/react 7.0.1 with React 19 and Tailwind 4; CI passed diagnostics, build and six Chromium browser/axe tests.

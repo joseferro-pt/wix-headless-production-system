@@ -93,6 +93,26 @@ jobs:
           print(json.dumps(p['candidateSiteRecord']))
           PY
           python3 scripts/validate-json-schema.py schemas/site-toolkit-adoption.schema.json < "$scratch/adoption.json" | python3 -c 'import json,sys; assert json.load(sys.stdin)["valid"]'
+      - name: WHPS-COMPAT-008 offline test-site evidence contract (NO Wix requests)
+        shell: bash
+        run: |
+          set -euo pipefail
+          tmp="$(mktemp -d)"
+          trap 'rm -rf "$tmp"' EXIT
+          if node scripts/evaluate-wix-astro7-evidence.mjs --input examples/wix-astro7-evidence.synthetic.json --json > "$tmp/report.json"; then
+            echo "Expected synthetic unverified Wix preflight to be blocked" >&2
+            exit 1
+          else
+            test "$?" -eq 1
+          fi
+          python3 - "$tmp/report.json" <<'PY'
+          import json,sys
+          result=json.load(open(sys.argv[1],encoding='utf8'))
+          assert result['state']=='blocked'
+          assert result['siteReleaseAuthorizedByThisTool'] is False
+          assert result['requiredGateCount']==13
+          PY
+          python3 scripts/validate-json-schema.py schemas/wix-astro7-site-evidence.schema.json < examples/wix-astro7-evidence.synthetic.json | python3 -c 'import json,sys; assert json.load(sys.stdin)["valid"]'
       - name: Enforce WHPS-007 offline framework-major and npm lock provenance contract
         run: node scripts/check-maintenance-policy.mjs --json
       - name: Install audited Astro reference dependency lock without updates

@@ -77,6 +77,10 @@ The [WHPS-005 quality contract](docs/23-WHPS005-QUALITY-VERIFICATION.md) adds a 
 
 WHPS v0.3.0 includes WHPS-005 and WHPS-006 with the tested Astro 5 baseline and **excludes** the unvalidated Astro 7 [Dependabot PR #23](https://github.com/joseferro-pt/wix-headless-production-system/pull/23). See the [post-release verification record](docs/27-V030-PUBLICATION-AND-CATALOG.md). This reconciliation does not alter the immutable published tag or any Wix-managed website.
 
+## Wix-managed Astro 7 test-site validation (protocol, not yet executed)
+
+[WHPS-COMPAT-008](docs/30-WIX-ASTRO7-SITE-VALIDATION.md) defines a 13-gate owner-authorised Wix-managed preflight and three additional **separately approved published-test-site gates** for main/item SEO and site release. A v1 site-owned evidence schema and **offline read-only** evaluator require exact Astro 7/React 7/React 19/Tailwind 4/Node 22 provenance and report missing evidence without reading Wix or publishing anything. **No separate test site has been provisioned and no live Wix integration has been certified.** Published v0.3.0 and stable Astro 5 remain unchanged.
+
 ## Experimental Astro 7 compatibility research
 
 A separate [Astro 7 / React 7 compatibility investigation](docs/29-ASTRO7-COMPATIBILITY-REVIEW.md) passed [synthetic framework checks](https://github.com/joseferro-pt/wix-headless-production-system/actions/runs/38739222799) on Node 22: Astro 7.3.8, @astrojs/react 7.0.1, React 19 and Tailwind CSS 4. **Wix-managed authentication, site adapter, business apps, SEO and deployment were not tested.** This experimental lane does not change the reviewed Astro **5** baseline or the published v0.3.0 release.

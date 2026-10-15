@@ -29,6 +29,10 @@ The [reviewed major-version baseline](../maintenance/compatibility-baseline.json
 
 Wix's [existing Astro project linking documentation](https://dev.wix.com/docs/go-headless/wix-managed-headless/full-integration-astro/get-started/connect-an-existing-astro-project) lists Astro **5 or 7**, not 6. WHPS's [isolated Astro 7 / React 7 experiment](29-ASTRO7-COMPATIBILITY-REVIEW.md) succeeded in [CI](https://github.com/joseferro-pt/wix-headless-production-system/actions/runs/38739222799) on Node 22 with Astro 7.3.8, @astrojs/react 7.0.1, React 19 and Tailwind 4. This proves only standalone build, hydration, keyboard, responsive and automated accessibility checks. It **does not** verify actual Wix-managed project/auth/backend/app/SEO deployment integration and does not replace the reviewed Astro **5** baseline. Separate major-package and Wix site-local decisions are required.
 
+## Wix-managed Astro 7 site-local test gate (not yet executed)
+
+The [two-phase Wix site validation protocol](30-WIX-ASTRO7-SITE-VALIDATION.md) distinguishes Wix-managed `wix build`/`wix preview`, member/visitor authentication, CMS/app APIs and React/Tailwind behaviour from published-site SEO injection and `wix release`. The latter requires separate test-site owner authorisation and cannot be inferred from a green synthetic PR. The reusable schema/evaluator accepts only operator-reported site-local evidence and never verifies a live Wix project or authorises publication. Astro 7 is **not** the supported WHPS default; stable Astro 5 remains the reviewed baseline.
+
 ## Compatibility rules
 
 - Run tests with the supported Node and Python versions; record the versions in release notes.
