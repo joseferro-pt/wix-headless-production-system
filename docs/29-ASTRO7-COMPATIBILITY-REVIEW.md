@@ -1,6 +1,6 @@
 # 29 — Astro 7 / React 7 Compatibility Review (Experimental)
 
-**Status:** Experimental compatibility investigation, not a WHPS baseline upgrade and not a published release. No Wix project, site IDs, credentials, `wix.config.json`, Wix adapter or site deployment are used.
+**Status:** **Synthetic trial passed** in [CI run 38739222799](https://github.com/joseferro-pt/wix-headless-production-system/actions/runs/38739222799); still experimental, not a WHPS baseline upgrade or published release. No Wix project, site IDs, credentials, `wix.config.json`, Wix adapter or site deployment are used.
 
 ## Decision being investigated
 
@@ -30,13 +30,28 @@ The `astro7-compatibility.yml` GitHub Actions workflow runs only for the dedicat
 | Gate | Requirement | Result |
 |---|---|---|
 | A · Wix documentation | Official 5/7 linking support; Wix 6 unsupported | Documentation establishes 7 is **eligible**, not certified |
-| B · Astro + React + Tailwind | Jointly install Astro 7.3.8, @astrojs/react 7.0.1, React 19 and Tailwind 4 | **Await compatibility-probe CI** |
-| C · Diagnostics and build | TypeScript/Astro `check`, production `build` succeed in Node 22 | **Await compatibility-probe CI** |
-| D · Browser + accessibility | Playwright React hydration, keyboard, responsive, reduced-motion, axe tests | **Await compatibility-probe CI** |
+| B · Astro + React + Tailwind | Jointly install Astro 7.3.8, @astrojs/react 7.0.1, React 19 and Tailwind 4 | **Passed** in [CI run 38739222799](https://github.com/joseferro-pt/wix-headless-production-system/actions/runs/38739222799) |
+| C · Diagnostics and build | TypeScript/Astro `check`, production `build` succeed in Node 22 | **Passed** in [CI run 38739222799](https://github.com/joseferro-pt/wix-headless-production-system/actions/runs/38739222799) |
+| D · Browser + accessibility | Playwright React hydration, keyboard, responsive, reduced-motion, axe tests | **Passed** in [CI run 38739222799](https://github.com/joseferro-pt/wix-headless-production-system/actions/runs/38739222799) |
 | E · Wix integration | Independently owner-authorised Wix Astro adapter, SDK auth, app flows, SEO, preview/hosting | **Not performed in toolkit; site-local requirement** |
 | F · Upgrade decision | Explicit reviewed version policy, production impact and site migration/rollback | **Not authorised by this investigation** |
 
 **Important:** WHPS-004 synthetic page text still labels its intended baseline Astro 5. The trial test copy is an experiment, not evidence that its visible label has been migrated.
+
+## Observed experiment · 15 October 2026
+
+[Experimental workflow run 38739222799](https://github.com/joseferro-pt/wix-headless-production-system/actions/runs/38739222799), job `Astro 7 synthetic probe (NOT Wix)`, completed successfully on GitHub-hosted Ubuntu, Node **v22.23.3**. The disposable npm dependency graph resolved:
+
+- Astro **7.3.8**
+- @astrojs/react **7.0.1**
+- React **19.3.0**
+- Tailwind CSS **4.3.3**
+- @tailwindcss/vite **4.3.3**
+- npm lockfile v3, trial lock SHA-256: `68c68efe390078e9c82c955567c829d3a52cd4c4115072dc739919813d8cbdd6` (ephemeral, not committed)
+
+Astro diagnostics and production build passed; **6/6** Chromium Playwright tests passed, covering client hydration/filter state, keyboard focus, axe-core automated WCAG rules, responsive overflow, reduced motion, and no external Wix requests. The original Astro 5 manifest, stable lockfile and baseline policy were **not altered**. The trial's bundled transitive dependencies are pinned only by the ephemeral lock hash in the CI logs, not a reviewed production upgrade lock.
+
+This establishes **standalone synthetic compatibility**, *not* Wix-managed framework integration or site availability. No Wix adapter, OAuth/visitor/member auth, SDK business APIs, elevated permissions, SEO integration, extensions, production hosting, `wix build` or `wix release` was tested. The current change does not approve a major dependency upgrade, and the published v0.3.0 source stays immutable.
 
 ## Outcome rule
 

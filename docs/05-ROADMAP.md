@@ -30,6 +30,7 @@ Apache-2.0 is accepted and the first WHPS toolkit release [`v0.1.0`](https://git
 | WHPS-006 | Pinned release catalog, public read-only verification, fail-closed adoption planner and independent site adoption record | **Published in v0.3.0; post-release catalog reconciled** |
 | WHPS-R07 | Publish and verify v0.3.0 containing WHPS-005 and WHPS-006 | **Published 15 October 2026; independently verified** |
 | WHPS-007 | Sustainable dependency monitoring, tested frontend-major guard, security and contribution procedures, owner-only protection review | **Merged via PR #28; unreleased** |
+| WHPS-COMPAT-007 | Independent Astro 7 + @astrojs/react 7 synthetic trial; evaluate Wix-managed adapter and app compatibility separately | **Synthetic probe passed; Wix integration not tested; no upgrade approved** |
 
 WHPS-002 must support the separate-site architecture without invoking Wix backend writes or deploying real sites from the WHPS repository. See [the WHPS-002 offline bootstrap contract](16-SITE-WORKSPACE-BOOTSTRAP.md). The pre-existing Wix handoff CLI still performs **offline manifest intake only**. The separate WHPS-002 development CLI can initialise a new local Git repository and copy generic site blueprints, but does not download a Wix template, handle existing repository adoption or create a remote.
 

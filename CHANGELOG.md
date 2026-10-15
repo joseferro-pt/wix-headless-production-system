@@ -4,6 +4,12 @@ This file records **toolkit development**, not website deployments. Entries unde
 
 ## Unreleased
 
+### Astro 7 / React 7 compatibility probe (research only; unreleased)
+
+- Add a disposable, GitHub Actions-backed synthetic trial for Astro 7.3.8 + @astrojs/react 7.0.1 with React 19 and Tailwind 4; CI passed diagnostics, build and six Chromium browser/axe tests.
+- Document Wix eligibility for Astro 7 and explicitly **unverified live Wix** adapter, SDK/auth, business app, SEO and deployment compatibility. No change to baseline Astro 5 packages/lock/policy, and no release publication.
+
+
 ### WHPS-007 · Maintenance, security and compatibility (merged PR #28; unreleased)
 
 - Monitor standalone Astro npm package manifests with weekly Dependabot in addition to Python and GitHub Actions; group non-major updates but keep majors separate for compatibility review.
