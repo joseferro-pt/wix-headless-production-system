@@ -53,6 +53,10 @@ Astro diagnostics and production build passed; **6/6** Chromium Playwright tests
 
 This establishes **standalone synthetic compatibility**, *not* Wix-managed framework integration or site availability. No Wix adapter, OAuth/visitor/member auth, SDK business APIs, elevated permissions, SEO integration, extensions, production hosting, `wix build` or `wix release` was tested. The current change does not approve a major dependency upgrade, and the published v0.3.0 source stays immutable.
 
+## Follow-on Wix integration validation
+
+The subsequent [WHPS-COMPAT-008 site-local readiness packet](30-WIX-ASTRO7-SITE-VALIDATION.md) defines a real Wix-managed Astro 7 test-site workflow, two separate owner decisions for preview and publication, and structured evidence requirements. It **does not** yet constitute live Wix validation or authorise changing the stable Astro 5 dependencies.
+
 ## Outcome rule
 
 Even if B–D pass, the only defensible conclusion is *synthetic Astro 7 compatibility observed in CI*. Keep the published baseline at Astro 5 until separately authorised adoption/migration decisions, reviewed major package/lock policy, and independent Wix integration tests. Any subsequent toolkit release requires its own approval and tag/Release verification.

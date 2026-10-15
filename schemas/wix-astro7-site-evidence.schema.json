@@ -1,0 +1,163 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/whps/wix-astro7-site-evidence.schema.json",
+  "title": "WHPS-COMPAT-008 reported Wix-managed Astro 7 site validation evidence v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "recordVersion",
+    "phase",
+    "environment",
+    "siteCommit",
+    "versions",
+    "previewAuthorization",
+    "publishAuthorization",
+    "checks"
+  ],
+  "properties": {
+    "recordVersion": {
+      "const": 1
+    },
+    "phase": {
+      "enum": [
+        "preflight",
+        "published-test-site"
+      ]
+    },
+    "environment": {
+      "const": "dedicated-disposable-wix-test-site"
+    },
+    "siteCommit": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    },
+    "versions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "astro",
+        "astroReact",
+        "react",
+        "tailwind",
+        "node"
+      ],
+      "properties": {
+        "astro": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[0-9A-Za-z.-]+)?$"
+        },
+        "astroReact": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[0-9A-Za-z.-]+)?$"
+        },
+        "react": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[0-9A-Za-z.-]+)?$"
+        },
+        "tailwind": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[0-9A-Za-z.-]+)?$"
+        },
+        "node": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[0-9A-Za-z.-]+)?$"
+        }
+      }
+    },
+    "previewAuthorization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "reference"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "approved",
+            "pending",
+            "rejected"
+          ]
+        },
+        "reference": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 512,
+          "pattern": "\\S"
+        }
+      }
+    },
+    "publishAuthorization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "reference"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "approved",
+            "pending",
+            "rejected"
+          ]
+        },
+        "reference": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 512,
+          "pattern": "\\S"
+        }
+      }
+    },
+    "checks": {
+      "type": "array",
+      "minItems": 16,
+      "maxItems": 16,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "status",
+          "reference"
+        ],
+        "properties": {
+          "id": {
+            "enum": [
+              "source-lock",
+              "wix-project-binding",
+              "wix-build",
+              "wix-preview",
+              "visitor-auth",
+              "member-auth",
+              "permission-denial",
+              "cms-read",
+              "business-app-read",
+              "react-hydration",
+              "tailwind-styling",
+              "accessibility",
+              "reserved-routes",
+              "seo-main",
+              "seo-item",
+              "wix-release"
+            ]
+          },
+          "status": {
+            "enum": [
+              "passed",
+              "failed",
+              "not-run"
+            ]
+          },
+          "reference": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 512,
+            "pattern": "\\S"
+          }
+        }
+      }
+    }
+  }
+}

@@ -25,6 +25,7 @@ WHPS has **one system repository** and any number of independently owned website
 19. [WHPS v0.3.0 publication and catalog](27-V030-PUBLICATION-AND-CATALOG.md): independently verified immutable release plus post-release catalog reconciliation.
 20. [WHPS-007 maintenance and compatibility](28-WHPS007-MAINTENANCE-SECURITY-COMPATIBILITY.md): reviewed npm compatibility majors, dependency cadence, security triage and owner-only settings (merged via PR #28, unreleased).
 21. [Astro 7 compatibility investigation](29-ASTRO7-COMPATIBILITY-REVIEW.md): passed isolated Astro 7 / React 7 / Tailwind 4 synthetic probe; **not** Wix runtime verification or baseline upgrade.
+22. [Wix-managed Astro 7 test-site validation](30-WIX-ASTRO7-SITE-VALIDATION.md): two-phase owner approval, 16-gate offline evidence contract and independent Wix site execution plan (no live test yet).
 
 ## Reference by task
 

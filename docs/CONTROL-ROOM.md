@@ -90,6 +90,10 @@ WHPS-004 remains **accepted and closed** at the synthetic Astro 5 toolkit-refere
 
 [PR #33](https://github.com/joseferro-pt/wix-headless-production-system/pull/33) adds an isolated temporary Astro 7.3.8 / @astrojs/react 7.0.1 test lane alongside React 19 and Tailwind 4. [GitHub CI 38739222799](https://github.com/joseferro-pt/wix-headless-production-system/actions/runs/38739222799) passed Astro diagnostics, build and six Chromium hydration/accessibility/responsive tests. **No Wix-managed adapter, SDK authentication, installed business apps or deployment was tested.** The current supported WHPS synthetic baseline remains Astro 5 and the latest published release remains v0.3.0. No framework upgrade, website mutation or new toolkit tag is authorised by this investigation.
 
+## WHPS-COMPAT-008 · Wix-managed Astro 7 test-site validation
+
+**Stage:** Site-local validation protocol and fail-closed **offline evidence evaluator** in review, **not part of v0.3.0**. [Execution plan](30-WIX-ASTRO7-SITE-VALIDATION.md) requires an independent owner-authorised disposable Wix test-site repository. The 13 preflight checks cover actual binding, managed build/preview, visitor/member sessions, permission failures, read-only CMS and installed app APIs, React hydration, Tailwind, accessibility and reserved routes. Three extra checks require **separate approval to publish the test site** to examine real Wix-generated SEO and release/extension behaviour. Wix docs state preview does not register all extensions and local dev does not test injected SEO. **No live test site was provisioned, no Wix permissions or SDK flow verified, and no Wix release authorised.** Keep stable Astro 5 until that external evidence exists.
+
 ## Constraints and known limits
 
 - No real Wix identifiers, site archives, content or deployments in the toolkit.

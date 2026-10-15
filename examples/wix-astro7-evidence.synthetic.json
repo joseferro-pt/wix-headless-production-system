@@ -1,0 +1,103 @@
+{
+  "recordVersion": 1,
+  "phase": "preflight",
+  "environment": "dedicated-disposable-wix-test-site",
+  "siteCommit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "versions": {
+    "astro": "7.3.8",
+    "astroReact": "7.0.1",
+    "react": "19.3.0",
+    "tailwind": "4.3.3",
+    "node": "22.23.3"
+  },
+  "previewAuthorization": {
+    "status": "pending",
+    "reference": "synthetic:waiting-for-separate-site-owner-preview-approval"
+  },
+  "publishAuthorization": {
+    "status": "pending",
+    "reference": "synthetic:publication-is-not-authorized"
+  },
+  "checks": [
+    {
+      "id": "source-lock",
+      "status": "not-run",
+      "reference": "synthetic:no-real-wix-project-or-site-evidence"
+    },
+    {
+      "id": "wix-project-binding",
+      "status": "not-run",
+      "reference": "synthetic:no-real-wix-project-or-site-evidence"
+    },
+    {
+      "id": "wix-build",
+      "status": "not-run",
+      "reference": "synthetic:no-real-wix-project-or-site-evidence"
+    },
+    {
+      "id": "wix-preview",
+      "status": "not-run",
+      "reference": "synthetic:no-real-wix-project-or-site-evidence"
+    },
+    {
+      "id": "visitor-auth",
+      "status": "not-run",
+      "reference": "synthetic:no-real-wix-project-or-site-evidence"
+    },
+    {
+      "id": "member-auth",
+      "status": "not-run",
+      "reference": "synthetic:no-real-wix-project-or-site-evidence"
+    },
+    {
+      "id": "permission-denial",
+      "status": "not-run",
+      "reference": "synthetic:no-real-wix-project-or-site-evidence"
+    },
+    {
+      "id": "cms-read",
+      "status": "not-run",
+      "reference": "synthetic:no-real-wix-project-or-site-evidence"
+    },
+    {
+      "id": "business-app-read",
+      "status": "not-run",
+      "reference": "synthetic:no-real-wix-project-or-site-evidence"
+    },
+    {
+      "id": "react-hydration",
+      "status": "not-run",
+      "reference": "synthetic:no-real-wix-project-or-site-evidence"
+    },
+    {
+      "id": "tailwind-styling",
+      "status": "not-run",
+      "reference": "synthetic:no-real-wix-project-or-site-evidence"
+    },
+    {
+      "id": "accessibility",
+      "status": "not-run",
+      "reference": "synthetic:no-real-wix-project-or-site-evidence"
+    },
+    {
+      "id": "reserved-routes",
+      "status": "not-run",
+      "reference": "synthetic:no-real-wix-project-or-site-evidence"
+    },
+    {
+      "id": "seo-main",
+      "status": "not-run",
+      "reference": "synthetic:no-real-wix-project-or-site-evidence"
+    },
+    {
+      "id": "seo-item",
+      "status": "not-run",
+      "reference": "synthetic:no-real-wix-project-or-site-evidence"
+    },
+    {
+      "id": "wix-release",
+      "status": "not-run",
+      "reference": "synthetic:no-real-wix-project-or-site-evidence"
+    }
+  ]
+}
