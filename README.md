@@ -77,9 +77,9 @@ The [WHPS-005 quality contract](docs/23-WHPS005-QUALITY-VERIFICATION.md) adds a 
 
 WHPS v0.3.0 includes WHPS-005 and WHPS-006 with the tested Astro 5 baseline and **excludes** the unvalidated Astro 7 [Dependabot PR #23](https://github.com/joseferro-pt/wix-headless-production-system/pull/23). See the [post-release verification record](docs/27-V030-PUBLICATION-AND-CATALOG.md). This reconciliation does not alter the immutable published tag or any Wix-managed website.
 
-## WHPS-007 · Sustainable maintenance and compatibility (development, unreleased)
+## WHPS-007 · Sustainable maintenance and compatibility (merged; unreleased)
 
-[WHPS-007 operating rules](docs/28-WHPS007-MAINTENANCE-SECURITY-COMPATIBILITY.md) introduce weekly Dependabot coverage for the Astro npm workspace alongside Python/Actions, an offline reviewed-major/lockfile provenance check, and maintenance/security/upgrade decision procedures. The guard is **not** a vulnerability scan or Wix site runtime test. The separately published v0.3.0 source remains unchanged. Current standalone baseline: Astro 5, React 19, Tailwind 4 and Node 22; major updates including Dependabot PR #23 need a distinct compatibility review.
+[WHPS-007 operating rules](docs/28-WHPS007-MAINTENANCE-SECURITY-COMPATIBILITY.md) (implemented in [PR #28](https://github.com/joseferro-pt/wix-headless-production-system/pull/28), merged to main) introduce weekly Dependabot coverage for the Astro npm workspace alongside Python/Actions, an offline reviewed-major/lockfile provenance check, and maintenance/security/upgrade decision procedures. The guard is **not** a vulnerability scan or Wix site runtime test. The separately published v0.3.0 source remains unchanged. Current standalone baseline: Astro 5, React 19, Tailwind 4 and Node 22; major updates including Dependabot PR #23 need a distinct compatibility review.
 
 ## Validate this toolkit
 

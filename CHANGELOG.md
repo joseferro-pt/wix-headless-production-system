@@ -4,7 +4,7 @@ This file records **toolkit development**, not website deployments. Entries unde
 
 ## Unreleased
 
-### WHPS-007 · Maintenance, security and compatibility (development; unreleased)
+### WHPS-007 · Maintenance, security and compatibility (merged PR #28; unreleased)
 
 - Monitor standalone Astro npm package manifests with weekly Dependabot in addition to Python and GitHub Actions; group non-major updates but keep majors separate for compatibility review.
 - Enforce an offline, read-only reference policy check covering locked direct dependency versions, approved Astro/React/Tailwind major lines, npm registry provenance and lock integrity fields. This check is **not** a security advisory scan or a live Wix test.
