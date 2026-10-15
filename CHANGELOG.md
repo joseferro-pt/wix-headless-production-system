@@ -4,19 +4,25 @@ This file records **toolkit development**, not website deployments. Entries unde
 
 ## Unreleased
 
-### WHPS-006 · Versioned distribution and per-site adoption (merged via PR #24; unreleased)
+No development work is included beyond the proposed v0.3.0 release candidate. WHPS-007 remains a separate future work packet.
+
+## v0.3.0 — Candidate (not published)
+
+**Proposed minor release:** WHPS-005 reproducible quality verification + WHPS-006 source-pinned distribution/site adoption. [Candidate notes](docs/releases/v0.3.0.md) and [separate approval plan](docs/26-V030-RELEASE-PLAN.md). A reviewed PR, offline preflight or green CI does **not** create a public release. Latest published toolkit remains v0.2.1.
+
+### WHPS-006 · Versioned distribution and per-site adoption (merged PR #24; proposed v0.3.0)
 
 - Add a pinned catalog of **actually published** toolkit releases, a read-only live GitHub tag/Release verifier, and a deterministic offline site-adoption/upgrade planner.
 - Add independent, schema-validated site adoption records without rewriting the WHPS-002 generating-source `whps.lock.json` v2; detect unsupported versions, component loss and downgrades.
 - Define a site-owner controlled migration, rollback, Wix integration and release-evidence protocol. No copying source to sites, Wix calls, site deployments, package registry or new toolkit publication is performed by this milestone.
 
 
-### WHPS-005 · Quality and verification (merged via PR #20; unreleased)
+### WHPS-005 · Quality and verification (merged PR #20; proposed v0.3.0)
 
 - Add a committed npm lockfile for the Astro 5/React 19/Tailwind 4 synthetic frontend with `npm ci`, `astro check`, browser Playwright/Chromium tests and axe-core automated accessibility scanning.
 - Introduce a read-only operator-reported site QA evidence report contract (JSON Schema, evaluator, negative tests and synthetic example); it cannot verify a real Wix site or authorise release.
 - Add Wix-aware site-local testing and evidence recipes, retaining app/SDK/auth/SEO/production testing inside independent website repositories.
-- This is **not** included in the already published v0.2.1 source. WHPS-006 is a separate newer development packet.
+- WHPS-005 and WHPS-006 are merged after v0.2.1; both are included in this proposed v0.3.0 source candidate. Publication requires separate owner approval.
 
 ## v0.2.1 — Published 2026-10-13
 

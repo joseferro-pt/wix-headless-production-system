@@ -60,8 +60,17 @@ test('v0.2.0 offline release candidate has licence, changelog and versioned note
   assert.deepEqual(await checkReadiness(root,{release:true,version:'v0.2.0'}),[]);
 });
 test('future tag with no approved release notes cannot pass readiness',async()=>{
-  const errors=await checkReadiness(root,{release:true,version:'v0.3.0'});
+  const errors=await checkReadiness(root,{release:true,version:'v0.3.1'});
   assert.ok(errors.some(x=>/Version-specific release notes/.test(x)));
+});
+
+test('v0.3.0 candidate notes and accepted release prerequisites pass offline policy only',async()=>{
+  assert.deepEqual(await checkReadiness(root,{release:true,version:'v0.3.0'}),[]);
+  const notes=await readFile(join(root,'docs/releases/v0.3.0.md'),'utf8');
+  assert.match(notes,/WHPS-005/);
+  assert.match(notes,/WHPS-006/);
+  assert.match(notes,/not attest that a tag or GitHub Release exists/);
+  assert.match(notes,/approval to publish/i);
 });
 
 test('v0.2.1 patch candidate has explicit notes and accepted release prerequisites',async()=>{

@@ -43,6 +43,10 @@ python3 -m unittest discover -s tests -p 'test_*.py' -v
 
 `node scripts/check-release-readiness.mjs --release --version v0.1.0` performs additional **offline prerequisites**. It must **fail closed** if an accepted licence or matching release-specific changelog is missing. A passing local check never proves CI status, a human decision, platform compatibility, tag integrity or a published release. These require separate recorded evidence.
 
+## v0.3.0 candidate and separate approval
+
+The [v0.3.0 release plan](26-V030-RELEASE-PLAN.md) proposes the already merged WHPS-005 and WHPS-006 packets for a minor release, with unchanged manifest and bootstrap schema versions. The preparation and merge of release notes **cannot satisfy G4 owner publication approval**; that gate must be recorded after the exact final main SHA and successful main push checks are independently verified. The existing generic publisher requires an explicit `PUBLISH-v0.3.0` input from an authorised operator. The historical release catalog must not list v0.3.0 as published before its GitHub release is verified.
+
 ## Version-agnostic manual publisher
 
 From R06 onward, the [manual release workflow](../.github/workflows/publish-release.yml) is the established publication mechanism, successfully exercised for v0.2.0 and v0.2.1. It accepts approved SemVer, full source SHA and exact typed `PUBLISH-vX.Y.Z` authorisation. It requires the candidate be the current `main` commit with successful exact-SHA validation and CodeQL push runs, checks version-specific release notes, reruns offline contracts and synthetic site bootstrap/planner smoke tests, and creates or verifies an immutable annotated tag and public GitHub Release. A skipped job, merged PR, or green CI run **is not publication**.

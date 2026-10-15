@@ -1,6 +1,7 @@
 # Wix Headless Website Production System (WHPS)
 
 **Status:** [v0.2.1 published and verified 13 October 2026](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.1), approved release source `877736282def3631a3fad5d368e3098aadac040f`; WHPS-R06.1 and WHPS-004 are released. WHPS-004 is closed at the **synthetic toolkit-reference** level, not as a live Wix integration.  
+**v0.3.0:** WHPS-005 and WHPS-006 release candidate prepared for an **independent owner publication decision**, not yet published. See [release notes](docs/releases/v0.3.0.md) and [separate approval gates](docs/26-V030-RELEASE-PLAN.md). The immutable v0.2.1 release remains the latest public version.  
 **Manifest schema version:** `0.1.0`.  
 **Scope:** A reusable toolkit and operating framework for Wix Headless website delivery. **Not** a website repository or a multi-client workspace.
 
@@ -52,7 +53,7 @@ It supports `wix-handoff` and `unbound-frontend` only. For `existing-repository`
 
 
 
-## WHPS-006 · Versioned distribution and site adoption (merged via PR #24; unreleased)
+## WHPS-006 · Versioned distribution and site adoption (merged; proposed for v0.3.0)
 
 The [versioned adoption contract](docs/25-WHPS006-DISTRIBUTION-ADOPTION.md) introduces a verified historical release catalog, a **read-only public GitHub tag/Release verifier**, a **non-mutating offline adoption planner**, and a separate **site-owned adoption record** (version 1). `whps.lock.json` version 2 remains the original bootstrap provenance, never overwritten by WHPS-006. Upgrades, component selection and every Wix change remain separately reviewed within each website's repository. The WHPS-006 implementation [merged via PR #24](https://github.com/joseferro-pt/wix-headless-production-system/pull/24) and is **not** in the published v0.2.1 tag. The latest published toolkit remains v0.2.1 until a separate approved release.
 
@@ -68,9 +69,13 @@ WHPS-003 is not part of published v0.1.0; published v0.2.0 additionally rejects 
 
 The [R06 release plan](docs/18-R06-RELEASE-PLAN.md) now records verified [v0.2.0 publication](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.0). [R06.1 provenance hardening](docs/19-R061-PROVENANCE-AND-RELEASE.md) shipped in the verified [`v0.2.1` release](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.1), together with WHPS-004. Publication remains a **separate owner action**: review the final merged SHA, verify main-branch CI and CodeQL, then manually run the [generic publisher](.github/workflows/publish-release.yml). Never re-point v0.2.0.
 
-## WHPS-005 · Quality and verification (merged via PR #20; not released)
+## WHPS-005 · Quality and verification (merged; proposed for v0.3.0)
 
 The [WHPS-005 quality contract](docs/23-WHPS005-QUALITY-VERIFICATION.md) adds a committed npm lockfile and `npm ci`, Astro TypeScript diagnostics, synthetic Chromium/Playwright UI and axe-core accessibility tests, plus an offline `scripts/evaluate-site-qa.mjs` operator-evidence validator. The [site-local verification recipes](docs/24-SITE-LOCAL-VERIFICATION.md) help independent website maintainers record actual Wix SDK/app, accessibility, responsive, SEO and approval checks. **Tooling checks do not prove any live Wix site works or grant deployment authority.** These changes [merged through PR #20](https://github.com/joseferro-pt/wix-headless-production-system/pull/20) into main commit `5b1989a4579a115d36a4301ff0f9f0c3313b3e22` and are **not** part of the immutable published v0.2.1 tag.
+
+## Candidate release review
+
+WHPS v0.3.0 includes WHPS-005 and WHPS-006 with the tested Astro 5 baseline and **excludes** the unvalidated Astro 7 [Dependabot PR #23](https://github.com/joseferro-pt/wix-headless-production-system/pull/23). The [release preparation plan](docs/26-V030-RELEASE-PLAN.md) documents CI, migration boundaries, the historical release-catalog freshness caveat, and the separate owner go/no-go gate. Preparing the candidate is **not permission to publish it**.
 
 ## Validate this toolkit
 
@@ -84,7 +89,7 @@ node --test tests/*.test.mjs
 python3 -m unittest discover -s tests -p 'test_*.py' -v
 ```
 
-The tests use synthetic inputs and do not access Wix. The `--policy` gate checks release-governance wiring; `--release --version v0.1.0` additionally checks accepted licensing and changelog prerequisites. Passing does not itself prove a GitHub Release. A passing system CI run **does not** verify an individual website or a deployment. See [verification and security](docs/08-VERIFICATION-SECURITY.md).
+The tests use synthetic inputs and do not access Wix. The `--policy` gate checks release-governance wiring; `--release --version v0.3.0` additionally checks accepted licensing and the new candidate notes/changelog prerequisites. Passing does not itself prove a GitHub Release. A passing system CI run **does not** verify an individual website or a deployment. See [verification and security](docs/08-VERIFICATION-SECURITY.md).
 
 ## Documentation
 
