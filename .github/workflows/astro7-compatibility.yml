@@ -1,0 +1,23 @@
+# Only a disposable synthetic Astro 7 trial, with no Wix project, secrets or release.
+name: Astro 7 synthetic compatibility probe
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/astro7-compatibility.yml'
+      - 'scripts/probe-astro7-synthetic.sh'
+      - 'docs/29-ASTRO7-COMPATIBILITY-REVIEW.md'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  astro7-probe:
+    name: Astro 7 synthetic probe (NOT Wix)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+      - name: Test Astro 7 React 7 Tailwind 4 in isolated throwaway checkout
+        run: bash scripts/probe-astro7-synthetic.sh
