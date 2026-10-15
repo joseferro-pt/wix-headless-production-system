@@ -4,25 +4,28 @@ This file records **toolkit development**, not website deployments. Entries unde
 
 ## Unreleased
 
-No development work is included beyond the proposed v0.3.0 release candidate. WHPS-007 remains a separate future work packet.
+### Post-v0.3.0 · Historical catalog and publication reconciliation (unreleased)
 
-## v0.3.0 — Candidate (not published)
+- Add the **independently verified** v0.3.0 annotated tag/source/publication evidence to the v1 historical distribution catalog, so the `main`-checkout adoption planner can target v0.3.0.
+- Reconcile README, Control Room, roadmap, support, adoption guidance and offline catalog regression tests. These changes are **newer than the immutable published v0.3.0 tag**, whose original catalog still ends at v0.2.1. WHPS-007 remains planned.
 
-**Proposed minor release:** WHPS-005 reproducible quality verification + WHPS-006 source-pinned distribution/site adoption. [Candidate notes](docs/releases/v0.3.0.md) and [separate approval plan](docs/26-V030-RELEASE-PLAN.md). A reviewed PR, offline preflight or green CI does **not** create a public release. Latest published toolkit remains v0.2.1.
+## v0.3.0 — Published 2026-10-15
 
-### WHPS-006 · Versioned distribution and per-site adoption (merged PR #24; proposed v0.3.0)
+**Verified publication:** [public GitHub Release](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.3.0), annotated tag `7f6712db3d484e42e48a888047018be7dc1da1b6` resolving to source `bb4d0adcd9021b5cd671e13fed46d5498fac4399`, [successful manual publication](https://github.com/joseferro-pt/wix-headless-production-system/actions/runs/38733962956) and exact-source [validation](https://github.com/joseferro-pt/wix-headless-production-system/actions/runs/38732747755) / [CodeQL](https://github.com/joseferro-pt/wix-headless-production-system/actions/runs/38732747746). Includes WHPS-005 and WHPS-006. The published source and historical candidate notes are immutable; see [post-release evidence](docs/27-V030-PUBLICATION-AND-CATALOG.md).
+
+### WHPS-006 · Versioned distribution and per-site adoption (published v0.3.0)
 
 - Add a pinned catalog of **actually published** toolkit releases, a read-only live GitHub tag/Release verifier, and a deterministic offline site-adoption/upgrade planner.
 - Add independent, schema-validated site adoption records without rewriting the WHPS-002 generating-source `whps.lock.json` v2; detect unsupported versions, component loss and downgrades.
 - Define a site-owner controlled migration, rollback, Wix integration and release-evidence protocol. No copying source to sites, Wix calls, site deployments, package registry or new toolkit publication is performed by this milestone.
 
 
-### WHPS-005 · Quality and verification (merged PR #20; proposed v0.3.0)
+### WHPS-005 · Quality and verification (published v0.3.0)
 
 - Add a committed npm lockfile for the Astro 5/React 19/Tailwind 4 synthetic frontend with `npm ci`, `astro check`, browser Playwright/Chromium tests and axe-core automated accessibility scanning.
 - Introduce a read-only operator-reported site QA evidence report contract (JSON Schema, evaluator, negative tests and synthetic example); it cannot verify a real Wix site or authorise release.
 - Add Wix-aware site-local testing and evidence recipes, retaining app/SDK/auth/SEO/production testing inside independent website repositories.
-- WHPS-005 and WHPS-006 are merged after v0.2.1; both are included in this proposed v0.3.0 source candidate. Publication requires separate owner approval.
+- WHPS-005 and WHPS-006 are included in the independently verified v0.3.0 release; they remain absent from the immutable v0.2.1 source.
 
 ## v0.2.1 — Published 2026-10-13
 
