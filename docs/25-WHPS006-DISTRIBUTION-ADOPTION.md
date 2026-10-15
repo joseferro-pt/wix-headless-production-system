@@ -1,6 +1,6 @@
 # 25 — WHPS-006 · Versioned distribution, site adoption and migration
 
-**Status:** Merged via [PR #24](https://github.com/joseferro-pt/wix-headless-production-system/pull/24), source `1c43f240b3d8efe3c114c30d0a77116a329256ae`; **included in proposed v0.3.0 candidate, not yet released**. The latest independently verified public distribution is [v0.2.1](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.1). WHPS-005 and WHPS-006 exist only on newer source commits until a separately approved release is published.
+**Status:** Merged via [PR #24](https://github.com/joseferro-pt/wix-headless-production-system/pull/24), source `1c43f240b3d8efe3c114c30d0a77116a329256ae`; **published in verified [v0.3.0](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.3.0)**, source `bb4d0adcd9021b5cd671e13fed46d5498fac4399` (original PR #24). WHPS-005 and WHPS-006 shipped together. [Post-release evidence](27-V030-PUBLICATION-AND-CATALOG.md) records the independently checked tag, exact source and historical catalog update.
 
 ## Decision: pin releases, do not publish a hidden package or rewrite websites
 
@@ -15,23 +15,23 @@ Use a trusted WHPS checkout; never execute this from an unreviewed third-party p
 
 ~~~sh
 node scripts/verify-toolkit-release.mjs \
-  --tag v0.2.1 \
-  --sha 877736282def3631a3fad5d368e3098aadac040f \
+  --tag v0.3.0 \
+  --sha bb4d0adcd9021b5cd671e13fed46d5498fac4399 \
   --json
 ~~~
 
 The CLI fails closed if GitHub is unreachable, the tag moved, the annotated ref/commit differ or the Release is not public. The returned \`source: live-read-only-github-api\` records **GitHub publication identity only**. It does not verify a website, package integrity, signatures, GitHub workflow state or the trustworthiness of the computer running it. Independently review repository ownership, approval and the published release description.
 
-[distribution/release-catalog.json](../distribution/release-catalog.json) is a **reviewed historical snapshot**, not a real-time source of truth. New versions enter the catalog only after separately verified release publication and a reviewed change. WHPS v0.2.1 contains \`governance\`, \`validation\`, \`bootstrap-cli\`, \`resource-planner\` and \`astro-reference\`; WHPS-005 \`site-qa\` is not a published component of v0.2.1.
+[distribution/release-catalog.json](../distribution/release-catalog.json) is a **reviewed historical snapshot**, not a real-time source of truth. New versions enter the catalog only after separately verified release publication and a reviewed change. WHPS v0.2.1 contains \`governance\`, \`validation\`, \`bootstrap-cli\`, \`resource-planner\` and \`astro-reference\`; WHPS v0.3.0 adds \`site-qa\`. The **immutable v0.3.0 tagged source retains the pre-publication historical catalog only through v0.2.1**; the separately reviewed post-release \`main\` catalog now includes the verified v0.3.0 entry. The public GitHub API remains the live authority.
 
 For independently examining the tagged tree in a **separate local toolkit directory**, not in a Wix site checkout, use an isolated Git clone, then check both the current commit and the tag's dereference:
 
 ~~~sh
 git clone https://github.com/joseferro-pt/wix-headless-production-system.git /tmp/whps-release-audit
 git -C /tmp/whps-release-audit fetch --tags
-git -C /tmp/whps-release-audit cat-file -t refs/tags/v0.2.1
-git -C /tmp/whps-release-audit rev-parse 'refs/tags/v0.2.1^{commit}'
-git -C /tmp/whps-release-audit checkout --detach 877736282def3631a3fad5d368e3098aadac040f
+git -C /tmp/whps-release-audit cat-file -t refs/tags/v0.3.0
+git -C /tmp/whps-release-audit rev-parse 'refs/tags/v0.3.0^{commit}'
+git -C /tmp/whps-release-audit checkout --detach bb4d0adcd9021b5cd671e13fed46d5498fac4399
 ~~~
 
 Confirm \`cat-file -t\` returned \`tag\` and \`rev-parse\` returned the exact SHA above. A Git tag and matching checkout alone do not establish a public Release; also run the read-only GitHub verifier. **Never** use floating \`main\` for production site adoption, and do not apply \`git pull\` from WHPS to a Wix site repository.
@@ -75,8 +75,8 @@ Official Wix-managed Astro linking instructions currently permit **Astro 5 or As
 
 ## WHPS-006 acceptance and what remains unproved
 
-- Historical catalog exact SHAs and tag objects independently matched the three existing GitHub Releases.
+- Historical catalog exact SHAs and tag objects independently matched the four existing GitHub Releases (v0.1.0, v0.2.0, v0.2.1, v0.3.0).
 - Live verifier unit tests reject lightweight/mismatched tags, draft/prerelease/noncanonical Releases and unverified network errors using injected synthetic GitHub responses. No GitHub credentials are used in CI.
 - Adoption planner and JSON Schemas have negative tests for floating refs, wrong sources, missing/unpublished components, implicit removal/downgrades and site report state.
 - CI must pass at the **exact WHPS-006 PR head and subsequent main merge**. Site source files, Wix state and real-world adoption remain untested until done in a separate website repository.
-- Merging WHPS-006 does **not** publish a new toolkit version, distribute \`site-qa\`, approve a site upgrade or close the separate release-governance gate. A future **v0.3.0** is a reasonable candidate, but requires its own approved notes, exact-main checks and manual publication.
+- WHPS-006 and \`site-qa\` were subsequently published in **v0.3.0** after independent approval and exact-main checks. Publication did **not** approve a site upgrade or change a Wix site. The post-release \`main\` catalog update is not part of the immutable released tree.

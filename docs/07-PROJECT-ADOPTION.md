@@ -2,10 +2,10 @@
 
 WHPS is a **toolkit**, not the parent Git repository for websites. Each website checkout is independently owned and deployable. See [system boundaries](06-SYSTEM-BOUNDARIES.md) and [the operating model](01-OPERATING-MODEL.md).
 
-## Current manual adoption: published toolkit v0.2.1 (WHPS-006 additions remain unreleased)
+## Current manual adoption: published toolkit v0.3.0
 
 1. Create or locate a **separate site repository**. Do not nest it within WHPS or add it as a submodule.
-2. Pin the published [`v0.2.1` toolkit release](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.1) and its exact source commit `877736282def3631a3fad5d368e3098aadac040f`; verify `git rev-parse 'v0.2.1^{commit}'` resolves to that SHA and confirm the public GitHub Release separately. Earlier v0.2.0/v0.1.0 releases remain immutable. Never depend on a floating `main` branch. Apache-2.0 applies to WHPS, not the site's own content.
+2. Pin the published [`v0.3.0` toolkit release](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.3.0) and its exact source commit `bb4d0adcd9021b5cd671e13fed46d5498fac4399`; verify `git rev-parse 'v0.3.0^{commit}'` resolves to that SHA and confirm the public GitHub Release separately. The original v0.2.1, v0.2.0 and v0.1.0 releases remain immutable. Never depend on a floating `main` branch. Apache-2.0 applies to WHPS, not the site's own content.
 3. Preserve the original Wix handoff inside the website repository if provided. From published v0.2.0, `scripts/bootstrap-site-workspace.mjs` can initialise a **new local Git repository** outside WHPS, preserve a handoff and create a manifest. It does not download an existing Wix project or create a GitHub remote.
 4. Check the actual downloaded Wix project before altering framework or running `init`; do not duplicate an existing binding.
 5. Copy and adapt `blueprints/site/AGENTS.md` and `blueprints/site/docs/CONTROL-ROOM.md`; keep the site business brief, Wix resources and release evidence **in the site repo**.
@@ -18,9 +18,9 @@ Published v0.2.0 includes `scripts/bootstrap-site-workspace.mjs`. The generator 
 
 An existing repository must not be used as the output destination. Continue the manual protocol above to inspect and adopt tooling without overwriting source or Wix configuration.
 
-## WHPS-006: source-pinned, non-mutating adoption planning (merged; unreleased)
+## WHPS-006: source-pinned, non-mutating adoption planning (published v0.3.0)
 
-[WHPS-006](25-WHPS006-DISTRIBUTION-ADOPTION.md) adds a historical catalog, **read-only** GitHub publication verifier, offline upgrade planner and separate website-owned `whps.adoption.json` v1. This is newer **merged but unreleased code** (PR #24), not available inside the published v0.2.1 checkout. The original `whps.lock.json` v2 permanently preserves producing-source provenance, even after site-local toolkit adaptations. Toolkit changes never fan out to sites or alter Wix-generated files automatically. Version or component drops require an explicitly reviewed migration. WHPS-002 was published in v0.2.0, not v0.1.0.
+[WHPS-006](25-WHPS006-DISTRIBUTION-ADOPTION.md) adds a historical catalog, **read-only** GitHub publication verifier, offline upgrade planner and separate website-owned `whps.adoption.json` v1. The tools were **published in v0.3.0** after PR #24. The post-release `main` catalog now includes the independently verified v0.3.0 entry, but the **immutable v0.3.0 tagged source still contains the historical catalog through v0.2.1 only**. Use a separately reviewed post-release toolkit checkout for offline v0.3.0 adoption planning; verify release identity on GitHub independently. See [publication and catalog reconciliation](27-V030-PUBLICATION-AND-CATALOG.md). The original `whps.lock.json` v2 permanently preserves producing-source provenance, even after site-local toolkit adaptations. Toolkit changes never fan out to sites or alter Wix-generated files automatically. Version or component drops require an explicitly reviewed migration. WHPS-002 was published in v0.2.0, not v0.1.0.
 
 ## Site-local resource reconciliation
 

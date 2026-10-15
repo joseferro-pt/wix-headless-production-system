@@ -2,7 +2,7 @@
 
 ## Purpose and scope
 
-This policy concerns versioned **WHPS toolkit distributions**, never Wix website deployments. The earlier [`v0.1.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.1.0) and [`v0.2.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.0) releases remain immutable; current [`v0.2.1`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.2.1) was published and verified on 13 October 2026 against `877736282def3631a3fad5d368e3098aadac040f`. See [publication and WHPS-004 acceptance](22-WHPS004-CLOSURE-AND-V021-PUBLICATION.md). A merged commit, manifest schema version or green CI workflow alone **is not** a GitHub Release; future publications still require all acceptance gates.
+This policy concerns versioned **WHPS toolkit distributions**, never Wix website deployments. Earlier `v0.1.0`, `v0.2.0` and `v0.2.1` releases remain immutable; current [`v0.3.0`](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.3.0) was published and verified on 15 October 2026 against `bb4d0adcd9021b5cd671e13fed46d5498fac4399`. See [publication and catalog verification](27-V030-PUBLICATION-AND-CATALOG.md). A merged commit, manifest schema version or green CI workflow alone **is not** a GitHub Release; future publications still require all acceptance gates.
 
 ## Independent version numbers
 
@@ -15,7 +15,7 @@ Use [Semantic Versioning](https://semver.org/) as the proposed baseline. Prior t
 
 ## Site adoption is separate from toolkit distribution
 
-From WHPS-006 onward, the [distribution/adoption contract](25-WHPS006-DISTRIBUTION-ADOPTION.md) records exact annotated tag, source SHA and public Release evidence, then leaves adaptation and approval to an **independent** website repository. Catalogued historical releases do not prove current tag integrity: perform a fresh GitHub verification. The site maintains its own `whps.adoption.json` **alongside**, not in place of, the initial v2 `whps.lock.json`. WHPS-006 is unreleased until a new toolkit release is approved and published; its planner does not authorise Wix work or site deployment.
+From WHPS-006 onward, the [distribution/adoption contract](25-WHPS006-DISTRIBUTION-ADOPTION.md) records exact annotated tag, source SHA and public Release evidence, then leaves adaptation and approval to an **independent** website repository. Catalogued historical releases do not prove current tag integrity: perform a fresh GitHub verification. The site maintains its own `whps.adoption.json` **alongside**, not in place of, the initial v2 `whps.lock.json`. WHPS-006 was published in v0.3.0; its offline planner does not authorise Wix work or site deployment, and its historical catalog requires independent release verification.
 
 ## Release lifecycle and evidence
 
@@ -43,13 +43,13 @@ python3 -m unittest discover -s tests -p 'test_*.py' -v
 
 `node scripts/check-release-readiness.mjs --release --version v0.1.0` performs additional **offline prerequisites**. It must **fail closed** if an accepted licence or matching release-specific changelog is missing. A passing local check never proves CI status, a human decision, platform compatibility, tag integrity or a published release. These require separate recorded evidence.
 
-## v0.3.0 candidate and separate approval
+## v0.3.0 published after separate approval
 
-The [v0.3.0 release plan](26-V030-RELEASE-PLAN.md) proposes the already merged WHPS-005 and WHPS-006 packets for a minor release, with unchanged manifest and bootstrap schema versions. The preparation and merge of release notes **cannot satisfy G4 owner publication approval**; that gate must be recorded after the exact final main SHA and successful main push checks are independently verified. The existing generic publisher requires an explicit `PUBLISH-v0.3.0` input from an authorised operator. The historical release catalog must not list v0.3.0 as published before its GitHub release is verified.
+The [historical v0.3.0 preparation plan](26-V030-RELEASE-PLAN.md) required a separate owner decision after reviewed source and successful exact-main checks. The [successful owner-dispatched publication workflow](https://github.com/joseferro-pt/wix-headless-production-system/actions/runs/38733962956), verified annotated tag and [public GitHub Release](https://github.com/joseferro-pt/wix-headless-production-system/releases/tag/v0.3.0) establish that v0.3.0 was published; the [post-release evidence](27-V030-PUBLICATION-AND-CATALOG.md) records the exact commit. The historical distribution catalog was updated **only after** publication; this does not mutate the release tag.
 
 ## Version-agnostic manual publisher
 
-From R06 onward, the [manual release workflow](../.github/workflows/publish-release.yml) is the established publication mechanism, successfully exercised for v0.2.0 and v0.2.1. It accepts approved SemVer, full source SHA and exact typed `PUBLISH-vX.Y.Z` authorisation. It requires the candidate be the current `main` commit with successful exact-SHA validation and CodeQL push runs, checks version-specific release notes, reruns offline contracts and synthetic site bootstrap/planner smoke tests, and creates or verifies an immutable annotated tag and public GitHub Release. A skipped job, merged PR, or green CI run **is not publication**.
+From R06 onward, the [manual release workflow](../.github/workflows/publish-release.yml) is the established publication mechanism, successfully exercised for v0.2.0, v0.2.1 and v0.3.0. It accepts approved SemVer, full source SHA and exact typed `PUBLISH-vX.Y.Z` authorisation. It requires the candidate be the current `main` commit with successful exact-SHA validation and CodeQL push runs, checks version-specific release notes, reruns offline contracts and synthetic site bootstrap/planner smoke tests, and creates or verifies an immutable annotated tag and public GitHub Release. A skipped job, merged PR, or green CI run **is not publication**.
 
 The historic [v0.1.0 recovery workflow](../.github/workflows/publish-v0.1.0.yml) must not be repurposed for future releases. Follow the [R06 acceptance plan](18-R06-RELEASE-PLAN.md). No tag or live Wix site is modified by this documentation.
 

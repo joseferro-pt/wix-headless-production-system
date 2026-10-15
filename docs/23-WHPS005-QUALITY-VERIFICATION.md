@@ -1,6 +1,6 @@
 # 23 — WHPS-005 · Quality assurance and verification
 
-**Status:** Implementation merged via [PR #20](https://github.com/joseferro-pt/wix-headless-production-system/pull/20), source `5b1989a4579a115d36a4301ff0f9f0c3313b3e22` on main; **included in the proposed v0.3.0 candidate, not yet published**. WHPS v0.2.1 remains the latest immutable published version. **Scope:** Generic, offline system-toolkit checks and guidance, plus synthetic Astro browser QA. No real Wix site access, account verification, SDK invocation or deployment.
+**Status:** Implementation merged via [PR #20](https://github.com/joseferro-pt/wix-headless-production-system/pull/20), source `5b1989a4579a115d36a4301ff0f9f0c3313b3e22` on main; **published in verified v0.3.0 on 15 October 2026**, approved source `bb4d0adcd9021b5cd671e13fed46d5498fac4399`. WHPS v0.2.1 remains immutable. **Scope:** Generic, offline system-toolkit checks and guidance, plus synthetic Astro browser QA. No real Wix site access, account verification, SDK invocation or deployment.
 
 ## Purpose
 
@@ -61,6 +61,6 @@ Report states: `blocked`, `incomplete`, `awaiting-owner-approval`, `recorded-app
 - Official Wix linking documentation reviewed 13 October 2026 permits Astro 5 or 7 but not 6. WHPS-005 tests **Astro 5 only** with its current React/Tailwind dependency graph.
 - Automated axe rules do not fully establish WCAG compliance, visual quality, assistive technology support or user satisfaction.
 - The site-level report is a structured **claim**; the CLI cannot independently prove evidence links, site owner authority, Wix identity or deployment.
-- WHPS-006 implements read-only versioned distribution verification and offline per-site adoption planning on main (merged PR #24), but remains **unreleased**. It does not automatically upgrade a site, validate Wix-managed compatibility or make a release. A new release is not automatic on merging WHPS-005.
+- WHPS-006 implements read-only versioned distribution verification and offline per-site adoption planning (merged PR #24), and was also **published in v0.3.0**. It does not automatically upgrade a site, validate Wix-managed compatibility or make a release. A new release is not automatic on merging WHPS-005.
 
 Related: [WHPS-004 closure](22-WHPS004-CLOSURE-AND-V021-PUBLICATION.md), [site verification](24-SITE-LOCAL-VERIFICATION.md), [toolkit boundaries](06-SYSTEM-BOUNDARIES.md), [Wix matrix](20-ASTRO-WIX-COMPATIBILITY.md).

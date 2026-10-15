@@ -1,6 +1,6 @@
 # 26 — WHPS v0.3.0 · Release Preparation and Separate Owner Approval
 
-**Stage:** Candidate preparation; **publication approval: not granted by preparation**.  
+**Stage:** **Historical candidate-stage decision record**, preserved for audit. Publication was independently verified later on 15 October 2026; see [post-release evidence](27-V030-PUBLICATION-AND-CATALOG.md). The gate states below describe the original pre-publication position, not current GitHub status.  
 **Version:** `v0.3.0`, proposed next minor release after verified `v0.2.1`.  
 **Scope:** WHPS-005 ([PR #20](https://github.com/joseferro-pt/wix-headless-production-system/pull/20)) and WHPS-006 ([PR #24](https://github.com/joseferro-pt/wix-headless-production-system/pull/24)), plus the reviewed release-specific documentation and automated checks.  
 **Versioned code:** existing source in `main` plus release-preparation PR. No unpublished dependency change, unrelated maintenance packet, website repo or Wix infrastructure belongs in this candidate.
