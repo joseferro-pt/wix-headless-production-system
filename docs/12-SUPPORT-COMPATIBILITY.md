@@ -25,6 +25,10 @@ Published v0.3.0 retains the locked **Astro 5** reference (resolved Astro 5.18.2
 
 The [reviewed major-version baseline](../maintenance/compatibility-baseline.json) pins **synthetic** Astro 5, @astrojs/react 4, React 19, Tailwind 4, @tailwindcss/vite 4 and Node 22. [Offline maintenance preflight](../scripts/check-maintenance-policy.mjs) verifies declared/locked majors and npm registry integrity fields. It cannot detect vulnerable package versions, audit Git history or certify a Wix-managed application. Dependency-review proposals do not auto-merge. Major changes need a separate PR with reviewed baseline changes and CI evidence; real Wix SDK/apps/hosting remain independently site-tested. See [WHPS-007](28-WHPS007-MAINTENANCE-SECURITY-COMPATIBILITY.md).
 
+## Astro 7 experimental research, not a supported baseline
+
+Wix's [existing Astro project linking documentation](https://dev.wix.com/docs/go-headless/wix-managed-headless/full-integration-astro/get-started/connect-an-existing-astro-project) lists Astro **5 or 7**, not 6. WHPS's [isolated Astro 7 / React 7 experiment](29-ASTRO7-COMPATIBILITY-REVIEW.md) succeeded in [CI](https://github.com/joseferro-pt/wix-headless-production-system/actions/runs/38739222799) on Node 22 with Astro 7.3.8, @astrojs/react 7.0.1, React 19 and Tailwind 4. This proves only standalone build, hydration, keyboard, responsive and automated accessibility checks. It **does not** verify actual Wix-managed project/auth/backend/app/SEO deployment integration and does not replace the reviewed Astro **5** baseline. Separate major-package and Wix site-local decisions are required.
+
 ## Compatibility rules
 
 - Run tests with the supported Node and Python versions; record the versions in release notes.
